@@ -11,6 +11,7 @@ async function getCategories() {
   const res = client.productCategories.list({
     limit: 3,
     include_descendants_tree: false,
+    parent_category_id: "null",
   });
 
   return res;
