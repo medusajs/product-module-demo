@@ -13,6 +13,7 @@ async function getProduct(handle: string) {
   const res = await client.products.list({
     handle: handle,
     region_id: region.id,
+    expand: 'categories,variants,variants.options,variants.prices,images,options'
   });
 
   const product = res.products?.[0];
@@ -26,6 +27,7 @@ async function getProduct(handle: string) {
 
 export default async function Product({ params: { handle } }: Props) {
   const product = await getProduct(handle);
+  const firstCategory = product.categories?.[0]
 
   return (
     <div className="flex items-start justify-center">
@@ -34,31 +36,48 @@ export default async function Product({ params: { handle } }: Props) {
           <div className="w-2/3">
             <Gallery images={product.images} />
           </div>
+
           <div className="w-1/3">
             <Details product={product} />
           </div>
         </div>
+
         <Divider />
+
         <div className="py-16">
           {/* @ts-ignore */}
-          <Feature
-            query={{
-              order: "-created_at",
-              category_id: product.categories?.[0]
-                ? [product.categories[0].id]
-                : undefined,
-            }}
-            title={
-              product.categories?.[0]
-                ? `More ${product.categories[0].name}`
-                : "Latest"
-            }
-            max={3}
-            to={{
-              href: "/products",
-              label: "View all",
-            }}
-          />
+          {
+            firstCategory && (
+              <Feature
+                query={{
+                  order: "-created_at",
+                  category_id: [firstCategory.id]
+                }}
+                title={`More ${firstCategory.name}`}
+                max={3}
+                to={{
+                  href: `/category/${firstCategory.handle}`,
+                  label: "View all",
+                }}
+              />
+            )
+          }
+
+          {
+            !firstCategory && (
+              <Feature
+                query={{
+                  order: "-created_at",
+                }}
+                title={"Latest"}
+                max={3}
+                to={{
+                  href: "/products",
+                  label: "View all",
+                }}
+              />
+            )
+          }
         </div>
       </div>
     </div>
