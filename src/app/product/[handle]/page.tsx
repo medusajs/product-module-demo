@@ -45,9 +45,9 @@ export default async function Product({ params: { handle } }: Props) {
         <Divider />
 
         <div className="py-16">
-          {/* @ts-ignore */}
           {
             firstCategory && (
+              /* @ts-ignore */
               <Feature
                 query={{
                   order: "-created_at",
@@ -65,6 +65,7 @@ export default async function Product({ params: { handle } }: Props) {
 
           {
             !firstCategory && (
+              /* @ts-ignore */
               <Feature
                 query={{
                   order: "-created_at",
