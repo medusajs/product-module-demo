@@ -12,6 +12,7 @@ async function getProducts() {
 async function getCategories() {
   const res = client.productCategories.list({
     limit: 3,
+    parent_category_id: "null"
   });
 
   return res;
@@ -39,6 +40,7 @@ export default async function Home() {
             label: "View all",
           }}
         />
+
         {product_categories?.map((category) => {
           return (
             // @ts-ignore
