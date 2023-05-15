@@ -1,4 +1,4 @@
-import { Feature } from "@/components";
+import { Feature, Image } from "@/components";
 import { client } from "@/lib";
 
 async function getProducts() {
@@ -23,6 +23,10 @@ export default async function Home() {
   return (
     <main className="flex flex-col items-center">
       <div className="w-full max-w-7xl flex flex-col gap-y-16">
+        <div className="w-full">
+          <img className="h-30 w-full" src="/hero.svg" alt="" />
+        </div>
+
         {/* @ts-ignore */}
         <Feature
           query={{
