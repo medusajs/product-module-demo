@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["medusa-public-images.s3.eu-west-1.amazonaws.com","loremflickr.com"],
+    domains: [
+      "medusa-public-images.s3.eu-west-1.amazonaws.com",
+      "loremflickr.com",
+      "medusa-server-testing.s3.amazonaws.com",
+    ],
   },
   webpack: (
     config,
