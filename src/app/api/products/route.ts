@@ -1,16 +1,25 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { initialize as ProductModuleInitialize } from "@medusajs/product"
 import { NextResponse } from 'next/server';
 
-import { initialize as ProductModuleInitialize } from "@medusajs/product"
+declare global {
+  var productModule: any
+}
 
-export async function GET(request: Request) {
-  const productModule = await ProductModuleInitialize({
+export async function GET() {
+  global.productModule = global.productModule ?? await ProductModuleInitialize({
     database: {
       clientUrl: process.env.POSTGRES_URL!,
       schema: "public",
     }
   })
 
-  const data = await productModule.list()
+  console.log(productModule)
 
-  return NextResponse.json({ products: data });
+  const data = await productModule.list({
+    tags: { value: ["France"] }
+  }, {
+    relations: ["tags"]
+  })
+  return NextResponse.json({ data });
 }

@@ -443,9 +443,9 @@
     medusa-telemetry "^0.0.16"
     resolve-cwd "^3.0.0"
 
-"@medusajs/product@./product-package-5.tgz":
+"@medusajs/product@./product.tgz":
   version "0.0.1"
-  resolved "./product-package-5.tgz#3d5bd375f066dc7860349071aa05abb76142b193"
+  resolved "./product.tgz#d942d18450124d8c526303366612be694852a58a"
   dependencies:
     "@medusajs/modules-sdk" "1.8.3"
     "@medusajs/utils" "1.8.2"
@@ -454,16 +454,9 @@
     "@mikro-orm/postgresql" "^5.7.4"
     awilix "^8.0.0"
 
-"@medusajs/product@./product-package-6.tgz":
-  version "0.0.1"
-  resolved "./product-package-6.tgz#ae7d20121503fc6dc6f579511fc68be3bbc1b6e1"
-  dependencies:
-    "@medusajs/modules-sdk" "1.8.3"
-    "@medusajs/utils" "1.8.2"
-    "@mikro-orm/core" "^5.7.4"
-    "@mikro-orm/migrations" "^5.7.4"
-    "@mikro-orm/postgresql" "^5.7.4"
-    awilix "^8.0.0"
+"@medusajs/types@./types.tgz":
+  version "1.8.3"
+  resolved "./types.tgz#9cb4f8e8a12b3c331be18dfe42eeaae0834d466d"
 
 "@medusajs/types@1.8.3":
   version "1.8.3"
