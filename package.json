@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@medusajs/medusa-js": "^4.0.0",
+    "@medusajs/medusa-js": "^5.0.0",
+    "@medusajs/modules-sdk": "./sdk-package.tgz",
+    "@medusajs/product": "./product-package-6.tgz",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
