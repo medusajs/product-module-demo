@@ -13,6 +13,7 @@
     "@medusajs/modules-sdk": "./sdk-package.tgz",
     "@medusajs/product": "./product.tgz",
     "@medusajs/types": "./types.tgz",
+    "@medusajs/utils": "./utils.tgz",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
