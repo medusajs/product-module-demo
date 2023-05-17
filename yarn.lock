@@ -468,6 +468,16 @@
   resolved "https://registry.yarnpkg.com/@medusajs/types/-/types-1.8.5.tgz#51f604a72017877260a30fef5de68812f55ebf34"
   integrity sha512-1k1nTef+r418yK5e2ViDDoGUBAz0POQIBoX1Hzdwx2WIUADfSPI6OC0NNtOgg/BuWTSA+u8JfNG1SQRlE0UICg==
 
+"@medusajs/utils@./utils.tgz":
+  version "1.8.2"
+  resolved "./utils.tgz#a8a25b1c461076a9d4218fa07b3812c165c141c1"
+  dependencies:
+    awilix "^8.0.0"
+    class-transformer "^0.5.1"
+    class-validator "^0.13.2"
+    typeorm "npm:@medusajs/typeorm@0.3.16-next.0"
+    ulid "^2.3.0"
+
 "@medusajs/utils@1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@medusajs/utils/-/utils-1.8.2.tgz#e398c5c7e99a7802a5340db4cb38ce513c46dae4"
