@@ -1,6 +1,6 @@
 import { client } from "@/lib";
 import { cookies } from "next/headers";
-import CartButton from "./button";
+import CartButton from "./CartButton";
 
 async function createCart() {
   console.log("creating cart");
