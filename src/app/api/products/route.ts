@@ -8,7 +8,9 @@ declare global {
 
 export async function GET(request: Request) {
   const localisation = (request.headers.get("X-localisation") || "Denmark").toLowerCase()
-  const recentCategoryIds = (request.headers.get("X-recent-categories") || "").split(",").map((category) => category.toLowerCase())
+  const recentCategoryIds = request.headers.get("X-recent-categories")
+    ? request.headers.get("X-recent-categories")!.split(",").map((category) => category.toLowerCase())
+    : null
 
   global.productModule = global.productModule ?? await ProductModuleInitialize({
     database: {
@@ -16,9 +18,7 @@ export async function GET(request: Request) {
       schema: "public",
       driverOptions: {
         connection: {
-          ssl: {
-            rejectUnauthorized: false
-          }
+          ssl: false
         },
       }
     }
@@ -28,24 +28,30 @@ export async function GET(request: Request) {
   return NextResponse.json({ products });
 }
 
-async function queryProducts({ localisation, recentCategoryIds }: { localisation: string, recentCategoryIds: string[] }): Promise<any[]> {
+async function queryProducts({ localisation, recentCategoryIds }: { localisation: string, recentCategoryIds: string[] | null }): Promise<any[]> {
   const limit = 12
 
   // Fetch product for the categories and outside the categories paginated by 12
   const promises: Promise<any>[] = []
 
-  promises.push(productModule.list({
+  const commonFilter: any = {
     tags: { value: [localisation] },
-    categories: { id: recentCategoryIds }
-  }, {
+  }
+
+  const filterInCategories = { ...commonFilter }
+  const filterNotInCategories = { ...commonFilter }
+
+  if (recentCategoryIds?.length) {
+    filterInCategories["categories"] = { id: recentCategoryIds }
+    filterInCategories["categories"] = { id: { $nin: recentCategoryIds }}
+  }
+
+  promises.push(productModule.list(filterInCategories, {
     relations: ["tags", "categories"],
     take: limit
   }))
 
-  promises.push(await productModule.list({
-    tags: { value: [localisation] },
-    categories: { id: { $nin: { recentCategoryIds }}}
-  }, {
+  promises.push(await productModule.list(filterNotInCategories, {
     relations: ["tags", "categories"],
     take: limit
   }))
