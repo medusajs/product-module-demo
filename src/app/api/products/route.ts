@@ -30,6 +30,10 @@ export async function GET(request: Request) {
 
 async function queryProducts({ localisation, recentCategoryIds }: { localisation: string, recentCategoryIds: string[] | null }): Promise<any[]> {
   const limit = 12
+  const queryOptions = {
+    take: limit,
+    relations: ["tags", "categories"]
+  }
 
   // Fetch product for the categories and outside the categories paginated by 12
   const promises: Promise<any>[] = []
@@ -46,15 +50,8 @@ async function queryProducts({ localisation, recentCategoryIds }: { localisation
     filterNotInCategories["categories"] = { id: { $nin: recentCategoryIds }}
   }
 
-  promises.push(productModule.list(filterInCategories, {
-    relations: ["tags", "categories"],
-    take: limit
-  }))
-
-  promises.push(await productModule.list(filterNotInCategories, {
-    relations: ["tags", "categories"],
-    take: limit
-  }))
+  promises.push(productModule.list(filterInCategories, queryOptions))
+  promises.push(productModule.list(filterNotInCategories, queryOptions))
 
   const [recentProducts, otherProducts] = await Promise.all(promises)
   const products = recentProducts
