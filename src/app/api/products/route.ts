@@ -43,7 +43,7 @@ async function queryProducts({ localisation, recentCategoryIds }: { localisation
 
   if (recentCategoryIds?.length) {
     filterInCategories["categories"] = { id: recentCategoryIds }
-    filterInCategories["categories"] = { id: { $nin: recentCategoryIds }}
+    filterNotInCategories["categories"] = { id: { $nin: recentCategoryIds }}
   }
 
   promises.push(productModule.list(filterInCategories, {
