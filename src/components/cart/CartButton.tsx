@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 
 import { Cart } from "@medusajs/medusa/dist/models/cart";
 
-import CartModal from "./modal";
+import CartModal from "./CartModal";
 
 import { ShoppingBag } from "../icons";
 
