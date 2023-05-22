@@ -6,6 +6,7 @@ import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { startTransition, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
+import { LoadingDots } from "@/components/common/loading-dots";
 
 type Props = {
   product: PricedProduct;
@@ -55,7 +56,11 @@ export default function AddToCart({ product }: Props) {
 
   return (
     <Button onClick={handleAdd} disabled={adding}>
-      Add to Bag
+      {adding ? (
+        <LoadingDots className="bg-base-dark dark:bg-base-light" />
+      ) : (
+        "Add to Bag"
+      )}
     </Button>
   );
 }
