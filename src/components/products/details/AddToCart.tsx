@@ -3,6 +3,8 @@
 import { Button } from "@/components";
 import { client } from "@/lib";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { startTransition, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 
 type Props = {
@@ -28,31 +30,32 @@ async function addToCart(cartId: string, lineItem: LineItem) {
 }
 
 export default function AddToCart({ product }: Props) {
+  const router = useRouter();
   const [cookie] = useCookies(["cartId"]);
+  const [adding, setAdding] = useState(false);
+
   const lineItem = {
     variant_id: product.variants[0].id || product.id || "",
     quantity: 1,
   };
 
   async function handleAdd() {
-    console.log("adding to cart...");
-    if (!lineItem.variant_id) {
-      console.log({ id: lineItem.variant_id });
+    if (!lineItem.variant_id) return;
 
-      return;
-    }
-
-    // setAdding(true);
-    console.log({ id: lineItem.variant_id });
+    setAdding(true);
 
     await addToCart(cookie.cartId, lineItem);
 
-    // setAdding(false);
+    setAdding(false);
 
-    // startTransition(() => {
-    //   router.refresh();
-    // });
+    startTransition(() => {
+      router.refresh();
+    });
   }
 
-  return <Button onClick={handleAdd}>Add to Bag</Button>;
+  return (
+    <Button onClick={handleAdd} disabled={adding}>
+      Add to Bag
+    </Button>
+  );
 }
