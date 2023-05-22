@@ -50,6 +50,8 @@ async function queryProducts({ localisation, recentCategoryIds }: { localisation
     filterNotInCategories["categories"] = { id: { $nin: recentCategoryIds }}
   }
 
+  // Todo: This wont work because of the pagination, the client should have two requests
+  // One for the recent categories and one for the other categories and then the client will manage the pagination
   promises.push(productModule.list(filterInCategories, queryOptions))
   promises.push(productModule.list(filterNotInCategories, queryOptions))
 
