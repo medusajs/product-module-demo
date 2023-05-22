@@ -6,17 +6,17 @@ import Link from "next/link";
 import { ShoppingBag, XMark } from "../icons";
 import { Cart } from "@medusajs/medusa/dist/models/cart";
 
-// import DeleteItemButton from "./delete-item-button";
+import DeleteItemButton from "./DeleteItemButton";
 // import EditItemQuantityButton from "./edit-item-quantity-button";
 import { Price } from "../common/price";
-import CartDivider from "./CartDivider";
+import { Button } from "../common";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
 export default function CartModal({
-  isOpen,
+  isOpen = true,
   onClose,
   cart,
 }: {
@@ -55,9 +55,9 @@ export default function CartModal({
                 closed: { translateX: "100%" },
               }}
               transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-              className="flex w-full flex-col rounded-lg bg-white text-black dark:bg-base-dark dark:text-white dark:shadow-card-hover-dark md:w-3/5 lg:w-2/5 m-2"
+              className="flex w-full flex-col rounded-lg bg-white text-black dark:bg-base-dark dark:text-white dark:shadow-card-hover-dark md:w-2/5 lg:w-1/3 m-2"
             >
-              <div className="flex items-center justify-between p-8">
+              <div className="flex items-center justify-between border-b border-[#2E2E32] p-8">
                 <h3 className="text-headers-h3 text-base-light dark:text-base-dark">
                   Shopping Bag
                 </h3>
@@ -71,8 +71,6 @@ export default function CartModal({
                 </button>
               </div>
 
-              <CartDivider />
-
               {cart.items?.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden p-8">
                   <ShoppingBag className="h-16" />
@@ -82,92 +80,88 @@ export default function CartModal({
                 </div>
               ) : null}
               {cart.items?.length !== 0 ? (
-                <div className="flex h-full flex-col justify-between overflow-hidden p-8">
-                  <ul className="flex-grow overflow-auto p-6">
-                    {cart.items.map((item, i) => {
-                      const merchandiseUrl = `/product/${item.variant.product.handle}`;
+                <div className="flex flex-col justify-between overflow-hidden h-full">
+                  <div>
+                    <ul className="flex-grow overflow-auto">
+                      {cart.items.map((item, i) => {
+                        const merchandiseUrl = `/product/${item.variant.product.handle}`;
 
-                      return (
-                        <li key={i} data-testid="cart-item">
-                          <Link
-                            className="flex flex-row space-x-4 py-4"
-                            href={merchandiseUrl}
-                            onClick={onClose}
+                        return (
+                          <li
+                            key={i}
+                            data-testid="cart-item"
+                            className="flex justify-between flex-row items-center border-b border-[#2E2E32] px-8 py-6"
                           >
-                            <div className="relative h-16 w-16 cursor-pointer overflow-hidden bg-white">
-                              <Image
-                                className="h-full w-full object-cover"
-                                width={64}
-                                height={64}
-                                alt={item.variant.product.title || ""}
-                                src={
-                                  item.thumbnail ||
-                                  item.variant.product.images[0].url
-                                }
-                              />
+                            <Link
+                              className="flex flex-row space-x-4"
+                              href={merchandiseUrl}
+                              onClick={onClose}
+                            >
+                              <div className="relative h-14 w-18 cursor-pointer overflow-hidden bg-white rounded">
+                                <Image
+                                  className="h-14 w-18 object-cover"
+                                  width={72}
+                                  height={56}
+                                  alt={item.variant.product.title || ""}
+                                  src={
+                                    item.thumbnail ||
+                                    item.variant.product.images[0].url
+                                  }
+                                />
+                              </div>
+                              <div className="flex flex-1 flex-col justify-center">
+                                <span className="text-labels-regular font-medium">
+                                  {item.title}
+                                </span>
+                                <span className="text-labels-regular text-subtle-light dark:text-subtle-dark font-medium">
+                                  Apparel · Europe
+                                </span>
+                              </div>
+                            </Link>
+                            <div>
+                              {item.total && (
+                                <Price
+                                  className="flex flex-col justify-between space-y-2 text-sm"
+                                  amount={item.total}
+                                  currency={cart.region.currency_code}
+                                />
+                              )}
+                              <DeleteItemButton item={item} />
                             </div>
-                            <div className="flex flex-1 flex-col text-base">
-                              <span className="font-semibold">
-                                {item.title}
-                              </span>
-                            </div>
-                            {item.total && (
-                              <Price
-                                className="flex flex-col justify-between space-y-2 text-sm"
-                                amount={item.total}
-                                currency={cart.region.currency_code}
-                              />
-                            )}
-                          </Link>
-                          {/* <div className="flex h-9 flex-row">
-                            <DeleteItemButton item={item} />
-                            <p className="ml-2 flex w-full items-center justify-center border dark:border-gray-700">
-                              <span className="w-full px-2">
-                                {item.quantity}
-                              </span>
-                            </p>
-                            <EditItemQuantityButton item={item} type="minus" />
-                            <EditItemQuantityButton item={item} type="plus" />
-                          </div> */}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <div className="border-t border-gray-200 pt-2 text-sm text-black dark:text-white">
-                    <div className="mb-2 flex items-center justify-between">
-                      <p>Subtotal</p>
-                      <Price
-                        amount={cart.subtotal || 0}
-                        currency={cart.region.currency_code}
-                      />
-                    </div>
-                    <div className="mb-2 flex items-center justify-between">
-                      <p>Taxes</p>
-                      <Price
-                        className="text-right"
-                        amount={cart.tax_total || 0}
-                        currency={cart.region.currency_code}
-                      />
-                    </div>
-                    <div className="mb-2 flex items-center justify-between border-b border-gray-200 pb-2">
-                      <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
-                    </div>
-                    <div className="mb-2 flex items-center justify-between font-bold">
-                      <p>Total</p>
-                      <Price
-                        className="text-right"
-                        amount={cart.total || 0}
-                        currency={cart.region.currency_code}
-                      />
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    <div className="text-labels-regular text-subtle-light dark:text-subtle-dark font-medium px-8 py-6">
+                      <div className="mb-2 flex items-center justify-between">
+                        <p>Subtotal</p>
+                        <Price
+                          amount={cart.subtotal || 0}
+                          currency={cart.region.currency_code}
+                        />
+                      </div>
+                      <div className="mb-2 flex items-center justify-between">
+                        <p>Delivery</p>
+                        <p className="text-right">Free</p>
+                      </div>
+                      <div className="mb-2 flex items-center justify-between">
+                        <p>Total</p>
+                        <Price
+                          className="text-right text-base-light dark:text-base-dark"
+                          amount={cart.total || 0}
+                          currency={cart.region.currency_code}
+                        />
+                      </div>
                     </div>
                   </div>
-                  <a
-                    href="/"
-                    className="flex w-full items-center justify-center bg-black p-3 text-sm font-medium uppercase text-white opacity-90 hover:opacity-100 dark:bg-white dark:text-black"
-                  >
-                    <span>Proceed to Checkout</span>
-                  </a>
+                  <div className="border-t border-[#2E2E32] p-8 flex flex-row justify-between gap-4">
+                    <Button className="w-1/2" variant="inverted">
+                      Pay with Apple Pay
+                    </Button>
+                    <Button className="w-1/2" variant="primary">
+                      Go to Payment
+                    </Button>
+                  </div>
                 </div>
               ) : null}
             </Dialog.Panel>

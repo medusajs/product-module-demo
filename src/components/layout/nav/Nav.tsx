@@ -17,7 +17,6 @@ const Nav = async () => {
           </Link>
         </div>
         <div className="text-icon-subtle-light dark:text-icon-subtle-dark flex items-center gap-x-4">
-          <MagnifyingGlass />
           <Suspense fallback={<ShoppingBag className="h-6" />}>
             {/* @ts-expect-error Async Server Component */}
             <Cart />
