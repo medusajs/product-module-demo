@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     }
   })
 
-  const { filters, options } = prepareFilters(req)
+  const { filters, options } = parsedQueryFiltersAndOptions(req)
 
   const [products = [], count] = await global.productService.listAndCount(filters, {
     ...options,
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
   });
 }
 
-function prepareFilters(req: NextRequest): { filters: ProductTypes.FilterableProductProps, options: FindConfig<ProductTypes.ProductDTO> } {
+function parsedQueryFiltersAndOptions(req: NextRequest): { filters: ProductTypes.FilterableProductProps, options: FindConfig<ProductTypes.ProductDTO> } {
   const localisation = (req.headers.get("X-localisation") || "Denmark").toLowerCase()
   const limit = req.nextUrl.searchParams.get("limit") || 12
   const offset = req.nextUrl.searchParams.get("offset") || 0
