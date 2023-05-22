@@ -1,18 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { initialize as ProductModuleInitialize } from "@medusajs/product"
-import { NextResponse } from 'next/server';
+import {FindConfig, ProductTypes } from "@medusajs/types"
+import {NextRequest, NextResponse } from 'next/server';
 
 declare global {
-  var productModule: any
+  var productService: ProductTypes.IProductService
 }
 
-export async function GET(request: Request) {
-  const localisation = (request.headers.get("X-localisation") || "Denmark").toLowerCase()
-  const recentCategoryIds = request.headers.get("X-recent-categories")
-    ? request.headers.get("X-recent-categories")!.split(",").map((category) => category.toLowerCase())
-    : null
-
-  global.productModule = global.productModule ?? await ProductModuleInitialize({
+export async function GET(req: NextRequest, res: NextResponse) {
+  global.productService = global.productService ?? await ProductModuleInitialize({
     database: {
       clientUrl: process.env.POSTGRES_URL!,
       schema: "public",
@@ -24,43 +20,43 @@ export async function GET(request: Request) {
     }
   })
 
-  const products = await queryProducts({ localisation, recentCategoryIds })
-  return NextResponse.json({ products });
+  const { filters, options } = prepareFilters(req)
+
+  const [products = [], count] = await global.productService.listAndCount(filters, {
+    ...options,
+    relations: ["tags", "categories"]
+  })
+
+  return NextResponse.json({
+    products,
+    count,
+    limit: options.take,
+    offset: options.skip
+  });
 }
 
-async function queryProducts({ localisation, recentCategoryIds }: { localisation: string, recentCategoryIds: string[] | null }): Promise<any[]> {
-  const limit = 12
-  const queryOptions = {
-    take: limit,
-    relations: ["tags", "categories"]
+function prepareFilters(req: NextRequest): { filters: ProductTypes.FilterableProductProps, options: FindConfig<ProductTypes.ProductDTO> } {
+  const localisation = (req.headers.get("X-localisation") || "Denmark").toLowerCase()
+  const limit = req.nextUrl.searchParams.get("limit") || 12
+  const offset = req.nextUrl.searchParams.get("offset") || 0
+  const categoriesKey = [...(req.nextUrl.searchParams.keys() as unknown as string[])]
+    .find(k => k.startsWith("categories"))
+
+  const filters: any = {
+    tags: { value: [localisation.toLowerCase()] }
   }
 
-  // Fetch product for the categories and outside the categories paginated by 12
-  const promises: Promise<any>[] = []
-
-  const commonFilter: any = {
-    tags: { value: [localisation] },
+  if (categoriesKey) {
+    const categories = req.nextUrl.searchParams.get(categoriesKey)!.split(",")
+    const categoriesOperator = `$${categoriesKey.split("[")[1].split("]")[0]}`
+    filters.categories = { id: { [categoriesOperator]: categories }}
   }
 
-  const filterInCategories = { ...commonFilter }
-  const filterNotInCategories = { ...commonFilter }
-
-  if (recentCategoryIds?.length) {
-    filterInCategories["categories"] = { id: recentCategoryIds }
-    filterNotInCategories["categories"] = { id: { $nin: recentCategoryIds }}
+  return {
+    filters,
+    options: {
+      take: Number(limit),
+      skip: Number(offset),
+    }
   }
-
-  // Todo: This wont work because of the pagination, the client should have two requests
-  // One for the recent categories and one for the other categories and then the client will manage the pagination
-  promises.push(productModule.list(filterInCategories, queryOptions))
-  promises.push(productModule.list(filterNotInCategories, queryOptions))
-
-  const [recentProducts, otherProducts] = await Promise.all(promises)
-  const products = recentProducts
-
-  if (products.length < limit) {
-    products.push(...otherProducts.slice(0, limit - products.length))
-  }
-
-  return products
 }
