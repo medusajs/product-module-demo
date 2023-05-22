@@ -7,7 +7,7 @@ declare global {
   var productService: ProductTypes.IProductService
 }
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   global.productService = global.productService ?? await ProductModuleInitialize({
     database: {
       clientUrl: process.env.POSTGRES_URL!,
