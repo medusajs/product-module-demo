@@ -75,6 +75,10 @@ export const theme = {
         from: { opacity: 0 },
         to: { opacity: 1 },
       },
+      fadeOut: {
+        from: { opacity: 1 },
+        to: { opacity: 0 },
+      },
       blink: {
         "0%": { opacity: 0.2 },
         "20%": { opacity: 1 },
@@ -83,6 +87,7 @@ export const theme = {
     },
     animation: {
       fadeIn: "fadeIn .3s ease-in-out",
+      fadeOut: "fadeOut .3s ease-in-out",
       blink: "blink 1.4s both infinite",
     },
   },

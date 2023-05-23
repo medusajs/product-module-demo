@@ -8,3 +8,4 @@ export * from "./pictorial-logo";
 export * from "./shopping-bag";
 export * from "./twitter";
 export * from "./x-mark";
+export * from "./checkmark";
