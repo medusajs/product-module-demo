@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import CartButton from "./CartButton";
 
 async function createCart() {
-  console.log("creating cart");
   const res = await client.carts.create();
   const cart = res.cart;
 
@@ -15,7 +14,6 @@ async function createCart() {
 }
 
 async function getCart(cartId: string) {
-  console.log("getting cart");
   const res = await client.carts.retrieve(cartId);
   const cart = res.cart;
 

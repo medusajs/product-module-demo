@@ -18,7 +18,7 @@ export default function Notification({
   onClose,
 }: Props) {
   return showNotification ? (
-    <div className="fixed h-fit w-fit bottom-6 right-6 flex rounded-lg bg-white dark:bg-base-dark dark:shadow-card-hover-dark p-5 animate-fadeIn">
+    <div className="fixed h-fit w-fit bottom-6 mr-1 flex rounded-lg bg-white dark:bg-base-dark dark:shadow-card-hover-dark p-5 animate-fadeIn">
       <div className="flex flex-col">
         <div className="flex flex-row justify-between gap-5">
           <Checkmark className="self-start" />
