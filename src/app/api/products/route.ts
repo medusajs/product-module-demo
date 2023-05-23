@@ -36,21 +36,27 @@ export async function GET(req: NextRequest) {
 }
 
 function parsedQueryFiltersAndOptions(req: NextRequest): { filters: ProductTypes.FilterableProductProps, options: FindConfig<ProductTypes.ProductDTO> } {
-  const localisation = (req.headers.get("X-localisation") || "Denmark").toLowerCase()
+  const localisation = (req.headers.get("x-vercel-ip-country-region") ?? req.nextUrl.searchParams.get("localisation") ?? "Denmark").toLowerCase()
   const limit = req.nextUrl.searchParams.get("limit") || 12
   const offset = req.nextUrl.searchParams.get("offset") || 0
-  const categoriesKey = [...(req.nextUrl.searchParams.keys() as unknown as string[])]
-    .find(k => k.startsWith("categories"))
 
   const filters: any = {
     tags: { value: [localisation.toLowerCase()] }
   }
 
-  if (categoriesKey) {
-    const categories = req.nextUrl.searchParams.get(categoriesKey)!.split(",")
-    const categoriesOperator = `$${categoriesKey.split("[")[1].split("]")[0]}`
-    filters.categories = { id: { [categoriesOperator]: categories }}
+  const filterKeys = new Set(
+    [...(req.nextUrl.searchParams.keys() as unknown as string[])]
+      .filter(v => v !== "limit" && v !== "offset")
+  )
+
+  for (const key of Array.from(filterKeys)) {
+    const values = req.nextUrl.searchParams.getAll(key)
+    const prop = key.split("[")[0]
+    const operator = key.split("[")[1].split("]")[0]
+    filters[prop] = operator ? { [`$${operator}`]: values } : values
   }
+
+  console.log(filters)
 
   return {
     filters,
