@@ -22,6 +22,9 @@ export async function GET(req: NextRequest) {
 
   const { filters, options } = parsedQueryFiltersAndOptions(req)
 
+  const localisation = (req.headers.get("x-vercel-ip-country-region") ?? req.nextUrl.searchParams.get("localisation") ?? "Denmark").toLowerCase()
+  filters.tags = { value: [localisation.toLowerCase()] }
+
   const [products = [], count] = await global.productService.listAndCount(filters, {
     ...options,
     relations: ["tags", "categories"]
@@ -36,13 +39,10 @@ export async function GET(req: NextRequest) {
 }
 
 function parsedQueryFiltersAndOptions(req: NextRequest): { filters: ProductTypes.FilterableProductProps, options: FindConfig<ProductTypes.ProductDTO> } {
-  const localisation = (req.headers.get("x-vercel-ip-country-region") ?? req.nextUrl.searchParams.get("localisation") ?? "Denmark").toLowerCase()
   const limit = req.nextUrl.searchParams.get("limit") || 12
   const offset = req.nextUrl.searchParams.get("offset") || 0
 
-  const filters: any = {
-    tags: { value: [localisation.toLowerCase()] }
-  }
+  const filters: any = {}
 
   const filterKeys = new Set(
     [...(req.nextUrl.searchParams.keys() as unknown as string[])]
