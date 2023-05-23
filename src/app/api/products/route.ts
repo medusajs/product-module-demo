@@ -13,13 +13,6 @@ export async function GET() {
       database: {
         clientUrl: process.env.POSTGRES_URL!,
         schema: "public",
-        driverOptions: {
-          connection: {
-            ssl: {
-              rejectUnauthorized: false,
-            },
-          },
-        },
       },
     }));
 
