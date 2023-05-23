@@ -58,9 +58,7 @@ function parsedQueryFiltersAndOptions(req: NextRequest): { filters: ProductTypes
       ? { [`$${operator}`]: values }
       : (values.length === 1 ? values[0] : values)
   }
-
-  console.log(filters)
-
+  
   return {
     filters,
     options: {
