@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
 
   const { filters, options } = parsedQueryFiltersAndOptions(req)
 
-  const localisation = (req.headers.get("x-vercel-ip-country-region") ?? req.nextUrl.searchParams.get("localisation") ?? "Denmark").toLowerCase()
+  const localisation = ((req.nextUrl.searchParams.get("localisation") ?? req.headers.get("x-vercel-ip-country-region")) ?? "Danemark").toLowerCase()
   filters.tags = { value: [localisation.toLowerCase()] }
 
   const [products = [], count] = await global.productService.listAndCount(filters, {
