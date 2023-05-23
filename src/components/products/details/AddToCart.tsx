@@ -53,9 +53,9 @@ export default function AddToCart({ product }: Props) {
     setShowNotif(true);
   }
 
-  useEffect(() => {
-    showNotif && setTimeout(() => setShowNotif(false), 5000);
-  }, [showNotif]);
+  // useEffect(() => {
+  //   showNotif && setTimeout(() => setShowNotif(false), 5000);
+  // }, [showNotif]);
 
   return (
     <>
