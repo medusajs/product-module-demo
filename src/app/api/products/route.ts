@@ -51,9 +51,10 @@ function parsedQueryFiltersAndOptions(req: NextRequest): { filters: ProductTypes
 
   for (const key of Array.from(filterKeys)) {
     const values = req.nextUrl.searchParams.getAll(key)
+
     const prop = key.split("[")[0]
-    const operator = key.split("[")[1].split("]")[0]
-    filters[prop] = operator ? { [`$${operator}`]: values } : values
+    const operator = key.split("[")[1]?.split("]")[0]
+    filters[prop] = operator ? { [`$${operator}`]: values } : (values.length === 1 ? values[0] : values)
   }
 
   console.log(filters)
