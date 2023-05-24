@@ -1,4 +1,4 @@
-const isoAlpha2Countries = {
+export const isoAlpha2Countries = {
   AD: { name: "Andorra", continent: "Europe" },
   AE: { name: "United Arab Emirates", continent: "Asia" },
   AF: { name: "Afghanistan", continent: "Asia" },
@@ -257,4 +257,24 @@ const isoAlpha2Countries = {
   ZA: { name: "South Africa", continent: "Africa" },
   ZM: { name: "Zambia", continent: "Africa" },
   ZW: { name: "Zimbabwe", continent: "Africa" },
-}
+};
+
+export const formatContinent = (continent: string) => {
+  const mapping = {
+    Africa: { article: "an", name: "African" },
+    America: { article: "an", name: "American" },
+    Antarctica: { article: "an", name: "Antarctican" },
+    Arctic: { article: "an", name: "Arctic" },
+    Asia: { article: "an", name: "Asian" },
+    Atlantic: { article: "an", name: "Atlantic" },
+    Australia: { article: "an", name: "Australian" },
+    Europe: { article: "a", name: "European" },
+    Indian: { article: "an", name: "Indian" },
+    "North America": { article: "a", name: "North American" },
+    "South America": { article: "a", name: "South American" },
+    Pacific: { article: "a", name: "Pacific" },
+    Oceania: { article: "an", name: "Oceanic" },
+  };
+
+  return mapping[continent as keyof typeof mapping];
+};
