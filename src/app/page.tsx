@@ -1,12 +1,14 @@
 import { Feature, Image } from "@/components";
-import { client } from "@/lib";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { cookies } from "next/headers";
 
 type PersonalizationData = {
   personalized_section: {
     country: string;
-    continent: string;
+    continent_text: {
+      name: string;
+      article: string;
+    };
     products: PricedProduct[];
   };
   all_products_section: {
@@ -22,14 +24,13 @@ async function getPersonalizationData(): Promise<PersonalizationData> {
     },
   });
   const data = await res.json();
-  console.log({ data });
   return data;
 }
 
 export default async function Home() {
   const { personalized_section, all_products_section } =
     await getPersonalizationData();
-  console.log("render home!");
+
   return (
     <main className="flex flex-col items-center">
       <div className="w-full max-w-7xl flex flex-col gap-y-16">
@@ -41,7 +42,7 @@ export default async function Home() {
           products={personalized_section.products}
           max={3}
           title={`Products for visitors from ${personalized_section.country}`}
-          description={`We have registered that you are browsing from a ${personalized_section.continent} country, therefore we show ${personalized_section.continent} products.`}
+          description={`We have registered that you are browsing from ${personalized_section.continent_text.article} ${personalized_section.continent_text.name} country, therefore we show ${personalized_section.continent_text.name} products.`}
         />
         {/* @ts-ignore */}
         <Feature

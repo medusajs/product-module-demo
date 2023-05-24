@@ -5,6 +5,7 @@ import { initialize as ProductModuleInitialize } from "@medusajs/product";
 import { FindConfig, ProductTypes } from "@medusajs/types";
 import { NextRequest, NextResponse } from "next/server";
 import { UserData } from "../category-tracker/route";
+import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 
 declare global {
   var productService: ProductTypes.IProductService;
@@ -28,8 +29,6 @@ export async function GET(req: NextRequest) {
   // const { filters, options } = parsedQueryFiltersAndOptions(req);
 
   const userId = req.headers.get("x-user-id");
-  // const userId = req.cookies.get("userId")?.value;
-  console.log(userId);
 
   if (!userId) {
     return;
@@ -38,14 +37,18 @@ export async function GET(req: NextRequest) {
   const userData: UserData = (await kv.get(userId)) || ({} as UserData);
   const { categoryId, categoryName } = userData;
 
-  const localisation = (
-    req.nextUrl.searchParams.get("localisation") ??
-    req.headers.get("x-vercel-ip-country-region") ??
-    "Denmark"
-  ).toLowerCase();
+  const countryCode =
+    req.headers.get("x-simulated-country") ??
+    req.headers.get("x-vercel-ip-country") ??
+    "NL";
+
+  let { name: country, continent } =
+    isoAlpha2Countries[countryCode as keyof typeof isoAlpha2Countries];
+
+  const continent_text = formatContinent(continent);
 
   const personalizedProducts: Product[] = await global.productService.list({
-    tags: { value: [localisation.toLowerCase()] },
+    tags: { value: [continent] },
   });
 
   const allProducts: Product[] = await global.productService.list(
@@ -59,8 +62,8 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     personalized_section: {
-      country: "Denmark",
-      continent: "Europe",
+      country,
+      continent_text,
       products: personalizedProducts,
     },
     all_products_section: {
