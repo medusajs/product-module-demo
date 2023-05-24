@@ -1,30 +1,22 @@
+"use client";
+
 import { ArrowUpRight, Grid } from "@/components";
-import { client } from "@/lib";
 import { StoreGetProductsParams } from "@medusajs/medusa";
+import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import Link from "next/link";
 
 type Props = {
   title: string;
-  query: Omit<StoreGetProductsParams, "limit">;
+  description: string;
   max?: number;
   to?: {
     href: string;
     label: string;
   };
+  products: PricedProduct[];
 };
 
-const getProducts = async ({ query, max }: Omit<Props, "title">) => {
-  const res = await client.products.list({
-    limit: max,
-    ...query,
-  });
-
-  return res;
-};
-
-const Feature = async ({ query, max, title, to }: Props) => {
-  const { products } = await getProducts({ query, max });
-
+const Feature = async ({ max, title, description, to, products }: Props) => {
   return (
     <div className="flex flex-col gap-y-6">
       <div className="flex items-center justify-between">
@@ -38,7 +30,8 @@ const Feature = async ({ query, max, title, to }: Props) => {
           </Link>
         )}
       </div>
-      <Grid products={products} max={3} />
+      <p className="text-subtle-dark">{description}</p>
+      <Grid products={products} max={max} />
     </div>
   );
 };
