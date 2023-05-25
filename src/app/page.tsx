@@ -1,6 +1,10 @@
+"use client";
+
 import { Feature, Image } from "@/components";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 type PersonalizationData = {
   personalized_section: {
@@ -17,41 +21,63 @@ type PersonalizationData = {
   };
 };
 
-async function getPersonalizationData(): Promise<PersonalizationData> {
-  const res = await fetch("http://localhost:3000/api/products", {
-    headers: {
-      "x-user-id": cookies().get("userId")?.value ?? "",
-    },
-  });
-  const data = await res.json();
-  return data;
-}
+type Props = {
+  data: PersonalizationData | null;
+  isLoading: boolean;
+};
 
-export default async function Home() {
-  const { personalized_section, all_products_section } =
-    await getPersonalizationData();
+export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<PersonalizationData | null>(null);
+
+  useEffect(() => {
+    async function getPersonalizationData(): Promise<PersonalizationData> {
+      setIsLoading(true);
+      const res = await fetch("http://localhost:3000/api/products", {
+        // headers: {
+        //   "x-user-id": cookies().get("userId")?.value ?? "",
+        // },
+      });
+      const data = await res.json();
+      setData(data);
+      setIsLoading(false);
+      return data;
+    }
+    getPersonalizationData();
+  }, []);
 
   return (
     <main className="flex flex-col items-center">
-      <div className="w-full max-w-7xl flex flex-col gap-y-16">
-        <div className="w-full">
+      <div className="w-full max-w-7xl flex">
+        <div className="w-full flex flex-col gap-y-16">
           <img className="h-30 w-full" src="/hero.svg" alt="" />
+          <Features data={data} isLoading={isLoading} />
         </div>
-        {/* @ts-ignore */}
-        <Feature
-          products={personalized_section.products}
-          max={3}
-          title={`Products for visitors from ${personalized_section.country}`}
-          description={`We have registered that you are browsing from ${personalized_section.continent_text.article} ${personalized_section.continent_text.name} country, therefore we show ${personalized_section.continent_text.name} products.`}
-        />
-        {/* @ts-ignore */}
-        <Feature
-          products={all_products_section.products}
-          title="All products"
-          description={`Because the last product you visited was from the ${all_products_section.category_name} category, we're showing products from that category first.`}
-          max={12}
-        />
       </div>
     </main>
+  );
+}
+
+export function Features({ data, isLoading }: Props) {
+  if (isLoading) return <>Loading data</>;
+  if (!data) return <>No data</>;
+
+  const { personalized_section, all_products_section } = data;
+
+  return (
+    <div className="flex flex-col gap-y-16">
+      <Feature
+        products={personalized_section.products}
+        max={3}
+        title={`Products for visitors from ${personalized_section.country}`}
+        description={`We have registered that you are browsing from ${personalized_section.continent_text.article} ${personalized_section.continent_text.name} country, therefore we show ${personalized_section.continent_text.name} products.`}
+      />
+      <Feature
+        products={all_products_section.products}
+        title="All products"
+        description={`Because the last product you visited was from the ${all_products_section.category_name} category, we're showing products from that category first.`}
+        max={12}
+      />
+    </div>
   );
 }

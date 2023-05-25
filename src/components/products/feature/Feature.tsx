@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowUpRight, Grid } from "@/components";
 import { StoreGetProductsParams } from "@medusajs/medusa";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
@@ -14,7 +16,7 @@ type Props = {
   products: PricedProduct[];
 };
 
-const Feature = async ({ max, title, description, to, products }: Props) => {
+const Feature = ({ max, title, description, to, products }: Props) => {
   return (
     <div className="flex flex-col gap-y-6">
       <div className="flex items-center justify-between">
