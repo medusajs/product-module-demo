@@ -17,7 +17,7 @@ type TrackCategoryProps = {
 async function trackCategory({ categoryId, categoryName }: TrackCategoryProps) {
   if (!categoryId || !categoryName) return;
 
-  const res = await fetch("http://localhost:3000/api/category-tracker", {
+  const res = await fetch("/api/category-tracker", {
     method: "POST",
     body: JSON.stringify({
       categoryId,

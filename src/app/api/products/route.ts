@@ -31,21 +31,17 @@ export async function GET(req: NextRequest) {
   const productService = (global.productService ??=
     await ProductModuleInitialize(productModuleConfig));
 
+  const handle = req.nextUrl.searchParams.get("handle");
+
   const userId = req.cookies.get("userId")?.value;
+  let categoryId, categoryName;
 
-  if (!userId) {
-    return NextResponse.json(
-      {},
-      {
-        status: 400,
-        statusText:
-          "Unable to query the products, the 'userId' in cookie is missing",
-      }
-    );
+  if (userId) {
+    const userData = ((await kv.get(userId)) ?? {}) as UserData;
+
+    categoryId = userData.categoryId;
+    categoryName = userData.categoryName;
   }
-
-  const { categoryId, categoryName } = ((await kv.get(userId)) ??
-    {}) as UserData;
 
   const countryCode: string =
     req.headers.get("x-simulated-country") ??
@@ -55,9 +51,16 @@ export async function GET(req: NextRequest) {
   let { name: country, continent } = isoAlpha2Countries[countryCode];
   const continentText = formatContinent(continent);
 
+  const filters: { handle?: string } = {};
+
+  if (handle) {
+    filters.handle = handle;
+  }
+
   let [personalizedProducts, allProducts] = await Promise.all([
     productService.list(
       {
+        ...filters,
         tags: { value: [continent] },
       },
       {
@@ -65,33 +68,28 @@ export async function GET(req: NextRequest) {
         take: 3,
       }
     ),
-    productService.list(
-      {},
-      {
-        relations: ["variants", "categories"],
-        order: { id: "DESC" },
-      }
-    ),
+    productService.list(filters, {
+      relations: ["variants", "categories", "tags"],
+      order: { id: "DESC" },
+    }),
   ]);
+
+  const region = await client.regions.list().then((res) => res.regions[0]);
 
   const pricedProducts = (
     await client.products.list({
       id: allProducts.map((p: ProductTypes.ProductDTO) => p.id),
-      expand: "variants,variants.prices",
+      expand: "variants,variants.prices,tags",
+      region_id: region.id ?? undefined,
     })
   ).products as unknown as PricedProduct[];
 
   const variants = pricedProducts.map((p: PricedProduct) => p.variants).flat();
-  const prices = variants.map((v: PricedVariant) => v.prices).flat();
 
-  const pricesMap = new Map<string, PricedVariant["prices"]>();
+  const variantsMap = new Map<string, PricedVariant>();
 
-  for (const price of prices) {
-    if (!pricesMap.has(price.variant_id)) {
-      pricesMap.set(price.variant_id, []);
-    }
-
-    pricesMap.get(price.variant_id)!.push(price);
+  for (const variant of variants) {
+    variantsMap.set(variant.id!, variant);
   }
 
   const productMap = new Map<string, ProductTypes.ProductDTO>();
@@ -100,8 +98,10 @@ export async function GET(req: NextRequest) {
   for (const product of allProducts) {
     (product as any).variants = (product as any).variants.map(
       (variant: any) => {
-        variant.prices = pricesMap.get(variant.id)!;
-        return variant;
+        return {
+          ...variantsMap.get(variant.id),
+          ...variant,
+        };
       }
     );
 
