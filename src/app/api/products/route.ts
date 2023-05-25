@@ -6,7 +6,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
 import { client } from "@/lib";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct, PricedVariant } from "@medusajs/medusa/dist/types/pricing";
+import { MoneyAmount } from "@medusajs/medusa";
 
 declare global {
   var productService: ProductTypes.IProductService;
@@ -72,25 +73,30 @@ export async function GET(req: NextRequest) {
     ),
   ]);
 
-  const pricedProducts = await client.products.list({
+  const pricedProducts = (await client.products.list({
     id: allProducts.map((p: ProductTypes.ProductDTO) => p.id),
     expand: "variants,variants.prices",
-  });
+  })).products as unknown as PricedProduct[];
 
-  const pricedProductsVariantsMap = new Map<string, any>(
-    pricedProducts.products
-      .map((p: ProductTypes.ProductDTO) =>
-        p.variants.map((v: PricedProduct["variants"][0]) => [v.id, v])
-      )
-      .flat()
-  );
+  const variants = pricedProducts.map((p: PricedProduct) => p.variants).flat();
+  const prices = variants.map((v: PricedVariant) => v.prices).flat();
+
+  const pricesMap = new Map<string, PricedVariant["prices"]>();
+
+  for (const price of prices) {
+    if (!pricesMap.has(price.variant_id)) {
+      pricesMap.set(price.variant_id, []);
+    }
+
+    pricesMap.get(price.variant_id)!.push(price);
+  }
 
   const productMap = new Map<string, ProductTypes.ProductDTO>();
   const categoryProductsMap = new Map<string, ProductTypes.ProductDTO[]>();
 
   for (const product of allProducts) {
-    product.variants = product.variants.map((v: any) => {
-      v.prices = pricedProductsVariantsMap.get(v.id)!.prices;
+    (product as any).variants = (product as any).variants.map((v: any) => {
+      v.prices = pricesMap.get(v.id)!;
     });
 
     const category = product.categories[0];
