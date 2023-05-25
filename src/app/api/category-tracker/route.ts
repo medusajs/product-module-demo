@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { UserData } from "@/types";
 
 export async function POST(request: NextRequest) {
-  const { categoryId, categoryName } = (request.body ?? {}) as UserData;
+  const { categoryId, categoryName } = ((await request.json()) ??
+    {}) as UserData;
 
   if (!categoryId || !categoryName) {
     return NextResponse.json(null);
@@ -11,8 +12,8 @@ export async function POST(request: NextRequest) {
 
   const userData = {
     categoryId,
-    categoryName
-  }
+    categoryName,
+  };
 
   const userId = request.cookies.get("userId")?.value!;
   await kv.set(userId, userData);
@@ -20,5 +21,5 @@ export async function POST(request: NextRequest) {
   const response = new NextResponse();
   response.cookies.set("userId", userId);
 
-  response.json()
+  response.status;
 }
