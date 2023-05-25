@@ -1,78 +1,89 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Product } from "@medusajs/medusa/dist/models/product";
 import { kv } from "@vercel/kv";
 import { initialize as ProductModuleInitialize } from "@medusajs/product";
 import { FindConfig, ProductTypes } from "@medusajs/types";
 import { NextRequest, NextResponse } from "next/server";
-import { UserData } from "../category-tracker/route";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
+import { UserData } from "@/types";
 
 declare global {
   var productService: ProductTypes.IProductService;
 }
 
+const productModuleConfig = {
+  database: {
+    clientUrl: process.env.POSTGRES_URL!,
+    schema: "public",
+    driverOptions: {
+      connection: {
+        ssl: false,
+      },
+    },
+  },
+}
+
 export async function GET(req: NextRequest) {
   global.productService =
     global.productService ??
-    (await ProductModuleInitialize({
-      database: {
-        clientUrl: process.env.POSTGRES_URL!,
-        schema: "public",
-        driverOptions: {
-          connection: {
-            ssl: false,
-          },
-        },
-      },
-    }));
-
-  // const { filters, options } = parsedQueryFiltersAndOptions(req);
+    await ProductModuleInitialize(productModuleConfig);
 
   const userId = req.headers.get("x-user-id");
 
   if (!userId) {
-    return;
+    return NextResponse.json({}, {
+      status: 400,
+      statusText: "Unable to query the products, the user id header 'x-user-id' is missing"
+    });
   }
 
-  const userData: UserData = (await kv.get(userId)) || ({} as UserData);
-  const { categoryId, categoryName } = userData;
+  const { categoryId, categoryName } = (await kv.get(userId) ?? {}) as UserData;
 
-  const countryCode =
+  const countryCode: string =
     req.headers.get("x-simulated-country") ??
     req.headers.get("x-vercel-ip-country") ??
     "NL";
 
-  let { name: country, continent } =
-    isoAlpha2Countries[countryCode as keyof typeof isoAlpha2Countries];
+  let { name: country, continent } = isoAlpha2Countries[countryCode];
+  const continentText = formatContinent(continent);
 
-  const continent_text = formatContinent(continent);
+  let [personalizedProducts, allProducts] = await Promise.all([
+    global.productService.list({
+      tags: { value: [continent] },
+      category_ids: [categoryId]
+    }, {
+      select: ["id"]
+    }),
+    global.productService.list({}, {
+      relations: ["variants", "categories"],
+      order: { id: "DESC" }
+    })
+  ])
 
-  const personalizedProducts: Product[] = await global.productService.list({
-    tags: { value: [continent] },
-  });
-
-  const allProducts: Product[] = await global.productService.list(
-    {},
-    { relations: ["categories"] }
+  const productMap = new Map<string, ProductTypes.ProductDTO>(
+    allProducts.map((p: ProductTypes.ProductDTO) => {
+      return [p.id, p]
+    })
   );
 
-  if (categoryId) {
-    sortProductsByCategory(allProducts, categoryId);
-  }
+  personalizedProducts = personalizedProducts.map((p: ProductTypes.ProductDTO) => {
+    const product = productMap.get(p.id);
+    productMap.delete(p.id)
+  })
 
   return NextResponse.json({
     personalized_section: {
       country,
-      continent_text,
+      continent_text: continentText,
       products: personalizedProducts,
     },
     all_products_section: {
       category_name: categoryName,
-      products: allProducts,
+      products: Array.from(productMap.values()),
     },
   });
 }
 
+/*
 const sortProductsByCategory = (
   products: Product[],
   categoryId: string
@@ -96,6 +107,7 @@ const sortProductsByCategory = (
 
   return products;
 };
+*/
 
 // function parsedQueryFiltersAndOptions(req: NextRequest): {
 //   filters: ProductTypes.FilterableProductProps;
