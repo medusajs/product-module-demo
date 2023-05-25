@@ -15,21 +15,9 @@ declare global {
   var productService: ProductTypes.IProductService;
 }
 
-const productModuleConfig = {
-  database: {
-    clientUrl: process.env.POSTGRES_URL!,
-    schema: "public",
-    driverOptions: {
-      connection: {
-        ssl: false,
-      },
-    },
-  },
-};
-
 export async function GET(req: NextRequest) {
   const productService = (global.productService ??=
-    await ProductModuleInitialize(productModuleConfig));
+    await ProductModuleInitialize());
 
   const handle = req.nextUrl.searchParams.get("handle");
 
