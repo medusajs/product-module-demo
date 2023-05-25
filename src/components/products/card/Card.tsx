@@ -24,9 +24,8 @@ async function trackCategory({ categoryId, categoryName }: TrackCategoryProps) {
       categoryName,
     }),
   });
-  const data = await res.json();
 
-  return data;
+  return res.json;
 }
 
 const Card = ({ product }: Props) => {

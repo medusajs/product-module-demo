@@ -21,5 +21,5 @@ export async function POST(request: NextRequest) {
   const response = new NextResponse();
   response.cookies.set("userId", userId);
 
-  response.status;
+  return response;
 }
