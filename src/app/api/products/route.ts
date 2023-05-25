@@ -49,9 +49,9 @@ export async function GET(req: NextRequest) {
   let [personalizedProducts, allProducts] = await Promise.all([
     global.productService.list({
       tags: { value: [continent] },
-      category_ids: [categoryId]
     }, {
-      select: ["id"]
+      select: ["id"],
+      take: 3
     }),
     global.productService.list({}, {
       relations: ["variants", "categories"],
@@ -59,16 +59,25 @@ export async function GET(req: NextRequest) {
     })
   ]);
 
-  const productMap = new Map<string, ProductTypes.ProductDTO>(
-    allProducts.map((p: ProductTypes.ProductDTO) => {
-      return [p.id, p]
-    })
-  );
+  const productMap = new Map<string, ProductTypes.ProductDTO>()
+  const categoryProductsMap = new Map<string, ProductTypes.ProductDTO[]>();
+
+  for (const product of allProducts) {
+    const category = product.categories[0];
+    if (!categoryProductsMap.has(category.id)) {
+      categoryProductsMap.set(category.id, []);
+    }
+    categoryProductsMap.get(category.id)!.push(product);
+    productMap.set(product.id, product);
+  }
+
+  const recentlyViewedProducts = categoryProductsMap.get(categoryId)!;
+  categoryProductsMap.delete(categoryId);
+  allProducts = Array.from(recentlyViewedProducts.values())
+    .concat(Array.from(categoryProductsMap.values()).flat());
 
   personalizedProducts = personalizedProducts.map((p: ProductTypes.ProductDTO) => {
-    const product = productMap.get(p.id)!;
-    productMap.delete(p.id);
-    return product;
+    return productMap.get(p.id)!
   });
 
   return NextResponse.json({
