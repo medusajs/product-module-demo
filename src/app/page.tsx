@@ -58,7 +58,7 @@ export default function Home() {
   );
 }
 
-export function Features({ data, isLoading }: Props) {
+function Features({ data, isLoading }: Props) {
   if (isLoading) return <>Loading data</>;
   if (!data) return <>No data</>;
 
