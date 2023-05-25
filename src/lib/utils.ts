@@ -1,4 +1,6 @@
-export const isoAlpha2Countries = {
+import {ContinentMapping, Iso2AlphaCountry } from "@/types";
+
+export const isoAlpha2Countries: Iso2AlphaCountry = {
   AD: { name: "Andorra", continent: "Europe" },
   AE: { name: "United Arab Emirates", continent: "Asia" },
   AF: { name: "Afghanistan", continent: "Asia" },
@@ -260,7 +262,7 @@ export const isoAlpha2Countries = {
 };
 
 export const formatContinent = (continent: string) => {
-  const mapping = {
+  const mapping: ContinentMapping = {
     Africa: { article: "an", name: "African" },
     America: { article: "an", name: "American" },
     Antarctica: { article: "an", name: "Antarctican" },
@@ -276,5 +278,5 @@ export const formatContinent = (continent: string) => {
     Oceania: { article: "an", name: "Oceanic" },
   };
 
-  return mapping[continent as keyof typeof mapping];
+  return mapping[continent];
 };

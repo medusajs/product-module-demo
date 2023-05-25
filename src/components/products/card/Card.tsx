@@ -18,15 +18,12 @@ async function trackCategory({ categoryId, categoryName }: TrackCategoryProps) {
   if (!categoryId || !categoryName) return;
 
   const res = await fetch("/api/category-tracker", {
-    headers: {
-      "x-recent-category-id": categoryId,
-      "x-recent-category-name": categoryName,
-    },
-  });
-
-  if (!res) {
-    throw new Error(`Error tracking product category.`);
-  }
+    method: "POST",
+    body: JSON.stringify({
+      categoryId,
+      categoryName,
+    }),
+  }).then((res) => res.json())
 
   return res;
 }
