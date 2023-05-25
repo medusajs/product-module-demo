@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { kv } from "@vercel/kv";
 import { initialize as ProductModuleInitialize } from "@medusajs/product";
-import { FindConfig, ProductTypes } from "@medusajs/types";
+import { ProductTypes } from "@medusajs/types";
 import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
@@ -10,7 +10,6 @@ import {
   PricedProduct,
   PricedVariant,
 } from "@medusajs/medusa/dist/types/pricing";
-import { MoneyAmount } from "@medusajs/medusa";
 
 declare global {
   var productService: ProductTypes.IProductService;
@@ -29,9 +28,8 @@ const productModuleConfig = {
 };
 
 export async function GET(req: NextRequest) {
-  global.productService =
-    global.productService ??
-    (await ProductModuleInitialize(productModuleConfig));
+  const productService = (global.productService ??=
+    await ProductModuleInitialize(productModuleConfig));
 
   const userId = req.cookies.get("userId")?.value;
 
@@ -41,7 +39,7 @@ export async function GET(req: NextRequest) {
       {
         status: 400,
         statusText:
-          "Unable to query the products, the user id header 'x-user-id' is missing",
+          "Unable to query the products, the 'userId' in cookie is missing",
       }
     );
   }
@@ -58,7 +56,7 @@ export async function GET(req: NextRequest) {
   const continentText = formatContinent(continent);
 
   let [personalizedProducts, allProducts] = await Promise.all([
-    global.productService.list(
+    productService.list(
       {
         tags: { value: [continent] },
       },
@@ -67,7 +65,7 @@ export async function GET(req: NextRequest) {
         take: 3,
       }
     ),
-    global.productService.list(
+    productService.list(
       {},
       {
         relations: ["variants", "categories"],
