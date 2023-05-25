@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
       relations: ["variants", "categories"],
       order: { id: "DESC" }
     })
-  ])
+  ]);
 
   const productMap = new Map<string, ProductTypes.ProductDTO>(
     allProducts.map((p: ProductTypes.ProductDTO) => {
@@ -66,17 +66,18 @@ export async function GET(req: NextRequest) {
   );
 
   personalizedProducts = personalizedProducts.map((p: ProductTypes.ProductDTO) => {
-    const product = productMap.get(p.id);
-    productMap.delete(p.id)
-  })
+    const product = productMap.get(p.id)!;
+    productMap.delete(p.id);
+    return product;
+  });
 
   return NextResponse.json({
-    personalized_section: {
+    personalized_products: {
       country,
       continent_text: continentText,
       products: personalizedProducts,
     },
-    all_products_section: {
+    products: {
       category_name: categoryName,
       products: Array.from(productMap.values()),
     },
