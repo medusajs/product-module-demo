@@ -28,7 +28,7 @@ const productModuleConfig = {
 export async function GET(req: NextRequest) {
   global.productService =
     global.productService ??
-    (await ProductModuleInitialize(productModuleConfig));
+    (await ProductModuleInitialize());
 
   // const userId = req.headers.get("x-user-id");
   const userId = req.cookies.get("userId")?.value;
