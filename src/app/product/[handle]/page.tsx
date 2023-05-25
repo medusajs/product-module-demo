@@ -1,5 +1,4 @@
 import { Details, Divider, Image, Modal } from "@/components";
-import { client } from "@/lib";
 
 type Props = {
   params: {
@@ -8,14 +7,11 @@ type Props = {
 };
 
 async function getProduct(handle: string) {
-  const region = await client.regions.list().then((res) => res.regions[0]);
+  const res = await fetch(
+    `http://localhost:3000/api/products?handle=${handle}`
+  ).then((res) => res.json());
 
-  const res = await client.products.list({
-    handle: handle,
-    region_id: region.id,
-  });
-
-  const product = res.products?.[0];
+  const product = res.all_products_section.products[0];
 
   if (!product) {
     throw new Error(`Product with handle ${handle} not found`);
@@ -26,7 +22,6 @@ async function getProduct(handle: string) {
 
 export default async function ProductModal({ params: { handle } }: Props) {
   const product = await getProduct(handle);
-
   return (
     <Modal>
       <div className="w-full">
@@ -44,3 +39,4 @@ export default async function ProductModal({ params: { handle } }: Props) {
     </Modal>
   );
 }
+``;

@@ -1,4 +1,4 @@
-import {ContinentMapping, Iso2AlphaCountry } from "@/types";
+import { ContinentMapping, Iso2AlphaCountry } from "@/types";
 
 export const isoAlpha2Countries: Iso2AlphaCountry = {
   AD: { name: "Andorra", continent: "Europe" },
@@ -279,4 +279,17 @@ export const formatContinent = (continent: string) => {
   };
 
   return mapping[continent];
+};
+
+export const formatPrice = (price: number | null, currencyCode = "usd") => {
+  const formatter = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currencyCode,
+  });
+
+  if (!price) {
+    return formatter.format(0);
+  }
+
+  return formatter.format(price / 100);
 };
