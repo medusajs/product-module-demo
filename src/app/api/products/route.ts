@@ -71,8 +71,12 @@ export async function GET(req: NextRequest) {
     productMap.set(product.id, product);
   }
 
-  const recentlyViewedProducts = categoryProductsMap.get(categoryId)!;
-  categoryProductsMap.delete(categoryId);
+  let recentlyViewedProducts: ProductTypes.ProductDTO[] = []
+  if (categoryId) {
+    const recentlyViewedProducts = categoryProductsMap.get(categoryId)!;
+    categoryProductsMap.delete(categoryId);
+  }
+
   allProducts = Array.from(recentlyViewedProducts.values())
     .concat(Array.from(categoryProductsMap.values()).flat());
 
