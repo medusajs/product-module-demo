@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowUpRight, Grid } from "@/components";
 import { StoreGetProductsParams } from "@medusajs/medusa";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
