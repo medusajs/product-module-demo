@@ -14,23 +14,21 @@ type TrackCategoryProps = {
   categoryName: string | undefined;
 };
 
-async function trackCategory({ categoryId, categoryName }: TrackCategoryProps) {
+async function trackCategory({ categoryId, categoryName }: void) {
   if (!categoryId || !categoryName) return;
 
-  const res = await fetch("/api/category-tracker", {
+  await fetch("http://localhost:3000/api/category-tracker", {
     method: "POST",
     body: JSON.stringify({
       categoryId,
       categoryName,
     }),
   });
-
-  return res.json;
 }
 
 const Card = ({ product }: Props) => {
-  const categoryId = product.categories?.[0].id;
-  const categoryName = product.categories?.[0].name;
+  const categoryId = product.categories?.[0]?.id;
+  const categoryName = product.categories?.[0]?.name;
   return (
     <Link
       href={`/product/${product.handle}`}
