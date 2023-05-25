@@ -1,5 +1,4 @@
 import { kv } from "@vercel/kv";
-import { v4 as uuidv4 } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
 import { UserData } from "@/types";
 
@@ -15,7 +14,7 @@ export async function POST(request: NextRequest) {
     categoryName
   }
 
-  const userId = request.cookies.get("userId")?.value || uuidv4();
+  const userId = request.cookies.get("userId")?.value!;
   await kv.set(userId, userData);
 
   const response = new NextResponse();
