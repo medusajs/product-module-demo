@@ -366,7 +366,7 @@
     retry-axios "^2.6.0"
     uuid "^9.0.0"
 
-"@medusajs/medusa@^1.10.0":
+"@medusajs/medusa@^1.11.0":
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/@medusajs/medusa/-/medusa-1.11.0.tgz#40c5e148ffb5ceea16ab50eab6712b8d6602047b"
   integrity sha512-IFmA+QLDILQlvZz4bLSCzuYUYMinmHDaOaGLUKrzJbQoWFSAePc8uZguhTpXzXcFo2dheld04cpdUJV0cQdTMg==
