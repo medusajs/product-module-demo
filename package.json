@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@medusajs/medusa": "^1.10.0",
+    "@medusajs/medusa": "^1.11.0",
+    "@medusajs/medusa-js": "^5.0.0",
     "@medusajs/product": "0.0.2-snapshot-20230524102622",
+    "@medusajs/types": "1.8.7-snapshot-20230524102622",
     "@vercel/kv": "^0.2.1",
     "autoprefixer": "10.4.14",
     "clsx": "^1.2.1",
