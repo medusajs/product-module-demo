@@ -170,12 +170,12 @@ function orderProductByCategoryIdFirst({
   const categoryProductsMap = new Map<string, ProductTypes.ProductDTO[]>();
 
   for (const product of products) {
-    const category = product.categories[0];
-    if (!categoryProductsMap.has(category?.id)) {
-      categoryProductsMap.set(category?.id, []);
+    const category = product.categories?.[0];
+    if (!categoryProductsMap.has(category?.id!)) {
+      categoryProductsMap.set(category?.id!, []);
     }
 
-    categoryProductsMap.get(category?.id)!.push(product);
+    categoryProductsMap.get(category?.id!)!.push(product);
     productMap.set(product.id, product);
   }
 
