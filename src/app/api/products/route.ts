@@ -160,7 +160,7 @@ async function getAndAssignPricesToProducts({ products }: { products: ProductTyp
 function orderProductByCategoryIdFirst({
   products,
   personalizedProducts,
-  recentlyVisistedCategoryId
+  recentlyVisitedCategoryId
 }: {
   products: ProductTypes.ProductDTO[];
   personalizedProducts: ProductTypes.ProductDTO[];
