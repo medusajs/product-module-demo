@@ -1,4 +1,6 @@
-const isoAlpha2Countries = {
+import { ContinentMapping, Iso2AlphaCountry } from "@/types";
+
+export const isoAlpha2Countries: Iso2AlphaCountry = {
   AD: { name: "Andorra", continent: "Europe" },
   AE: { name: "United Arab Emirates", continent: "Asia" },
   AF: { name: "Afghanistan", continent: "Asia" },
@@ -257,4 +259,37 @@ const isoAlpha2Countries = {
   ZA: { name: "South Africa", continent: "Africa" },
   ZM: { name: "Zambia", continent: "Africa" },
   ZW: { name: "Zimbabwe", continent: "Africa" },
-}
+};
+
+export const formatContinent = (continent: string) => {
+  const mapping: ContinentMapping = {
+    Africa: { article: "an", name: "African" },
+    America: { article: "an", name: "American" },
+    Antarctica: { article: "an", name: "Antarctican" },
+    Arctic: { article: "an", name: "Arctic" },
+    Asia: { article: "an", name: "Asian" },
+    Atlantic: { article: "an", name: "Atlantic" },
+    Australia: { article: "an", name: "Australian" },
+    Europe: { article: "a", name: "European" },
+    Indian: { article: "an", name: "Indian" },
+    "North America": { article: "a", name: "North American" },
+    "South America": { article: "a", name: "South American" },
+    Pacific: { article: "a", name: "Pacific" },
+    Oceania: { article: "an", name: "Oceanic" },
+  };
+
+  return mapping[continent];
+};
+
+export const formatPrice = (price: number | null, currencyCode = "usd") => {
+  const formatter = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currencyCode,
+  });
+
+  if (!price) {
+    return formatter.format(0);
+  }
+
+  return formatter.format(price / 100);
+};
