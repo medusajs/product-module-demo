@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
     personalizedProducts,
-    groupByCategoryId: categoryId,
+    recentlyVisistedCategoryId: categoryId,
   })
 
   return NextResponse.json({
@@ -160,11 +160,11 @@ async function getAndAssignPricesToProducts({ products }: { products: ProductTyp
 function orderProductByCategoryIdFirst({
   products,
   personalizedProducts,
-  groupByCategoryId
+  recentlyVisistedCategoryId
 }: {
   products: ProductTypes.ProductDTO[];
   personalizedProducts: ProductTypes.ProductDTO[];
-  groupByCategoryId?: string;
+  recentlyVisistedCategoryId?: string;
 }) {
   const productMap = new Map<string, ProductTypes.ProductDTO>();
   const categoryProductsMap = new Map<string, ProductTypes.ProductDTO[]>();
@@ -180,9 +180,9 @@ function orderProductByCategoryIdFirst({
   }
 
   let recentlyViewedProducts: ProductTypes.ProductDTO[] = [];
-  if (groupByCategoryId) {
-    recentlyViewedProducts = categoryProductsMap.get(groupByCategoryId)!;
-    categoryProductsMap.delete(groupByCategoryId);
+  if (recentlyVisistedCategoryId) {
+    recentlyViewedProducts = categoryProductsMap.get(recentlyVisistedCategoryId)!;
+    categoryProductsMap.delete(recentlyVisistedCategoryId);
   }
 
   const allProducts = Array.from(recentlyViewedProducts.values()).concat(
