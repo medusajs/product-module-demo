@@ -8,3 +8,7 @@ export * from "./pictorial-logo";
 export * from "./shopping-bag";
 export * from "./twitter";
 export * from "./x-mark";
+export * from "./lastclick";
+export * from "./arrow-refresh";
+export * from "./globe";
+export * from "./chevron-up-down";
