@@ -9,10 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@medusajs/medusa": "1.11.1-snapshot-20230526121137",
-    "@medusajs/medusa-js": "5.0.1-snapshot-20230526121137",
-    "@medusajs/modules-sdk": "1.8.7-snapshot-20230526121137",
-    "@medusajs/product": "0.0.2-snapshot-20230526121137",
+    "@medusajs/medusa": "1.11.1-snapshot-20230529090126",
+    "@medusajs/medusa-js": "5.0.1-snapshot-20230529090126",
+    "@medusajs/product": "0.0.2-snapshot-20230529090126",
     "@vercel/kv": "^0.2.1",
     "autoprefixer": "10.4.14",
     "clsx": "^1.2.1",
