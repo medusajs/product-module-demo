@@ -18,7 +18,7 @@ const Details = ({ product }: Props) => {
           <Price product={product} />
         </div>
         <div className="flex flex-col gap-y-4">
-          <Tags tags={product.tags} />
+          <Tags tags={product.tags} categories={product.categories} />
           <Description description={product.description} />
         </div>
         <Button>Add to Bag</Button>

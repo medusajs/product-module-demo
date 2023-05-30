@@ -77,7 +77,7 @@ function Features({ data, isLoading }: Props) {
         products={all_products_section.products}
         title="All products"
         description={`Because the last product you visited was from the ${all_products_section.category_name} category, we're showing products from that category first.`}
-        max={12}
+        max={18}
       />
     </div>
   );
