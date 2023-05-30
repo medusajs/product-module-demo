@@ -14,12 +14,12 @@ const Hero = () => {
         </div>
         <div className="flex flex-wrap justify-center items-center gap-x-1 gap-y-2 text-subtle-light dark:text-subtle-dark max-w-[399px] text-center">
           This demo uses
-          <span className="flex flex-row gap-1">
+          <span className="flex flex-row items-center gap-1">
             <Nextjs />
             Next.js
           </span>
           and
-          <span className="flex flex-row gap-1">
+          <span className="flex flex-row items-center gap-1">
             <Medusa /> Medusa
           </span>
           product modules for personalization.

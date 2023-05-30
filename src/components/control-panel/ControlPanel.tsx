@@ -42,6 +42,7 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
 
       if (e.key === "l") {
         e.preventDefault();
+        setLocationHover(false);
         if (inputElement) {
           inputElement.focus();
           inputElement.value = "";
