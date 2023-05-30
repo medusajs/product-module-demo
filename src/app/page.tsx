@@ -4,6 +4,7 @@ import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
 import { useEffect, useState } from "react";
 import { Country, PersonalizationData } from "@/types";
+import { Hero } from "@/components/common/hero";
 
 type Props = {
   data: PersonalizationData | null;
@@ -14,7 +15,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<PersonalizationData | null>(null);
   const [loadingTime, setLoadingTime] = useState(0);
-  const [selected, setSelected] = useState<string>();
 
   async function getPersonalizationData(
     countryCode?: string
@@ -24,10 +24,9 @@ export default function Home() {
       : {};
     setIsLoading(true);
     const start = performance.now();
-    const data = await fetch(
-      "http://localhost:3000/api/products",
-      options
-    ).then((res) => res.json());
+    const data = await fetch("/api/products", options).then((res) =>
+      res.json()
+    );
     const end = performance.now();
     setData(data);
     setLoadingTime(Math.floor(end - start));
@@ -47,11 +46,10 @@ export default function Home() {
     <main className="flex flex-col items-center">
       <div className="w-full max-w-7xl flex">
         <div className="w-full flex flex-col gap-y-16 relative">
-          <img className="h-30 w-full" src="/hero.svg" alt="" />
+          <Hero />
           <Features data={data} isLoading={isLoading} />
           <ControlPanel
             data={data}
-            isLoading={isLoading}
             loadingTime={loadingTime}
             setCountry={setCountry}
           />
