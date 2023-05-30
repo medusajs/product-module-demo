@@ -43,7 +43,7 @@ export default function Example({ country, setCountry, inputRef }: Props) {
               <Globe />
               <Combobox.Input
                 ref={inputRef}
-                className="w-full border-none py-2 pl-3 pr-10 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark focus:outline-focus focus:border-0"
+                className="w-full border-none py-2 pl-3 pr-10 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark focus:outline-focus focus:border-1 focus:border-focus overflow-hidden text-ellipsis"
                 displayValue={(country: string) => country}
                 onChange={(event) => setQuery(event.target.value)}
               ></Combobox.Input>
@@ -62,7 +62,7 @@ export default function Example({ country, setCountry, inputRef }: Props) {
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")}
           >
-            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark bottom-14 py-1 text-base-light dark:text-base-dark ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark bottom-16 py-1 text-base-light dark:text-base-dark ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {filteredCountries.length === 0 && query !== "" ? (
                 <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                   Nothing found.
