@@ -122,6 +122,7 @@ async function queryProducts({
     productService.list(filters, {
       relations: ["variants", "categories", "tags"],
       order: { id: "DESC" },
+      take: 18,
     }),
   ]);
 }
