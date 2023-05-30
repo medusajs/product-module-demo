@@ -74,7 +74,7 @@ export default function Example({ country, setCountry, inputRef }: Props) {
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active
-                          ? "bg-teal-600 text-base-light dark:text-base-dark"
+                          ? "bg-focus text-base-light dark:text-base-dark"
                           : "text-base-light dark:text-base-dark"
                       }`
                     }

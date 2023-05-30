@@ -26,6 +26,7 @@ module.exports = {
         "tag-neutral-light": "#F1F3F5",
         "tag-blue-dark": "#102A4C",
         "tag-blue-light": "#E1F0FF",
+        focus: "#6E56CF",
       },
       borderColor: {
         "base-dark": "#2E2E32",
