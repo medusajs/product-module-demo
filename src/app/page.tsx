@@ -60,28 +60,30 @@ export default function Home() {
 }
 
 function Features({ data, isLoading }: Props) {
-  if (isLoading) return <>Loading data</>;
-  if (!data) return <>No data</>;
+  if (!isLoading && !data) return <>No data</>;
 
-  const { personalized_section, all_products_section } = data;
+  const personalizedSectionDescription = `We have registered that you are browsing from ${`${data?.personalized_section.continent_text.article} ${data?.personalized_section.continent_text.name}`} country, therefore we show ${
+    data?.personalized_section.continent_text.name
+  } products.`;
 
-  const personalizedSectionDescription = `We have registered that you are browsing from ${personalized_section.continent_text.article} ${personalized_section.continent_text.name} country, therefore we show ${personalized_section.continent_text.name} products.`;
-  const allProductsSectionDescription = all_products_section.category_name
-    ? `Because the last product you visited was from the ${all_products_section.category_name} category, we're showing products from that category first.`
+  const allProductsSectionDescription = data?.all_products_section.category_name
+    ? `Because the last product you visited was from the ${data?.all_products_section.category_name} category, we're showing products from that category first.`
     : `Start browsing some products and we'll personalize this section for you!`;
 
   return (
     <div className="flex flex-col gap-y-16">
       <Feature
-        products={personalized_section.products}
+        products={data?.personalized_section.products!}
         max={3}
-        title={`Products for visitors from ${personalized_section.country}`}
-        description={personalizedSectionDescription}
+        title={`Products for visitors from ${
+          isLoading ? "..." : data?.personalized_section.country
+        }`}
+        description={isLoading ? "..." : personalizedSectionDescription}
       />
       <Feature
-        products={all_products_section.products}
+        products={data?.all_products_section.products!}
         title="All products"
-        description={allProductsSectionDescription}
+        description={isLoading ? "..." : allProductsSectionDescription}
         max={18}
       />
     </div>
