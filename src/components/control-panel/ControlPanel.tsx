@@ -88,11 +88,11 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
               Most recently viewed product category:
               <span className="text-base-light dark:text-base-dark">
                 {" "}
-                {category_name}
+                {category_name ?? "None"}
               </span>
               .
               <br />
-              We use this to personalize the product grid
+              We use this to personalize the product grid.
             </HoverModal>
           )}
           <Button>
@@ -100,7 +100,7 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
             <span className="text-subtle-light dark:text-subtle-dark">
               Last clicked:
             </span>
-            <span>{category_name}</span>
+            <span> {category_name ?? "None"}</span>
           </Button>
         </div>
         <div

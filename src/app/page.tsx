@@ -65,18 +65,23 @@ function Features({ data, isLoading }: Props) {
 
   const { personalized_section, all_products_section } = data;
 
+  const personalizedSectionDescription = `We have registered that you are browsing from ${personalized_section.continent_text.article} ${personalized_section.continent_text.name} country, therefore we show ${personalized_section.continent_text.name} products.`;
+  const allProductsSectionDescription = all_products_section.category_name
+    ? `Because the last product you visited was from the ${all_products_section.category_name} category, we're showing products from that category first.`
+    : `Start browsing some products and we'll personalize this section for you!`;
+
   return (
     <div className="flex flex-col gap-y-16">
       <Feature
         products={personalized_section.products}
         max={3}
         title={`Products for visitors from ${personalized_section.country}`}
-        description={`We have registered that you are browsing from ${personalized_section.continent_text.article} ${personalized_section.continent_text.name} country, therefore we show ${personalized_section.continent_text.name} products.`}
+        description={personalizedSectionDescription}
       />
       <Feature
         products={all_products_section.products}
         title="All products"
-        description={`Because the last product you visited was from the ${all_products_section.category_name} category, we're showing products from that category first.`}
+        description={allProductsSectionDescription}
         max={18}
       />
     </div>
