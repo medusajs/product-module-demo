@@ -17,10 +17,9 @@ const Tags = ({ tags, categories }: Props) => {
         <Tag key={tag.id}>{tag.value}</Tag>
       ))}
       {categories &&
-        categories.map((category) => {
-          console.log({ category });
-          return <Tag key={category.id}>{category.name}</Tag>;
-        })}
+        categories.map((category) => (
+          <Tag key={category.id}>{category.name}</Tag>
+        ))}
     </div>
   );
 };
