@@ -58,7 +58,7 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
 
   return (
     <div className="flex flex-col justify-center items-center fixed left-0 right-0 bottom-5 z-50">
-      <div className="flex flex-row justify-between gap-x-4 w-fit h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark">
+      <div className="flex flex-row justify-center w-fit h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4">
         <div
           onMouseEnter={() => setLocationHover(true)}
           onMouseLeave={() => setLocationHover(false)}
@@ -85,12 +85,13 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
         >
           {recentItemHover && (
             <HoverModal className="w-[350px] text-center">
-              Most Recently Viewed Product:
+              Most recently viewed product category:
               <span className="text-base-light dark:text-base-dark">
                 {" "}
-                {category_name}.
-                <br />
+                {category_name}
               </span>
+              .
+              <br />
               We use this to personalize the product grid
             </HoverModal>
           )}
