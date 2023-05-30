@@ -84,7 +84,7 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
           onMouseLeave={() => setRecentItemHover(false)}
         >
           {recentItemHover && (
-            <HoverModal className="w-[350px] text-center">
+            <HoverModal className="w-[380px] text-center">
               Most recently viewed product category:
               <span className="text-base-light dark:text-base-dark">
                 {" "}
