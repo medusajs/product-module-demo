@@ -14,10 +14,13 @@ type TrackCategoryProps = {
   categoryName: string | undefined;
 };
 
-async function trackCategory({ categoryId, categoryName }: TrackCategoryProps): Promise<void> {
+async function trackCategory({
+  categoryId,
+  categoryName,
+}: TrackCategoryProps): Promise<void> {
   if (!categoryId || !categoryName) return;
 
-  await fetch("http://localhost:3000/api/category-tracker", {
+  await fetch("/api/category-tracker", {
     method: "POST",
     body: JSON.stringify({
       categoryId,
