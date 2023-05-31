@@ -26,11 +26,12 @@ module.exports = {
         "tag-neutral-light": "#F1F3F5",
         "tag-blue-dark": "#102A4C",
         "tag-blue-light": "#E1F0FF",
+        focus: "#6E56CF",
       },
       borderColor: {
         "base-dark": "#2E2E32",
         "base-light": "#E6E8EB",
-        "neutral-button-dark": "rbga(255, 255, 255, 0.12)",
+        "neutral-button-dark": "rgba(255, 255, 255, 0.12)",
         "neutral-button-light": "rgba(17, 24, 28, 0.1)",
         "color-button-dark": "#FFFFFF",
         "color-button-light": "#11181C",
@@ -38,6 +39,7 @@ module.exports = {
         "tag-neutral-light": "#DFE3E6",
         "tag-blue-dark": "#0D3868",
         "tag-blue-light": "#B7D9F8",
+        focus: "#6E56CF",
       },
       textColor: {
         "base-dark": "#FFFFFF",
@@ -58,6 +60,9 @@ module.exports = {
         "icon-subtle-light": "#687076",
         "icon-muted-dark": "#706F78",
         "icon-muted-light": "#889096",
+      },
+      outlineColor: {
+        focus: "#6E56CF",
       },
       fontSize: {
         "labels-large": ["16px", "20px"],

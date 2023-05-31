@@ -1,3 +1,28 @@
 @tailwind base;
+
+@media (prefers-color-scheme: dark) {
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2e2e32 #1c1c1c;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 5px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #2e2e32;
+    border-radius: 14px;
+    border: 1px solid #2e2e32;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
