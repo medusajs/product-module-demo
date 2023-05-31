@@ -12,7 +12,7 @@ const Info = ({ product }: Props) => {
       <div className="flex items-start justify-between font-medium text-labels-large">
         <div className="flex flex-col gap-y-3">
           <p>{product.title}</p>
-          <Tags tags={product.tags} />
+          <Tags tags={product.tags} categories={product.categories} />
         </div>
         <CardPrice product={product} />
       </div>

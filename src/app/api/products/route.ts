@@ -22,7 +22,7 @@ type Data = {
   continent: string;
   continentText: { article: string; name: string };
   country: string;
-}
+};
 
 export async function GET(req: NextRequest) {
   const productService = (global.productService ??=
@@ -34,21 +34,21 @@ export async function GET(req: NextRequest) {
     categoryName,
     continent,
     continentText,
-    country
+    country,
   } = await getData(req);
 
   let [personalizedProducts, allProducts] = await queryProducts({
     handle,
-    continent
+    continent,
   });
 
-  await getAndAssignPricesToProducts({ products: allProducts })
+  await getAndAssignPricesToProducts({ products: allProducts });
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
     personalizedProducts,
     recentlyVisitedCategoryId: categoryId,
-  })
+  });
 
   return NextResponse.json({
     personalized_section: {
@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
     },
     all_products_section: {
       category_name: categoryName,
-      products: data.products,
+      products: data.allProducts,
     },
   });
 }
@@ -91,17 +91,17 @@ async function getData(req: NextRequest): Promise<Data> {
     categoryName,
     continent,
     continentText,
-  }
+  };
 }
 
 async function queryProducts({
- handle,
- continent
+  handle,
+  continent,
 }: {
   handle?: string;
-  continent: string
+  continent: string;
 }): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
-  const productService = global.productService
+  const productService = global.productService;
   const filters: { handle?: string } = {};
 
   if (handle) {
@@ -122,11 +122,16 @@ async function queryProducts({
     productService.list(filters, {
       relations: ["variants", "categories", "tags"],
       order: { id: "DESC" },
+      take: 18,
     }),
   ]);
 }
 
-async function getAndAssignPricesToProducts({ products }: { products: ProductTypes.ProductDTO[] }): Promise<void> {
+async function getAndAssignPricesToProducts({
+  products,
+}: {
+  products: ProductTypes.ProductDTO[];
+}): Promise<void> {
   const region = await client.regions.list().then((res) => res.regions[0]);
 
   const pricedProducts = (
@@ -160,7 +165,7 @@ async function getAndAssignPricesToProducts({ products }: { products: ProductTyp
 function orderProductByCategoryIdFirst({
   products,
   personalizedProducts,
-  recentlyVisitedCategoryId
+  recentlyVisitedCategoryId,
 }: {
   products: ProductTypes.ProductDTO[];
   personalizedProducts: ProductTypes.ProductDTO[];
@@ -181,7 +186,9 @@ function orderProductByCategoryIdFirst({
 
   let recentlyViewedProducts: ProductTypes.ProductDTO[] = [];
   if (recentlyVisitedCategoryId) {
-    recentlyViewedProducts = categoryProductsMap.get(recentlyVisitedCategoryId)!;
+    recentlyViewedProducts = categoryProductsMap.get(
+      recentlyVisitedCategoryId
+    )!;
     categoryProductsMap.delete(recentlyVisitedCategoryId);
   }
 
@@ -196,5 +203,5 @@ function orderProductByCategoryIdFirst({
     }
   );
 
-  return { personalizedProducts, products }
+  return { personalizedProducts, allProducts };
 }

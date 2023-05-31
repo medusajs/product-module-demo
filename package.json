@@ -12,6 +12,8 @@
     "@medusajs/medusa": "1.11.1-snapshot-20230529090126",
     "@medusajs/medusa-js": "5.0.1-snapshot-20230529090126",
     "@medusajs/product": "0.0.2-snapshot-20230529090126",
+    "@headlessui/react": "^1.7.14",
+    "@medusajs/types": "1.8.7-snapshot-20230524102622",
     "@vercel/kv": "^0.2.1",
     "autoprefixer": "10.4.14",
     "clsx": "^1.2.1",
