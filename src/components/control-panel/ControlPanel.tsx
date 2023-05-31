@@ -16,14 +16,9 @@ type Props = {
 };
 
 export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
-  if (!data) return null;
-
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
   const [resetHover, setResetHover] = useState(false);
-
-  const { country } = data.personalized_section;
-  const { category_name } = data.all_products_section;
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -31,8 +26,8 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
     setCountry(null);
   };
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
       const inputElement = inputRef.current as HTMLInputElement | null;
       const isInputFocused = inputRef.current === document.activeElement;
 
@@ -48,14 +43,16 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
           inputElement.value = "";
         }
       }
-    },
-    [reset]
-  );
+    };
 
-  useEffect(() => {
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [onKeyDown]);
+  }, []);
+
+  if (!data) return null;
+
+  const { country } = data.personalized_section;
+  const { category_name } = data.all_products_section;
 
   return (
     <div className="flex flex-col justify-center items-center fixed left-0 right-0 bottom-5 z-50">
@@ -129,7 +126,6 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
           {loadingTime}ms
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }

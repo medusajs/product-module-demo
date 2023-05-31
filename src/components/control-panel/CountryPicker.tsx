@@ -11,19 +11,23 @@ type Props = {
   inputRef: React.RefObject<HTMLInputElement>;
 };
 
-export default function Example({ country, setCountry, inputRef }: Props) {
+const countryCodeMap = new Map<string, string>();
+
+for (const countryCode of Object.keys(isoAlpha2Countries)) {
+  countryCodeMap.set(isoAlpha2Countries[countryCode].name, countryCode);
+}
+
+const countries = Array.from(countryCodeMap, ([name, code]) => ({
+  name,
+  code,
+}));
+
+export default function CountryPicker({
+  country,
+  setCountry,
+  inputRef,
+}: Props) {
   const [query, setQuery] = useState("");
-
-  const countryCodeMap = new Map<string, string>();
-
-  for (const countryCode of Object.keys(isoAlpha2Countries)) {
-    countryCodeMap.set(isoAlpha2Countries[countryCode].name, countryCode);
-  }
-
-  const countries = Array.from(countryCodeMap, ([name, code]) => ({
-    name,
-    code,
-  }));
 
   const filteredCountries =
     query === ""
