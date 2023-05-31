@@ -1,21 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: [
+      "@mikro-orm/core",
+      "@mikro-orm/knex",
+    ],
+  },
   images: {
     domains: [
       "medusa-public-images.s3.eu-west-1.amazonaws.com",
       "loremflickr.com",
       "medusa-server-testing.s3.amazonaws.com",
     ],
-  },
-  webpack: (
-    config,
-    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
-  ) => {
-    config.externals.push({
-      "knex": "knex",
-      "@medusajs/product": "@medusajs/product",
-    })
-    return config;
   },
 };
 
