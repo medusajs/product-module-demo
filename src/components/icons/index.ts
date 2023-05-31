@@ -9,3 +9,7 @@ export * from "./shopping-bag";
 export * from "./twitter";
 export * from "./x-mark";
 export * from "./checkmark";
+export * from "./lastclick";
+export * from "./arrow-refresh";
+export * from "./globe";
+export * from "./chevron-up-down";
