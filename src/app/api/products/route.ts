@@ -25,9 +25,6 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
-  const productService = (global.productService ??=
-    await ProductModuleInitialize());
-
   const {
     handle,
     categoryId,
@@ -42,7 +39,7 @@ export async function GET(req: NextRequest) {
     continent,
   });
 
-  await getAndAssignPricesToProducts({ products: allProducts });
+  handle && (await getAndAssignPricesToProducts({ products: allProducts }));
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,

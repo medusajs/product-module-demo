@@ -14,7 +14,6 @@ const Info = ({ product }: Props) => {
           <p>{product.title}</p>
           <Tags tags={product.tags} categories={product.categories} />
         </div>
-        <CardPrice product={product} />
       </div>
     </div>
   );
