@@ -11,10 +11,6 @@ import DeleteItemButton from "./DeleteItemButton";
 import { Price } from "../common/price";
 import { Button } from "../common";
 
-type MerchandiseSearchParams = {
-  [key: string]: string;
-};
-
 export default function CartModal({
   isOpen = true,
   onClose,
@@ -81,8 +77,8 @@ export default function CartModal({
               ) : null}
               {cart.items?.length !== 0 ? (
                 <div className="flex flex-col justify-between overflow-hidden h-full">
-                  <div>
-                    <ul className="flex-grow overflow-auto">
+                  <div className="overflow-auto">
+                    <ul className="flex-grow">
                       {cart.items.map((item, i) => {
                         const merchandiseUrl = `/product/${item.variant.product.handle}`;
 
@@ -113,9 +109,6 @@ export default function CartModal({
                                 <span className="text-labels-regular font-medium">
                                   {item.title}
                                 </span>
-                                <span className="text-labels-regular text-subtle-light dark:text-subtle-dark font-medium">
-                                  Apparel · Europe
-                                </span>
                               </div>
                             </Link>
                             <div>
@@ -132,26 +125,27 @@ export default function CartModal({
                         );
                       })}
                     </ul>
-                    <div className="text-labels-regular text-subtle-light dark:text-subtle-dark font-medium px-8 py-6">
-                      <div className="mb-2 flex items-center justify-between">
-                        <p>Subtotal</p>
-                        <Price
-                          amount={cart.subtotal || 0}
-                          currency={cart.region.currency_code}
-                        />
-                      </div>
-                      <div className="mb-2 flex items-center justify-between">
-                        <p>Delivery</p>
-                        <p className="text-right">Free</p>
-                      </div>
-                      <div className="mb-2 flex items-center justify-between">
-                        <p>Total</p>
-                        <Price
-                          className="text-right text-base-light dark:text-base-dark"
-                          amount={cart.total || 0}
-                          currency={cart.region.currency_code}
-                        />
-                      </div>
+                  </div>
+
+                  <div className="text-labels-regular text-subtle-light dark:text-subtle-dark font-medium px-8 py-6">
+                    <div className="mb-2 flex items-center justify-between">
+                      <p>Subtotal</p>
+                      <Price
+                        amount={cart.subtotal || 0}
+                        currency={cart.region.currency_code}
+                      />
+                    </div>
+                    <div className="mb-2 flex items-center justify-between">
+                      <p>Delivery</p>
+                      <p className="text-right">Free</p>
+                    </div>
+                    <div className="mb-2 flex items-center justify-between">
+                      <p>Total</p>
+                      <Price
+                        className="text-right text-base-light dark:text-base-dark"
+                        amount={cart.total || 0}
+                        currency={cart.region.currency_code}
+                      />
                     </div>
                   </div>
                   <div className="border-t border-[#2E2E32] p-8 flex flex-row justify-between gap-4">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 
 import { Cart } from "@medusajs/medusa/dist/models/cart";
@@ -18,6 +19,7 @@ export default function CartButton({
 }) {
   const [, setCookie] = useCookies(["cartId"]);
   const [cartIsOpen, setCartIsOpen] = useState(false);
+  const router = useRouter();
   const quantityRef = useRef(cart.items.length);
 
   useEffect(() => {
@@ -30,6 +32,10 @@ export default function CartButton({
     }
     return;
   }, [setCookie, cartIdUpdated, cart.id]);
+
+  useEffect(() => {
+    router.refresh();
+  }, [quantityRef]);
 
   return (
     <>

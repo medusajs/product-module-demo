@@ -4,13 +4,15 @@ import { PropsWithChildren } from "react";
 type Props = PropsWithChildren<{
   variant?: "primary" | "inverted";
   onClick?: () => void;
-  className: string;
+  className?: string;
+  disabled?: boolean;
 }>;
 
 const Button = ({
   variant = "primary",
   onClick,
   className,
+  disabled = false,
   children,
 }: Props) => {
   const bg = {
@@ -28,6 +30,7 @@ const Button = ({
         bg,
         "flex flex-row items-center justify-center gap-1 p-2 text-labels-regular font-medium h-fit py-[9px] rounded-[7px] border"
       )}
+      disabled={disabled}
     >
       {children}
     </button>

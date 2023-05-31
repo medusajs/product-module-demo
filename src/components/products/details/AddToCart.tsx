@@ -4,9 +4,10 @@ import { Button, Notification } from "@/components";
 import { client } from "@/lib";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { startTransition, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 import { useCookies } from "react-cookie";
 import { LoadingDots } from "@/components/common/loading-dots";
+import { useRouter } from "next/navigation";
 
 type Props = {
   product: PricedProduct;
@@ -32,6 +33,7 @@ export default function AddToCart({ product }: Props) {
   const [cookie] = useCookies(["cartId"]);
   const [adding, setAdding] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
+  const router = useRouter();
 
   const lineItem = {
     variant_id: product.variants[0].id || product.id || "",
@@ -51,11 +53,15 @@ export default function AddToCart({ product }: Props) {
 
     setAdding(false);
     setShowNotif(true);
+
+    startTransition(() => {
+      router.refresh();
+    });
   }
 
-  // useEffect(() => {
-  //   showNotif && setTimeout(() => setShowNotif(false), 5000);
-  // }, [showNotif]);
+  useEffect(() => {
+    showNotif && setTimeout(() => setShowNotif(false), 5000);
+  }, [showNotif]);
 
   return (
     <>
