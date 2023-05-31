@@ -7,7 +7,9 @@ const Hero = () => {
     <div className="relative h-96 w-full overflow-hidden bg-[url('/hero.svg')] bg-cover bg-base-light dark:bg-base-dark shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl">
       <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center">
         <div className="flex flex-col gap-2 items-center justify-center">
-          <div className="text-white text-4xl">Product Module Demo.</div>
+          <div className="text-base-light dark:text-base-dark text-4xl">
+            Product Module Demo.
+          </div>
           <div className="text-subtle-light dark:text-subtle-dark text-4xl">
             Powered by Medusa.
           </div>
