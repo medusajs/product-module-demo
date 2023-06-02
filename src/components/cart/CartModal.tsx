@@ -7,7 +7,7 @@ import { ShoppingBag, XMark } from "../icons";
 import { Cart } from "@medusajs/medusa/dist/models/cart";
 
 import DeleteItemButton from "./DeleteItemButton";
-// import EditItemQuantityButton from "./edit-item-quantity-button";
+import EditItemQuantityButton from "./EditItemQuantityButton";
 import { Price } from "../common/price";
 import { Button } from "../common";
 
@@ -77,8 +77,8 @@ export default function CartModal({
               ) : null}
               {cart.items?.length !== 0 ? (
                 <div className="flex flex-col justify-between overflow-hidden h-full">
-                  <div className="overflow-auto">
-                    <ul className="flex-grow">
+                  <div className="overflow-auto flex-grow">
+                    <ul className="flex flex-col w-full">
                       {cart.items.map((item, i) => {
                         const merchandiseUrl = `/product/${item.variant.product.handle}`;
 
@@ -86,31 +86,34 @@ export default function CartModal({
                           <li
                             key={i}
                             data-testid="cart-item"
-                            className="flex justify-between flex-row items-center border-b border-[#2E2E32] px-8 py-6"
+                            className="flex justify-between flex-row items-center gap-5 border-b border-[#2E2E32] px-8 py-6"
                           >
-                            <Link
-                              className="flex flex-row space-x-4"
-                              href={merchandiseUrl}
-                              onClick={onClose}
-                            >
-                              <div className="relative h-14 w-18 cursor-pointer overflow-hidden bg-white rounded">
-                                <Image
-                                  className="h-14 w-18 object-cover"
-                                  width={72}
-                                  height={56}
-                                  alt={item.variant.product.title || ""}
-                                  src={
-                                    item.thumbnail ||
-                                    item.variant.product.images[0].url
-                                  }
-                                />
-                              </div>
-                              <div className="flex flex-1 flex-col justify-center">
-                                <span className="text-labels-regular font-medium">
-                                  {item.title}
-                                </span>
-                              </div>
-                            </Link>
+                            <div className="flex flex-row justify-between w-full">
+                              <Link
+                                className="flex flex-row space-x-4"
+                                href={merchandiseUrl}
+                                onClick={onClose}
+                              >
+                                <div className="relative h-14 w-18 cursor-pointer overflow-hidden bg-white rounded">
+                                  <Image
+                                    className="h-14 w-18 object-cover"
+                                    width={72}
+                                    height={56}
+                                    alt={item.variant.product.title || ""}
+                                    src={
+                                      item.thumbnail ||
+                                      item.variant.product.images[0].url
+                                    }
+                                  />
+                                </div>
+                                <div className="flex flex-1 flex-col justify-center">
+                                  <span className="text-labels-regular font-medium">
+                                    {item.title}
+                                  </span>
+                                </div>
+                              </Link>
+                              <EditItemQuantityButton item={item} />
+                            </div>
                             <div>
                               {item.total && (
                                 <Price
@@ -126,35 +129,36 @@ export default function CartModal({
                       })}
                     </ul>
                   </div>
-
-                  <div className="text-labels-regular text-subtle-light dark:text-subtle-dark font-medium px-8 py-6">
-                    <div className="mb-2 flex items-center justify-between">
-                      <p>Subtotal</p>
-                      <Price
-                        amount={cart.subtotal || 0}
-                        currency={cart.region.currency_code}
-                      />
+                  <div className="flex flex-col h-fit justify-between">
+                    <div className="text-labels-regular text-subtle-light dark:text-subtle-dark border-t border-[#2E2E32] font-medium px-8 py-6">
+                      <div className="mb-2 flex items-center justify-between">
+                        <p>Subtotal</p>
+                        <Price
+                          amount={cart.subtotal || 0}
+                          currency={cart.region.currency_code}
+                        />
+                      </div>
+                      <div className="mb-2 flex items-center justify-between">
+                        <p>Delivery</p>
+                        <p className="text-right">Free</p>
+                      </div>
+                      <div className="mb-2 flex items-center justify-between">
+                        <p>Total</p>
+                        <Price
+                          className="text-right text-base-light dark:text-base-dark"
+                          amount={cart.total || 0}
+                          currency={cart.region.currency_code}
+                        />
+                      </div>
                     </div>
-                    <div className="mb-2 flex items-center justify-between">
-                      <p>Delivery</p>
-                      <p className="text-right">Free</p>
+                    <div className="border-t border-[#2E2E32] p-8 flex flex-row justify-between gap-4">
+                      <Button className="w-1/2" variant="inverted">
+                        Pay with Apple Pay
+                      </Button>
+                      <Button className="w-1/2" variant="primary">
+                        Go to Payment
+                      </Button>
                     </div>
-                    <div className="mb-2 flex items-center justify-between">
-                      <p>Total</p>
-                      <Price
-                        className="text-right text-base-light dark:text-base-dark"
-                        amount={cart.total || 0}
-                        currency={cart.region.currency_code}
-                      />
-                    </div>
-                  </div>
-                  <div className="border-t border-[#2E2E32] p-8 flex flex-row justify-between gap-4">
-                    <Button className="w-1/2" variant="inverted">
-                      Pay with Apple Pay
-                    </Button>
-                    <Button className="w-1/2" variant="primary">
-                      Go to Payment
-                    </Button>
                   </div>
                 </div>
               ) : null}
