@@ -25,6 +25,9 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
+  const productService = (global.productService ??=
+    await ProductModuleInitialize());
+
   const {
     handle,
     categoryId,
