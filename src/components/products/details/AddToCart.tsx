@@ -8,6 +8,7 @@ import { startTransition, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { LoadingDots } from "@/components/common/loading-dots";
 import { useRouter } from "next/navigation";
+import { useNotifications } from "@/components/common/notification/NotificationProvider";
 
 type Props = {
   product: PricedProduct;
@@ -34,14 +35,11 @@ export default function AddToCart({ product }: Props) {
   const [adding, setAdding] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const router = useRouter();
+  const { showNotification, hideNotification } = useNotifications();
 
   const lineItem = {
     variant_id: product.variants[0].id || product.id || "",
     quantity: 1,
-  };
-
-  const onClose = () => {
-    setShowNotif(false);
   };
 
   async function handleAdd() {
@@ -52,7 +50,12 @@ export default function AddToCart({ product }: Props) {
     await addToCart(cookie.cartId, lineItem);
 
     setAdding(false);
-    setShowNotif(true);
+    showNotification(
+      "success",
+      "Added to shopping bag",
+      `${product.title} is successfully added.`,
+      hideNotification
+    );
 
     startTransition(() => {
       router.refresh();
@@ -72,13 +75,6 @@ export default function AddToCart({ product }: Props) {
           "Add to Bag"
         )}
       </Button>
-      <Notification
-        type="success"
-        title="Added to shopping bag"
-        body={`${product.title} is successfully added.`}
-        showNotification={showNotif}
-        onClose={onClose}
-      />
     </>
   );
 }
