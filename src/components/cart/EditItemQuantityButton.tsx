@@ -38,7 +38,6 @@ const EditItemQuantityButton = ({ item }: Props) => {
             {n}
           </option>
         ))}
-        <ChevronUpDown />
       </select>
     </>
   );
