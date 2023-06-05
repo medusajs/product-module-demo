@@ -1,4 +1,4 @@
-import { Details, Divider, Image, Modal } from "@/components";
+import { Details, Image, Modal } from "@/components";
 
 type Props = {
   params: {

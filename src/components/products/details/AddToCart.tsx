@@ -71,6 +71,7 @@ export default function AddToCart({ product }: Props) {
 
     startTransition(() => {
       router.refresh();
+      router.back();
     });
   }
 
