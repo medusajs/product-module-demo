@@ -147,10 +147,9 @@ export default function ControlPanel({
             Loading:
           </span>
           {loadingTime}ms
-          <span className="text-subtle-light dark:text-subtle-dark border-solid border-l border-neutral-button-light dark:border-neutral-button-dark pl-3 ml-1">
-            Location:
+          <span className="text-labels-xsmall text-subtle-light dark:text-subtle-dark rounded border-solid border border-tag-neutral-light dark:border-tag-neutral-dark bg-tag-neutral-light dark:bg-tag-neutral-dark px-1 ml-1">
+            us-east-1
           </span>
-          US-East
         </div>
       </div>
     </div>
