@@ -13,7 +13,7 @@ type Props = {
   data: PersonalizationData | null;
   selectedCountry?: string;
   loadingTime: number;
-  setCountry: (country: Country | null) => Promise<void>;
+  setCountry: (country: Country | null) => void;
   scrollToFeatures: () => void;
 };
 
@@ -36,12 +36,12 @@ export default function ControlPanel({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const reset = async () => {
-    await setCountry(null);
+    setCountry(null);
     await resetUserData();
-    scrollToFeatures();
 
     startTransition(() => {
       router.refresh();
+      scrollToFeatures();
     });
   };
 
