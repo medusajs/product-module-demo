@@ -3,7 +3,9 @@ import { cookies } from "next/headers";
 import CartButton from "./CartButton";
 
 async function createCart() {
-  const res = await client.carts.create();
+  const region = await client.regions.list().then((res) => res.regions[0]);
+
+  const res = await client.carts.create({ region_id: region.id ?? undefined });
   const cart = res.cart;
 
   if (!cart) {
