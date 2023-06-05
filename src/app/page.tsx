@@ -111,13 +111,13 @@ function Features({ data, isLoading }: Props) {
               </span>{" "}
               category,{" "}
               <span className="text-base-light dark:text-base-dark">
-                we're showing products from that category first.
+                we&apos;re showing products from that category first.
               </span>
             </>
           ) : (
             <>
-              Start browsing some products and we'll personalize this section
-              for you!
+              Start browsing some products and we&apos;ll personalize this
+              section for you!
             </>
           )}
         </p>
