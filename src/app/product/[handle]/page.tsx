@@ -29,12 +29,12 @@ export default async function ProductModal({ params: { handle } }: Props) {
   const product = await getProduct(handle);
   return (
     <Modal>
-      <div className="w-full">
-        <div className="w-full flex gap-x-16 items-center mb-16">
-          <div className="w-2/3">
+      <div className="w-full px-4">
+        <div className="w-full flex flex-row flex-wrap gap-y-6 md:flex-nowrap gap-x-16 items-center mb-16">
+          <div className="md:w-2/3 w-full">
             <Image src={product.thumbnail} alt={""} />
           </div>
-          <div className="w-1/3">
+          <div className="md:w-1/3 w-full">
             <Details product={product} />
           </div>
         </div>
