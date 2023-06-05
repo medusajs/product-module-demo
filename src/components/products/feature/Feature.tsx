@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowUpRight, Grid } from "@/components";
-import { StoreGetProductsParams } from "@medusajs/medusa";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import Link from "next/link";
 
@@ -30,7 +29,10 @@ const Feature = ({ max, title, description, to, products }: Props) => {
           </Link>
         )}
       </div>
-      <p className="text-subtle-dark">{description}</p>
+      <p
+        className="text-subtle-dark"
+        dangerouslySetInnerHTML={{ __html: description }}
+      ></p>
       <Grid products={products} max={max} />
     </div>
   );
