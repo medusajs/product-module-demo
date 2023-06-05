@@ -16,7 +16,6 @@ declare global {
 }
 
 type Data = {
-  handle?: string;
   categoryId?: string;
   categoryName?: string;
   continent: string;
@@ -29,23 +28,12 @@ export async function GET(req: NextRequest) {
   const productService = (global.productService ??=
     await ProductModuleInitialize());
 
-  const {
-    handle,
-    categoryId,
-    categoryName,
-    continent,
-    continentText,
-    country,
-  } = await getData(req);
+  const { categoryId, categoryName, continent, continentText, country } =
+    await getData(req);
 
   let [personalizedProducts, allProducts] = await queryProducts({
-    handle,
     continent,
   });
-
-  if (handle) {
-    await getAndAssignPricesToProducts({ products: allProducts });
-  }
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
@@ -88,7 +76,6 @@ async function getData(req: NextRequest): Promise<Data> {
   const continentText = formatContinent(continent);
 
   return {
-    handle,
     country,
     categoryId,
     categoryName,
@@ -98,23 +85,16 @@ async function getData(req: NextRequest): Promise<Data> {
 }
 
 async function queryProducts({
-  handle,
   continent,
 }: {
-  handle?: string;
   continent: string;
 }): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
   const productService = global.productService;
   const filters: { handle?: string } = {};
 
-  if (handle) {
-    filters.handle = handle;
-  }
-
   return await Promise.all([
     productService.list(
       {
-        ...filters,
         tags: { value: [continent] },
       },
       {
@@ -128,41 +108,6 @@ async function queryProducts({
       take: 18,
     }),
   ]);
-}
-
-async function getAndAssignPricesToProducts({
-  products,
-}: {
-  products: ProductTypes.ProductDTO[];
-}): Promise<void> {
-  const region = await client.regions.list().then((res) => res.regions[0]);
-
-  const pricedProducts = (
-    await client.products.list({
-      id: products.map((p) => p.id),
-      expand: "variants,variants.prices,tags",
-      region_id: region.id ?? undefined,
-    })
-  ).products as unknown as PricedProduct[];
-
-  const variants = pricedProducts.map((p: PricedProduct) => p.variants).flat();
-
-  const variantsMap = new Map<string, PricedVariant>();
-
-  for (const variant of variants) {
-    variantsMap.set(variant.id!, variant);
-  }
-
-  for (const product of products) {
-    (product as any).variants = (product as any).variants.map(
-      (variant: any) => {
-        return {
-          ...variantsMap.get(variant.id),
-          ...variant,
-        };
-      }
-    );
-  }
 }
 
 function orderProductByCategoryIdFirst({

@@ -83,7 +83,9 @@ export default function AddToCart({ product }: Props) {
     <>
       <Button onClick={handleAdd} disabled={adding}>
         {adding ? (
-          <LoadingDots className="bg-base-dark dark:bg-base-light" />
+          <span className="flex h-5 items-center">
+            <LoadingDots className="bg-base-dark dark:bg-base-light" />
+          </span>
         ) : (
           "Add to Bag"
         )}
