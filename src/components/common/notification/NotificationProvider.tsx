@@ -45,7 +45,7 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
     onClose: () => void
   ) => {
     setNotification({ type, title, body, onClose });
-    setTimeout(hideNotification, 5000);
+    setTimeout(hideNotification, 2500);
   };
 
   const hideNotification = () => {

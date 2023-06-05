@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 
@@ -20,7 +20,11 @@ export default function CartButton({
   const [, setCookie] = useCookies(["cartId"]);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const router = useRouter();
-  const quantityRef = useRef(cart.items.length);
+  const quantity = cart.items.reduce(
+    (sum, lineItem) => sum + lineItem.quantity,
+    0
+  );
+  const quantityRef = useRef(quantity);
 
   useEffect(() => {
     if (cartIdUpdated) {
@@ -34,8 +38,11 @@ export default function CartButton({
   }, [setCookie, cartIdUpdated, cart.id]);
 
   useEffect(() => {
-    router.refresh();
-  }, [quantityRef]);
+    if (quantity !== quantityRef.current) {
+      setCartIsOpen(true);
+    }
+    startTransition(() => router.refresh());
+  }, [quantity]);
 
   return (
     <>
