@@ -5,11 +5,6 @@ import { ProductTypes } from "@medusajs/types";
 import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
-import { client } from "@/lib";
-import {
-  PricedProduct,
-  PricedVariant,
-} from "@medusajs/medusa/dist/types/pricing";
 
 declare global {
   var productService: ProductTypes.IProductService;
@@ -99,11 +94,14 @@ async function queryProducts({
         take: 3,
       }
     ),
-    productService.list({}, {
-      relations: ["variants", "categories", "tags"],
-      order: { id: "DESC" },
-      take: 100,
-    }),
+    productService.list(
+      {},
+      {
+        relations: ["variants", "categories", "tags"],
+        order: { id: "DESC" },
+        take: 100,
+      }
+    ),
   ]);
 }
 

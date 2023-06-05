@@ -7,7 +7,7 @@ import { Country } from "@/types";
 
 type Props = {
   country: string;
-  setCountry: (countryCode: Country) => void;
+  setCountry: (countryCode: Country) => Promise<void>;
   inputRef: React.RefObject<HTMLInputElement>;
 };
 
@@ -40,7 +40,10 @@ export default function CountryPicker({
         );
   return (
     <div className="w-60 h-fit">
-      <Combobox value={country} onChange={(value: any) => setCountry(value)}>
+      <Combobox
+        value={country}
+        onChange={async (value: any) => await setCountry(value)}
+      >
         <div className="relative">
           <div className="flex flex-row gap-2 text-labels-regular font-medium rounded-[7px] border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark border-neutral-button-light dark:border-neutral-button-dark">
             <div className="flex items-center justify-center flex-row w-full border-none pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark">
