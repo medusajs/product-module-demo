@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
-    "@medusajs/medusa": "1.12.1-snapshot-20230605161303",
-    "@medusajs/medusa-js": "6.0.1-snapshot-20230605161303",
-    "@medusajs/product": "0.0.2-snapshot-20230605161303",
+    "@medusajs/medusa": "1.12.1-snapshot-20230605164749",
+    "@medusajs/medusa-js": "6.0.1-snapshot-20230605164749",
+    "@medusajs/product": "0.0.2-snapshot-20230605164749",
     "@vercel/kv": "^0.2.1",
     "autoprefixer": "10.4.14",
     "clsx": "^1.2.1",
@@ -28,7 +28,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@medusajs/types": "1.8.8-snapshot-20230605161303",
+    "@medusajs/types": "1.8.8-snapshot-20230605164749",
     "@mikro-orm/migrations": "5.7.4",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
