@@ -73,12 +73,12 @@ export default function Home() {
 function Features({ data, isLoading }: Props) {
   if (!isLoading && !data) return <>No data</>;
 
-  const personalizedSectionDescription = `We have registered that you are browsing from ${`${data?.personalized_section.continent_text.article} ${data?.personalized_section.continent_text.name}`} country, therefore we show ${
+  const personalizedSectionDescription = `We have registered that you are browsing from ${`${data?.personalized_section.continent_text.article} <span class="text-base-light dark:text-base-dark">${data?.personalized_section.continent_text.name}`}</span> country, <span class="text-base-light dark:text-base-dark">therefore we show ${
     data?.personalized_section.continent_text.name
-  } products.`;
+  } products.</span>`;
 
   const allProductsSectionDescription = data?.all_products_section.category_name
-    ? `Because the last product you visited was from the ${data?.all_products_section.category_name} category, we're showing products from that category first.`
+    ? `Because the last product you visited was from the <span class="text-base-light dark:text-base-dark">${data?.all_products_section.category_name}</span> category, <span class="text-base-light dark:text-base-dark">we're showing products from that category first.</span>`
     : `Start browsing some products and we'll personalize this section for you!`;
 
   return (
