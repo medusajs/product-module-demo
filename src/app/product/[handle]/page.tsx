@@ -1,4 +1,5 @@
 import { Details, Image, Modal } from "@/components";
+import { client } from "@/lib";
 
 type Props = {
   params: {
@@ -6,14 +7,16 @@ type Props = {
   };
 };
 
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 async function getProduct(handle: string) {
-  const res = await fetch(
-    `${NEXT_PUBLIC_API_URL}/api/products?handle=${handle}`
-  ).then((res) => res.json());
+  const region = await client.regions.list().then((res) => res.regions[0]);
 
-  const product = res.all_products_section.products[0];
+  const product = await client.products
+    .list({
+      handle,
+      expand: "variants,variants.prices,tags,categories",
+      region_id: region.id ?? undefined,
+    })
+    .then((res) => res.products[0]);
 
   if (!product) {
     throw new Error(`Product with handle ${handle} not found`);

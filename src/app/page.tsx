@@ -56,8 +56,6 @@ export default function Home() {
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
           <div ref={featuresRef}>
-            {" "}
-            {/* Add the ref to the Features component */}
             <Features data={data} isLoading={isLoading} />
           </div>
           <ControlPanel
