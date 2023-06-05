@@ -321,12 +321,12 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@medusajs/medusa-cli@1.3.16-snapshot-20230605145452":
-  version "1.3.16-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/medusa-cli/-/medusa-cli-1.3.16-snapshot-20230605145452.tgz#3c5df7086561c55426d62c33abf78bae49002658"
-  integrity sha512-lPNXCBgeE9S+jntSFmBybyyl+NhqzaKQOZ2YO1Cg7xIcpvodvE/2BRO+BC5nPWqpd1hj8obQjgt92I+4xPkeIg==
+"@medusajs/medusa-cli@1.3.16-snapshot-20230605161303":
+  version "1.3.16-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/medusa-cli/-/medusa-cli-1.3.16-snapshot-20230605161303.tgz#0222cf90bd8264e04daa3fa0751b845ef40d4a68"
+  integrity sha512-eGQhXs3eu2NlIB/5Mmw6gh/I0edJunTLviQrkJmm7YEWgUZRPQPpe+imYW7TsQYenIwp97oP1+ifnx3evSOoRA==
   dependencies:
-    "@medusajs/utils" "1.9.1-snapshot-20230605145452"
+    "@medusajs/utils" "1.9.1-snapshot-20230605161303"
     axios "^0.21.4"
     chalk "^4.0.0"
     configstore "5.0.1"
@@ -354,24 +354,24 @@
     winston "^3.8.2"
     yargs "^15.3.1"
 
-"@medusajs/medusa-js@6.0.1-snapshot-20230605145452":
-  version "6.0.1-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/medusa-js/-/medusa-js-6.0.1-snapshot-20230605145452.tgz#3d72fdd41c61b456a8f82b644b06af5dc4815ff9"
-  integrity sha512-kO89lFJmuUz5L0Cv+xXb2vU2iU5aFAEB5b3Jo+ay3drI3qR2egjeu7aWlROYlqN1ujwNM0dqr4nRsDTkKnYONQ==
+"@medusajs/medusa-js@6.0.1-snapshot-20230605161303":
+  version "6.0.1-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/medusa-js/-/medusa-js-6.0.1-snapshot-20230605161303.tgz#e8bcc8b2621b00fe9b6a3c37d8175f8ac3377ba4"
+  integrity sha512-Bw+GJ5gLyf/BmeBns89SoXg8xFbKBW97QqWDvjFqrsPwqU38yCG5Rk7GijAgXgUZ/Vm8KqHEBLeZB15TrhM5mA==
   dependencies:
     axios "^0.24.0"
     qs "^6.10.3"
     retry-axios "^2.6.0"
     uuid "^9.0.0"
 
-"@medusajs/medusa@1.12.1-snapshot-20230605145452":
-  version "1.12.1-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/medusa/-/medusa-1.12.1-snapshot-20230605145452.tgz#9332a41e8f82672b8d89b8dbe2a36a8cbc284f2a"
-  integrity sha512-mErXQNGATZhzm++6/kwcTWJVhOzrxO4rB2MS9VnDDvTLtKAXvEBAiiZpXpdKR0NOuxknjbE3oBziiZsutJG6Iw==
+"@medusajs/medusa@1.12.1-snapshot-20230605161303":
+  version "1.12.1-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/medusa/-/medusa-1.12.1-snapshot-20230605161303.tgz#00e60942c91f59e4183b66d4e1c887005e25cb4d"
+  integrity sha512-Mljt367yXKbHVsn3e27TjlSPVZHaxS0fLWxFMmsW5DLVdbZOW+uN6dnoI69BYaCra02s8C+bK7GRHmUOzNhLEg==
   dependencies:
-    "@medusajs/medusa-cli" "1.3.16-snapshot-20230605145452"
-    "@medusajs/modules-sdk" "1.8.8-snapshot-20230605145452"
-    "@medusajs/utils" "1.9.1-snapshot-20230605145452"
+    "@medusajs/medusa-cli" "1.3.16-snapshot-20230605161303"
+    "@medusajs/modules-sdk" "1.8.8-snapshot-20230605161303"
+    "@medusajs/utils" "1.9.1-snapshot-20230605161303"
     "@types/ioredis" "^4.28.10"
     "@types/lodash" "^4.14.191"
     awilix "^8.0.0"
@@ -418,37 +418,37 @@
     uuid "^9.0.0"
     winston "^3.8.2"
 
-"@medusajs/modules-sdk@1.8.8-snapshot-20230605145452":
-  version "1.8.8-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/modules-sdk/-/modules-sdk-1.8.8-snapshot-20230605145452.tgz#69108cf1a674d33a688b6d48ec31bfa9fd905c0c"
-  integrity sha512-cjvZuOa1J6H8PghKLDqc5107/PlY8LoH+0HLEUcmLSu/tsQaGb828tezKC+TUbKokzSX5x7L+wzzbxO8em1Mug==
+"@medusajs/modules-sdk@1.8.8-snapshot-20230605161303":
+  version "1.8.8-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/modules-sdk/-/modules-sdk-1.8.8-snapshot-20230605161303.tgz#6d3b7123842daeed81b03fab5b6268552a833a15"
+  integrity sha512-K16KragpgYxcMZocNNF8Kli+EgJK8ICIN9iY6cltWnmmQLxbnaPDY46+AfxM/M0FGSIWY2MJVmzF6FG4OsKohQ==
   dependencies:
-    "@medusajs/types" "1.8.8-snapshot-20230605145452"
-    "@medusajs/utils" "1.9.1-snapshot-20230605145452"
+    "@medusajs/types" "1.8.8-snapshot-20230605161303"
+    "@medusajs/utils" "1.9.1-snapshot-20230605161303"
     awilix "^8.0.0"
     resolve-cwd "^3.0.0"
 
-"@medusajs/product@0.0.2-snapshot-20230605145452":
-  version "0.0.2-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/product/-/product-0.0.2-snapshot-20230605145452.tgz#b5af82ea0b2585a2e3bccf484e3bd9df51c3593c"
-  integrity sha512-d0uWT0AxzOk+PeKFd9teN5cIm+xCQeDn9ZWFK6teJRy5Omn9mdocaaXgt+Bj8WthL32Y/cMpvEuiLE8RW+hGuw==
+"@medusajs/product@0.0.2-snapshot-20230605161303":
+  version "0.0.2-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/product/-/product-0.0.2-snapshot-20230605161303.tgz#9c8285769c70b3b7538fceb5a54d0b5294375fb9"
+  integrity sha512-qDVrryKJHi+vE+y3d0yC/NGOjMf69YJ4c0de5COFkbdiDIi/QW2VZr1ZaVolhfnPl9JeuFwY0Fs5nv3TBmvdpQ==
   dependencies:
-    "@medusajs/modules-sdk" "1.8.8-snapshot-20230605145452"
-    "@medusajs/utils" "1.9.1-snapshot-20230605145452"
+    "@medusajs/modules-sdk" "1.8.8-snapshot-20230605161303"
+    "@medusajs/utils" "1.9.1-snapshot-20230605161303"
     "@mikro-orm/core" "5.7.4"
     "@mikro-orm/migrations" "5.7.4"
     "@mikro-orm/postgresql" "5.7.4"
     awilix "^8.0.0"
 
-"@medusajs/types@1.8.8-snapshot-20230605145452":
-  version "1.8.8-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/types/-/types-1.8.8-snapshot-20230605145452.tgz#084d38d2a1d327633bff64366a16fd4613b42c52"
-  integrity sha512-8jg+NvalNvEwnoRhZ2CCs50CvfftvLD3Adl3LE+5eC7FkyKeTeQD/4Y1g5z41QysvFKA+k3o8osSPPGL+LLZhg==
+"@medusajs/types@1.8.8-snapshot-20230605161303":
+  version "1.8.8-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/types/-/types-1.8.8-snapshot-20230605161303.tgz#7ba6a440b81701927b2ee8784bf4bf0d7da81668"
+  integrity sha512-vH1lVrowUjAneQXLU2rysDMkmKARehz8N2XVVKa0N4Qe+HBPnwtLqhLpnAg1sbSbUn9if1XDJeiWOV9JmbAgZg==
 
-"@medusajs/utils@1.9.1-snapshot-20230605145452":
-  version "1.9.1-snapshot-20230605145452"
-  resolved "https://registry.yarnpkg.com/@medusajs/utils/-/utils-1.9.1-snapshot-20230605145452.tgz#ee11850cd3ba24955ccd613439b2e78d080f33d4"
-  integrity sha512-tSCO/PZnPPoZrEyM58GyVzUIDrDOG63mS33gnNU8Pn0dJcWxqCldL/xEyRqU9kIPEelKPOAi8sp33xfyYos0OA==
+"@medusajs/utils@1.9.1-snapshot-20230605161303":
+  version "1.9.1-snapshot-20230605161303"
+  resolved "https://registry.yarnpkg.com/@medusajs/utils/-/utils-1.9.1-snapshot-20230605161303.tgz#bd900e44df6e1559a1105994dc5e5ad6fb4dadc2"
+  integrity sha512-62UuFULNn/ZDm21yiEXUVau8mkS1wpOM8XgqCwzVjQi6PmkYmTNtR/yS/MVI2maYqJ3zZoAF9vIC/RxRSrNyhw==
   dependencies:
     awilix "^8.0.0"
     ulid "^2.3.0"
