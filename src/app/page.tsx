@@ -15,7 +15,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<PersonalizationData | null>(null);
   const [loadingTime, setLoadingTime] = useState(0);
-  const featuresRef = useRef<HTMLDivElement>(null); // Create a ref for the Features component
+  const featuresRef = useRef<HTMLDivElement>(null);
 
   async function getPersonalizationData(
     countryCode?: string
@@ -62,7 +62,7 @@ export default function Home() {
             data={data}
             loadingTime={loadingTime}
             setCountry={setCountry}
-            scrollToFeatures={scrollToFeatures} // Pass the scrollToFeatures function to the ControlPanel component
+            scrollToFeatures={scrollToFeatures}
           />
         </div>
       </div>
