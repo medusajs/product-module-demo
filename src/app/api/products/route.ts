@@ -87,8 +87,7 @@ async function queryProducts({
 }: {
   continent: string;
 }): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
-  const productService = global.productService;
-  const filters: { handle?: string } = {};
+  const productService = global.productService!;
 
   return await Promise.all([
     productService.list(
@@ -100,10 +99,10 @@ async function queryProducts({
         take: 3,
       }
     ),
-    productService.list(filters, {
+    productService.list({}, {
       relations: ["variants", "categories", "tags"],
       order: { id: "DESC" },
-      take: 18,
+      take: 100,
     }),
   ]);
 }
