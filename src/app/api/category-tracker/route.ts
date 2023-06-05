@@ -18,8 +18,17 @@ export async function POST(request: NextRequest) {
   const userId = request.cookies.get("userId")?.value!;
   await kv.set(userId, userData);
 
-  const response = new NextResponse();
-  response.cookies.set("userId", userId);
+  return new NextResponse();
+}
 
-  return response;
+export async function DELETE(request: NextRequest) {
+  const userData = {
+    categoryId: null,
+    categoryName: null,
+  };
+
+  const userId = request.cookies.get("userId")?.value!;
+  await kv.set(userId, userData);
+
+  return new NextResponse();
 }

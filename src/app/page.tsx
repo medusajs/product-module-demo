@@ -2,7 +2,7 @@
 
 import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Country, PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
 
@@ -15,6 +15,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<PersonalizationData | null>(null);
   const [loadingTime, setLoadingTime] = useState(0);
+  const featuresRef = useRef<HTMLDivElement>(null); // Create a ref for the Features component
 
   async function getPersonalizationData(
     countryCode?: string
@@ -31,6 +32,7 @@ export default function Home() {
     setData(data);
     setLoadingTime(Math.floor(end - start));
     setIsLoading(false);
+    countryCode && scrollToFeatures();
     return data;
   }
 
@@ -42,16 +44,27 @@ export default function Home() {
     getPersonalizationData(country?.code);
   };
 
+  const scrollToFeatures = () => {
+    if (featuresRef.current) {
+      featuresRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <main className="flex flex-col items-center">
       <div className="w-full max-w-7xl flex">
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
-          <Features data={data} isLoading={isLoading} />
+          <div ref={featuresRef}>
+            {" "}
+            {/* Add the ref to the Features component */}
+            <Features data={data} isLoading={isLoading} />
+          </div>
           <ControlPanel
             data={data}
             loadingTime={loadingTime}
             setCountry={setCountry}
+            scrollToFeatures={scrollToFeatures} // Pass the scrollToFeatures function to the ControlPanel component
           />
         </div>
       </div>
