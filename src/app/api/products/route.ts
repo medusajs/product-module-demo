@@ -25,6 +25,7 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
+  // Save instance in global scope to avoid re-init on warm requests
   const productService = (global.productService ??=
     await ProductModuleInitialize());
 
@@ -42,7 +43,9 @@ export async function GET(req: NextRequest) {
     continent,
   });
 
-  await getAndAssignPricesToProducts({ products: allProducts });
+  if (handle) {
+    await getAndAssignPricesToProducts({ products: allProducts });
+  }
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,

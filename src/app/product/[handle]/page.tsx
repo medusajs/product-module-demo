@@ -1,4 +1,4 @@
-import { Details, Divider, Image, Modal } from "@/components";
+import { Details, Image, Modal } from "@/components";
 
 type Props = {
   params: {
@@ -6,9 +6,11 @@ type Props = {
   };
 };
 
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 async function getProduct(handle: string) {
   const res = await fetch(
-    `http://localhost:3000/api/products?handle=${handle}`
+    `${NEXT_PUBLIC_API_URL}/api/products?handle=${handle}`
   ).then((res) => res.json());
 
   const product = res.all_products_section.products[0];
@@ -33,8 +35,6 @@ export default async function ProductModal({ params: { handle } }: Props) {
             <Details product={product} />
           </div>
         </div>
-        <Divider />
-        <div className="py-16"></div>
       </div>
     </Modal>
   );
