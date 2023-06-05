@@ -68,7 +68,7 @@ async function getData(req: NextRequest): Promise<Data> {
   const countryCode: string =
     req.headers.get("x-simulated-country") ??
     req.headers.get("x-vercel-ip-country") ??
-    "NL";
+    "US";
 
   let { name: country, continent } = isoAlpha2Countries[countryCode];
   const continentText = formatContinent(continent);
