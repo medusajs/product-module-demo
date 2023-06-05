@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Notification } from "@/components";
+import { Button } from "@/components";
 import { client } from "@/lib";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { startTransition, useEffect, useState } from "react";
@@ -47,15 +47,27 @@ export default function AddToCart({ product }: Props) {
 
     setAdding(true);
 
-    await addToCart(cookie.cartId, lineItem);
+    try {
+      await addToCart(cookie.cartId, lineItem);
+      showNotification(
+        "success",
+        "Added to shopping bag",
+        `${product.title} is successfully added.`,
+        hideNotification
+      );
+    } catch (e) {
+      let message;
+      if (e instanceof Error) message = e.message;
+      else message = String(e);
+      showNotification(
+        "error",
+        "Error adding to bag",
+        message,
+        hideNotification
+      );
+    }
 
     setAdding(false);
-    showNotification(
-      "success",
-      "Added to shopping bag",
-      `${product.title} is successfully added.`,
-      hideNotification
-    );
 
     startTransition(() => {
       router.refresh();
