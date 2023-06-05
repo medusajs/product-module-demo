@@ -62,7 +62,7 @@ const Modal = ({ children }: Props) => {
               <Tag size="small">esc</Tag>
             </div>
           </div>
-          <div className="w-full flex items-start justify-center py-16 overflow-auto">
+          <div className="w-full flex items-start justify-center py-10 md:py-16 overflow-auto">
             <div className="w-full max-w-7xl h-full">{children}</div>
           </div>
         </div>
