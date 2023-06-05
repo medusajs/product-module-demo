@@ -5,37 +5,60 @@ import { LastClick } from "../icons/lastclick";
 import { ArrowRefresh } from "../icons/arrow-refresh";
 import { Button } from "../common";
 import CountryPicker from "./CountryPicker";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import HoverModal from "./HoverModal";
+import { useRouter } from "next/navigation";
 
 type Props = {
   data: PersonalizationData | null;
   selectedCountry?: string;
   loadingTime: number;
   setCountry: (country: Country | null) => void;
+  scrollToFeatures: () => void;
 };
 
-export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
+async function resetUserData() {
+  await fetch("/api/category-tracker", { method: "DELETE" });
+}
+
+export default function ControlPanel({
+  data,
+  loadingTime,
+  setCountry,
+  scrollToFeatures,
+}: Props) {
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
   const [resetHover, setResetHover] = useState(false);
+
+  const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const reset = () => {
     setCountry(null);
+    resetUserData();
+    scrollToFeatures();
+
+    startTransition(() => {
+      router.refresh();
+    });
   };
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const inputElement = inputRef.current as HTMLInputElement | null;
       const isInputFocused = inputRef.current === document.activeElement;
+      const modifier = e.getModifierState(e.key) || e.metaKey;
 
-      if (e.key === "r" && !isInputFocused) {
+      if (isInputFocused) return;
+
+      if (e.key === "r" && !modifier) {
+        e.preventDefault();
         reset();
       }
 
-      if (e.key === "l") {
+      if (e.key === "l" && !modifier) {
         e.preventDefault();
         setLocationHover(false);
         if (inputElement) {
@@ -124,6 +147,9 @@ export default function ControlPanel({ data, loadingTime, setCountry }: Props) {
             Loading:
           </span>
           {loadingTime}ms
+          <span className="text-labels-xsmall text-subtle-light dark:text-subtle-dark rounded border-solid border border-tag-neutral-light dark:border-tag-neutral-dark bg-tag-neutral-light dark:bg-tag-neutral-dark px-1 ml-1">
+            us-east-1
+          </span>
         </div>
       </div>
     </div>

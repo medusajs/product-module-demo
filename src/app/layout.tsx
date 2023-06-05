@@ -1,5 +1,7 @@
-import { Footer, Nav } from "@/components";
+import { Footer } from "@/components";
+import { Nav } from "@/components/layout/nav";
 import clsx from "clsx";
+import { NotificationProvider } from "@/components/common/notification";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -27,9 +29,11 @@ export default function RootLayout({
       >
         {/* @ts-ignore server component */}
         <Nav />
-        <main className="py-16">{children}</main>
-        {modal}
-        <Footer />
+        <NotificationProvider>
+          <main className="py-16">{children}</main>
+          {modal}
+          <Footer />
+        </NotificationProvider>
       </body>
     </html>
   );
