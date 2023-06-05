@@ -25,10 +25,9 @@ export default function DeleteItemButton({ item }: Props) {
       throw new Error(`Error fetching cart with id ${cartId}`);
     }
 
-    setRemoving(false);
-
     startTransition(() => {
       router.refresh();
+      setRemoving(false);
     });
   }
 
