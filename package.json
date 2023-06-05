@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
-    "@medusajs/medusa": "1.12.1-snapshot-20230605141535",
-    "@medusajs/medusa-js": "6.0.1-snapshot-20230605141535",
+    "@medusajs/medusa": "1.12.1-snapshot-20230605145452",
+    "@medusajs/medusa-js": "6.0.1-snapshot-20230605145452",
     "@medusajs/product": "0.0.2-snapshot-20230605145452",
     "@vercel/kv": "^0.2.1",
     "autoprefixer": "10.4.14",
