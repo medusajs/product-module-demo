@@ -55,8 +55,6 @@ export async function GET(req: NextRequest) {
 }
 
 async function getData(req: NextRequest): Promise<Data> {
-  const handle = req.nextUrl.searchParams.get("handle") ?? undefined;
-
   const userId = req.cookies.get("userId")?.value;
   let categoryId, categoryName;
 
