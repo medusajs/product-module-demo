@@ -1,7 +1,6 @@
 import { Tag } from "@/components/common";
 import clsx from "clsx";
 
-// Create a type Props that accepts the same props as a <a> element
 type Props = React.ComponentProps<"a"> & {
   tag?: string;
 };
