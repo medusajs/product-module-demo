@@ -78,7 +78,7 @@ export default function ControlPanel({
   const { category_name } = data.all_products_section;
 
   return (
-    <div className="flex flex-col justify-center items-center fixed left-0 right-0 bottom-5 z-50">
+    <div className="flex flex-col justify-center items-center fixed left-0 right-0 bottom-5 z-30">
       <div className="flex flex-row justify-center w-fit h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4">
         <div
           onMouseEnter={() => setLocationHover(true)}

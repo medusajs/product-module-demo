@@ -1,14 +1,14 @@
 "use client";
 
-import { createContext, useState, ReactNode, useContext } from "react";
+import { createContext, useState, ReactNode, useContext, ReactElement } from "react";
 import { Notification } from "./";
 
 type NotificationType = "success" | "error";
 
 type NotificationProps = {
   type: NotificationType;
-  title: string;
-  body: string;
+  title: ReactElement | string;
+  body: ReactElement | string;
   showNotification?: boolean;
   onClose: () => void;
 };
@@ -16,8 +16,8 @@ type NotificationProps = {
 type NotificationContextType = {
   showNotification: (
     type: NotificationType,
-    title: string,
-    body: string,
+    title: ReactElement | string,
+    body: ReactElement | string,
     onClose: () => void
   ) => void;
   hideNotification: () => void;
@@ -40,12 +40,12 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
 
   const showNotification = (
     type: NotificationType,
-    title: string,
-    body: string,
+    title: ReactElement | string,
+    body: ReactElement | string,
     onClose: () => void
   ) => {
     setNotification({ type, title, body, onClose });
-    setTimeout(hideNotification, 2500);
+    setTimeout(hideNotification, 3500);
   };
 
   const hideNotification = () => {
