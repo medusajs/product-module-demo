@@ -13,7 +13,7 @@ type Props = {
 export default function Notification({ type, title, body, onClose }: Props) {
   return (
     <div className="fixed w-screen h-screen z-[9999]">
-      <div className="fixed h-fit w-fit bottom-6 right-6 flex rounded-lg bg-white dark:bg-base-dark dark:shadow-card-hover-dark p-5 animate-fadeIn z-[9999]">
+      <div className="fixed h-fit w-fit bottom-6 md:right-6 right-0 mx-2 sm:mx-0 flex rounded-lg bg-white dark:bg-base-dark dark:shadow-card-hover-dark p-5 animate-fadeIn z-[9999]">
         <div className="flex flex-col">
           <div className="flex flex-row justify-between gap-5">
             {type === "success" ? (
