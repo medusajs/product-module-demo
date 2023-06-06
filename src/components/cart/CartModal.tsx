@@ -53,7 +53,7 @@ export default function CartModal({
                   closed: { translateX: "100%" },
                 }}
                 transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-                className="flex w-full flex-col rounded-lg bg-white text-black dark:bg-base-dark dark:text-white dark:shadow-card-hover-dark md:w-2/5 lg:w-1/3 m-2"
+                className="flex w-full flex-col rounded-lg bg-white text-black dark:bg-base-dark dark:text-white dark:shadow-card-hover-dark md:w-2/5 lg:w-1/3 m-2 md:min-w-[421px]"
               >
                 <div className="flex items-center justify-between border-b border-[#2E2E32] p-8">
                   <h3 className="text-headers-h3 text-base-light dark:text-base-dark">
