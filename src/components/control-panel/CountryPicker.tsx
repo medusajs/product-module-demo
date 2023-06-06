@@ -47,7 +47,7 @@ export default function CountryPicker({
               <Globe />
               <Combobox.Input
                 ref={inputRef}
-                className="w-full border-none py-2 pl-3 pr-10 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark focus:outline-focus focus:border-1 focus:border-focus overflow-hidden text-ellipsis"
+                className="w-full border-none py-2 pl-3 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark focus:outline-focus focus:border-1 focus:border-focus overflow-hidden text-ellipsis"
                 displayValue={(country: string) => country}
                 onChange={(event) => setQuery(event.target.value)}
               ></Combobox.Input>
