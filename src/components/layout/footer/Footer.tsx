@@ -84,7 +84,7 @@ const Footer = () => {
       <div className="max-w-7xl w-full">
         <Divider />
         <div className="pt-24 pb-16 flex flex-col gap-y-16">
-          <div className="max-w-content w-full mx-auto px-5 md:px-9 flex flex-col md:flex-row gap-8 flex-wrap">
+          <div className="max-w-content w-full mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-8 flex-wrap">
             <div className="w-full md:w-auto flex-grow">
               <a
                 href="https://www.medusajs.com"
@@ -103,7 +103,7 @@ const Footer = () => {
               <NewsletterSignup />
             </div>
           </div>
-          <div className="flex items-center justify-between text-labels-regular px-5 md:px-9">
+          <div className="flex items-center justify-between text-labels-regular px-4 md:px-8">
             <span className="text-muted-light dark:text-muted-dark">
               © 2023 MedusaJS, Inc. All rights reserved.
             </span>
