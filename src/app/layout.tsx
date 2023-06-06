@@ -31,7 +31,7 @@ export default function RootLayout({
         {/* @ts-ignore server component */}
         <Nav />
         <NotificationProvider>
-          <main className="py-16 mx-4 xl:mx-0">{children}</main>
+          <main className="py-16 px-4 sm:px-8 xl:px-0">{children}</main>
           {modal}
           <Footer />
         </NotificationProvider>
