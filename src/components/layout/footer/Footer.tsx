@@ -103,7 +103,7 @@ const Footer = () => {
               <NewsletterSignup />
             </div>
           </div>
-          <div className="flex items-center justify-between text-labels-regular">
+          <div className="flex items-center justify-between text-labels-regular px-5 md:px-9">
             <span className="text-muted-light dark:text-muted-dark">
               © 2023 MedusaJS, Inc. All rights reserved.
             </span>
