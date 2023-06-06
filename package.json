@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "product:migrations:run": "node -e 'require(\"dotenv\").config(); require(\"@medusajs/product/dist/scripts/migration-up.js\").runMigrations()'",
-    "product:seed": "node -e 'require(\"dotenv\").config(); require(\"@medusajs/product/dist/scripts/seed.js\").run({ path: \"./seed-data.js\" })'"
+    "product:migrations:run": "cross-env node -e 'require(\"dotenv\").config(); require(\"@medusajs/product/dist/scripts/migration-up.js\").runMigrations()'",
+    "product:seed": "cross-env node -e 'require(\"dotenv\").config(); require(\"@medusajs/product/dist/scripts/seed.js\").run({ path: \"./seed-data.js\" })'"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -35,6 +35,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@types/uuid": "^9.0.1",
+    "cross-env": "^7.0.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "typescript": "5.0.4"

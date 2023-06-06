@@ -22,7 +22,7 @@ export default function Home() {
     countryCode?: string
   ): Promise<PersonalizationData> {
     const options = countryCode
-      ? { headers: { "x-simulated-country": countryCode } }
+      ? { headers: { "x-simulated-country": countryCode, "Cache-control": "no-cache" } }
       : {};
     setIsLoading(true);
     const start = performance.now();
