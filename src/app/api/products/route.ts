@@ -19,9 +19,8 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
-  // Save instance in global scope to avoid re-init on warm requests
-  const productService = (global.productService ??=
-    await ProductModuleInitialize());
+  // If already instaciated, it will return the instance or create a new one
+  const productService = await ProductModuleInitialize();
 
   const { categoryId, categoryName, continent, continentText, country } =
     await getData(req);
@@ -82,7 +81,7 @@ async function queryProducts({
 }: {
   continent: string;
 }): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
-  const productService = global.productService!;
+  const productService = await ProductModuleInitialize();
 
   return await Promise.all([
     productService.list(
