@@ -45,6 +45,10 @@ export async function GET(req: NextRequest) {
       category_name: categoryName,
       products: data.allProducts,
     },
+  }, {
+    headers: {
+      "Cache-Control": "s-maxage=1, stale-while-revalidate",
+    }
   });
 }
 
