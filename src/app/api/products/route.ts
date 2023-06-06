@@ -64,7 +64,7 @@ async function getData(req: NextRequest): Promise<Data> {
   }
 
   const countryCode: string =
-    req.headers.get("x-simulated-country") ??
+    req.nextUrl.searchParams.get("countryCode") ??
     req.headers.get("x-vercel-ip-country") ??
     "US";
 
