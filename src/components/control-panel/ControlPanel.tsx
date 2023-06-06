@@ -87,7 +87,7 @@ export default function ControlPanel({
         >
           {locationHover && (
             <HoverModal
-              className="flex flex-row items-center justify-between gap-x-2 w-auto"
+              className="sm:flex flex-row items-center justify-between gap-x-2 w-auto"
               tag="L"
             >
               Location
@@ -105,7 +105,7 @@ export default function ControlPanel({
           onMouseLeave={() => setRecentItemHover(false)}
         >
           {recentItemHover && (
-            <HoverModal className="w-[380px] text-center">
+            <HoverModal className="sm:block w-[380px] text-center">
               Most recently viewed product category:
               <span className="text-base-light dark:text-base-dark">
                 {" "}
@@ -131,7 +131,7 @@ export default function ControlPanel({
         >
           {resetHover && (
             <HoverModal
-              className="flex flex-row items-center justify-between gap-x-2 w-auto"
+              className="sm:flex flex-row items-center justify-between gap-x-2 w-auto"
               tag="R"
             >
               Reset
