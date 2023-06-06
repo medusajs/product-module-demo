@@ -75,7 +75,7 @@ export const theme = {
       "labels-small": ["13px", "20px"],
       "labels-xsmall": ["12px", "20px"],
       "body-regular": ["14px", "24px"],
-      "headers-h2": ["42px", "44px"],
+      "headers-h2": ["32px", "44px"],
       "headers-h3": ["24px", "32px"],
     },
     keyframes: {
