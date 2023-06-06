@@ -45,10 +45,6 @@ export async function GET(req: NextRequest) {
       category_name: categoryName,
       products: data.allProducts,
     },
-  }, {
-    headers: {
-      "Cache-Control": "s-maxage=1, stale-while-revalidate",
-    }
   });
 }
 
@@ -64,7 +60,7 @@ async function getData(req: NextRequest): Promise<Data> {
   }
 
   const countryCode: string =
-    req.nextUrl.searchParams.get("countryCode") ??
+    req.headers.get("x-simulated-country") ??
     req.headers.get("x-vercel-ip-country") ??
     "US";
 

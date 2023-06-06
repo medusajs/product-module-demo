@@ -22,13 +22,11 @@ export default function Home() {
     countryCode?: string
   ): Promise<PersonalizationData> {
     const options = countryCode
-      ? new URLSearchParams({
-          countryCode,
-      })
-      : new URLSearchParams();
+      ? { headers: { "x-simulated-country": countryCode } }
+      : {};
     setIsLoading(true);
     const start = performance.now();
-    const data = await fetch("/api/products?" + options.toString()).then((res) =>
+    const data = await fetch("/api/products", options).then((res) =>
       res.json()
     );
     const end = performance.now();
