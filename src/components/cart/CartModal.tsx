@@ -78,8 +78,8 @@ export default function CartModal({
                   </div>
                 ) : null}
                 {cart.items?.length !== 0 ? (
-                  <div className="flex flex-col justify-between overflow-hidden h-full">
-                    <div className="overflow-auto flex-grow">
+                  <div className="flex flex-col overflow-hidden h-full">
+                    <div className="overflow-auto">
                       <ul className="flex flex-col w-full">
                         {cart.items.map((item, i) => {
                           const merchandiseUrl = `/product/${item.variant.product.handle}`;
@@ -131,7 +131,7 @@ export default function CartModal({
                         })}
                       </ul>
                     </div>
-                    <div className="flex flex-col h-fit justify-between">
+                    <div className="flex flex-grow flex-col h-fit justify-between">
                       <div className="text-labels-regular text-subtle-light dark:text-subtle-dark border-t border-[#2E2E32] font-medium px-8 py-6">
                         <div className="mb-2 flex items-center justify-between">
                           <p>Subtotal</p>
