@@ -7,6 +7,9 @@ export const content = [
   "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 ];
+
+export const darkMode = "class";
+
 export const theme = {
   extend: {
     boxShadow: {
