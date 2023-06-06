@@ -26,7 +26,9 @@ const Hero = () => {
           </span>
           product modules for personalization.
         </div>
-        <Button variant="inverted">Read More</Button>
+        <Button variant="inverted" className="px-[11px] py-[5px]">
+          Read More
+        </Button>
       </div>
     </div>
   );
