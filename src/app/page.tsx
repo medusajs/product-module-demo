@@ -7,6 +7,8 @@ type Props = {
   data: PersonalizationData | null;
 };
 
+const baseURL = process.env.NEXT_PUBLIC_API_URL
+
 export default async function Home({searchParams: { cc }}) {
   const start = performance.now();
 
@@ -14,7 +16,7 @@ export default async function Home({searchParams: { cc }}) {
       ? { headers: { "x-simulated-country": cc } }
       : {};
 
-  const data = await (await fetch("http://localhost:3000/api/products", options)).json()
+  const data = await (await fetch(`${baseURL}/api/products`, options)).json()
 
   // TODO: add fallback UI if error in the API call
 
