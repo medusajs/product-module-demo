@@ -67,7 +67,6 @@ export default function Home() {
             data={data}
             loadingTime={loadingTime}
             setCountry={setCountry}
-            scrollToFeatures={scrollToFeatures}
           />
         </div>
       </div>
