@@ -27,7 +27,7 @@ const Hero = () => {
           product modules for personalization.
         </div>
         <Button variant="inverted" className="px-[11px] py-[5px]">
-          Read More
+          <a href="/about">Read More</a>
         </Button>
       </div>
     </div>
