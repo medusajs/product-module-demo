@@ -3,27 +3,17 @@ import { cookies } from "next/headers";
 import CartButton from "./CartButton";
 
 async function createCart() {
-  const region = await client.regions.list().then((res) => res.regions[0]);
+  const region = await client.regions.list({
+    limit: 1,
+  }).then((res) => res.regions[0]);
 
-  const res = await client.carts.create({ region_id: region.id ?? undefined });
-  const cart = res.cart;
-
-  if (!cart) {
-    throw new Error(`Cart not created`);
-  }
-
-  return cart;
+  const res = await client.carts.create({ region_id: region.id });
+  return res.cart;
 }
 
 async function getCart(cartId: string) {
   const res = await client.carts.retrieve(cartId);
-  const cart = res.cart;
-
-  if (!cart) {
-    throw new Error(`Cart with id ${cartId} not found`);
-  }
-
-  return cart;
+  return res.cart;
 }
 
 export default async function Cart() {
@@ -32,13 +22,8 @@ export default async function Cart() {
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId);
-  }
-
-  // If the `cartId` from the cookie is not set or the cart is empty
-  // (old carts becomes `null` when you checkout), then get a new `cartId`
-  //  and re-fetch the cart.
-  if (!cartId || !cart) {
+    cart = await getCart(cartId) ?? await createCart();
+  } else {
     cart = await createCart();
     cartIdUpdated = true;
   }
