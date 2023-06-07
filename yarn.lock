@@ -555,17 +555,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@medusajs/product@npm:0.0.2-snapshot-20230606091839":
-  version: 0.0.2-snapshot-20230606091839
-  resolution: "@medusajs/product@npm:0.0.2-snapshot-20230606091839"
+"@medusajs/modules-sdk@npm:1.8.8-snapshot-20230606124544":
+  version: 1.8.8-snapshot-20230606124544
+  resolution: "@medusajs/modules-sdk@npm:1.8.8-snapshot-20230606124544"
   dependencies:
-    "@medusajs/modules-sdk": 1.8.8-snapshot-20230606091839
-    "@medusajs/utils": 1.9.1-snapshot-20230606091839
+    "@medusajs/types": 1.8.8-snapshot-20230606124544
+    "@medusajs/utils": 1.9.1-snapshot-20230606124544
+    awilix: ^8.0.0
+    resolve-cwd: ^3.0.0
+  checksum: f3b7c76650832bcfcc96f878d85791d44510ea3cf3af5ef32840fab5565e0bb12ac39f1c333e5330f20793ab646b83b141bded063b8ef4a6c18954e73e22fb0e
+  languageName: node
+  linkType: hard
+
+"@medusajs/product@npm:0.0.2-snapshot-20230606124544":
+  version: 0.0.2-snapshot-20230606124544
+  resolution: "@medusajs/product@npm:0.0.2-snapshot-20230606124544"
+  dependencies:
+    "@medusajs/modules-sdk": 1.8.8-snapshot-20230606124544
+    "@medusajs/types": 1.8.8-snapshot-20230606124544
+    "@medusajs/utils": 1.9.1-snapshot-20230606124544
     "@mikro-orm/core": 5.7.4
     "@mikro-orm/migrations": 5.7.4
     "@mikro-orm/postgresql": 5.7.4
     awilix: ^8.0.0
-  checksum: 9581471491e4087de96aa35f98698a3a9ee91a5315800eb6eba99337b169e11e54ee8ed8ce8afd50aa4c9a362fdd44b386738146885407695da07a28cc2a6151
+    lodash: ^4.17.21
+  checksum: cb25e98d40c917b434861250008321abb72d876e0880a982e6bf4dfa4a86ee4a151b9fa1016aa92fa35bb7c707b3f6c83fa0c97a14d59c61af2a5c4b9006782c
   languageName: node
   linkType: hard
 
@@ -576,6 +590,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@medusajs/types@npm:1.8.8-snapshot-20230606124544":
+  version: 1.8.8-snapshot-20230606124544
+  resolution: "@medusajs/types@npm:1.8.8-snapshot-20230606124544"
+  checksum: f8d2e44e99de93cc5067c84f6399875b2a4a6abfd4e6eabecfa26c889d2c392d759a394ca81a337401906840e16379613eda47ad2ca28b8fea91054b493eaa01
+  languageName: node
+  linkType: hard
+
 "@medusajs/utils@npm:1.9.1-snapshot-20230606091839":
   version: 1.9.1-snapshot-20230606091839
   resolution: "@medusajs/utils@npm:1.9.1-snapshot-20230606091839"
@@ -583,6 +604,16 @@ __metadata:
     awilix: ^8.0.0
     ulid: ^2.3.0
   checksum: 9d387875af4e3fa55767bf1a167bb416a8a7eb045ea0acce96638f83df7617fe886324cbf7e38687867ccf2c1394ccf405cd662a9e7f500c7fde6c71eda34ed1
+  languageName: node
+  linkType: hard
+
+"@medusajs/utils@npm:1.9.1-snapshot-20230606124544":
+  version: 1.9.1-snapshot-20230606124544
+  resolution: "@medusajs/utils@npm:1.9.1-snapshot-20230606124544"
+  dependencies:
+    awilix: ^8.0.0
+    ulid: ^2.3.0
+  checksum: f813a1710fba69f9becb0a29b91cb2b4410e70bbf9b0006ff30ed993f1cc9279d667448ccc2e2f9c8b6451d981a163f1ecffb4fb75d4d7af4d46c59a1b40e7d7
   languageName: node
   linkType: hard
 
@@ -7266,7 +7297,7 @@ __metadata:
     "@headlessui/react": ^1.7.14
     "@medusajs/medusa": 1.12.1-snapshot-20230606091839
     "@medusajs/medusa-js": 6.0.1-snapshot-20230606091839
-    "@medusajs/product": 0.0.2-snapshot-20230606091839
+    "@medusajs/product": 0.0.2-snapshot-20230606124544
     "@medusajs/types": 1.8.8-snapshot-20230606091839
     "@mikro-orm/migrations": 5.7.4
     "@types/node": 20.1.0
