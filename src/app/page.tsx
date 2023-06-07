@@ -1,12 +1,10 @@
 import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
-import { Country, PersonalizationData } from "@/types";
+import {  PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
-import clsx from "clsx";
 
 type Props = {
   data: PersonalizationData | null;
-  isLoading: boolean;
 };
 
 export default async function Home({searchParams: { cc }}) {
@@ -18,31 +16,22 @@ export default async function Home({searchParams: { cc }}) {
 
   const data = await (await fetch("http://localhost:3000/api/products", options)).json()
 
+  // TODO: add fallback UI if error in the API call
+
   const end = performance.now();
   const loadingTime = Math.floor(end - start)
 
   console.log("render", {data, cc})
-
-  const setCountry = async (country: Country | null) => {
-    // await getPersonalizationData(country?.code);
-  };
-
-  const scrollToFeatures = () => {
-    // if (featuresRef.current) {
-    //   featuresRef.current.scrollIntoView({ behavior: "smooth" });
-    // }
-  };
 
   return (
     <main className="flex flex-col items-center">
       <div className="w-full max-w-7xl flex">
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
-          <Features data={data} isLoading={false} />
+          <Features data={data} />
           <ControlPanel
             data={data}
             loadingTime={loadingTime}
-            // setCountry={setCountry}
           />
         </div>
       </div>
@@ -50,21 +39,19 @@ export default async function Home({searchParams: { cc }}) {
   );
 }
 
-function Features({ data, isLoading }: Props) {
-  if (!isLoading && !data) return <>No data</>;
-
+function Features({ data }: Props) {
   return (
     <div className="flex flex-col gap-y-16">
       <Feature products={data?.personalized_section.products!} max={3}>
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-headers-h3">
             Products for visitors from{" "}
-            <span className={clsx(isLoading && "blur")}>
-              {isLoading ? "United States" : data?.personalized_section.country}
+            <span>
+              {data?.personalized_section.country}
             </span>
           </h3>
         </div>
-        <p className={clsx(isLoading && "blur", "text-subtle-dark")}>
+        <p className="text-subtle-dark">
           We have registered that you are browsing from{" "}
           <span className="text-base-light dark:text-base-dark">
             {data?.personalized_section.continent_text.article}{" "}
@@ -81,7 +68,7 @@ function Features({ data, isLoading }: Props) {
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-headers-h3">All products</h3>
         </div>
-        <p className={clsx(isLoading && "blur", "text-subtle-dark")}>
+        <p className="text-subtle-dark">
           {data?.all_products_section.category_name ? (
             <>
               Because the last product you visited was from the{" "}
