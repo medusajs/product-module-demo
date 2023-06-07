@@ -14,7 +14,6 @@ type Props = {
   selectedCountry?: string;
   loadingTime: number;
   setCountry: (country: Country | null) => void;
-  scrollToFeatures: () => void;
 };
 
 async function resetUserData() {
@@ -25,7 +24,6 @@ export default function ControlPanel({
   data,
   loadingTime,
   setCountry,
-  scrollToFeatures,
 }: Props) {
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
@@ -41,7 +39,7 @@ export default function ControlPanel({
 
     startTransition(() => {
       router.refresh();
-      scrollToFeatures();
+      window.scrollTo(0, 0);
     });
   };
 
@@ -96,7 +94,6 @@ export default function ControlPanel({
           <CountryPicker
             country={country}
             setCountry={setCountry}
-            inputRef={inputRef}
           />
         </div>
         <div
@@ -116,7 +113,7 @@ export default function ControlPanel({
               We use this to personalize the product grid.
             </HoverModal>
           )}
-          <Button>
+          <Button className="cursor-help">
             <LastClick />
             <span className="text-subtle-light dark:text-subtle-dark">
               Last clicked:
@@ -144,7 +141,7 @@ export default function ControlPanel({
         </div>
         <div className="flex flex-row items-center gap-2 border-solid border-l border-neutral-button-light dark:border-neutral-button-dark px-3 py-0 h-fit self-center">
           <span className="text-subtle-light dark:text-subtle-dark">
-            Loading:
+            Response time:
           </span>
           {loadingTime}ms
           <span className="text-labels-xsmall text-subtle-light dark:text-subtle-dark rounded border-solid border border-tag-neutral-light dark:border-tag-neutral-dark bg-tag-neutral-light dark:bg-tag-neutral-dark px-1 ml-1">
