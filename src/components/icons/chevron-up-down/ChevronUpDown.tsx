@@ -11,7 +11,7 @@ const ChevronUpDown = (props: Props) => (
   >
     <path
       d="M6.5 12.75L10.25 16.5L14 12.75M6.5 6.75L10.25 3L14 6.75"
-      stroke="#706F78"
+      stroke={props.stroke || "#706F78"}
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"

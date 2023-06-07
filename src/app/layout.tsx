@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { Footer } from "@/components";
 import { Nav } from "@/components/layout/nav";
 import clsx from "clsx";
@@ -16,11 +17,12 @@ export default function RootLayout({
   children,
   modal,
 }: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
+  children: ReactNode;
+  modal: ReactNode;
 }) {
   return (
     <html lang="en" className="dark">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       <body
         className={clsx(
           inter.className,
@@ -30,7 +32,7 @@ export default function RootLayout({
         {/* @ts-ignore server component */}
         <Nav />
         <NotificationProvider>
-          <main className="py-16 mx-4 xl:mx-0">{children}</main>
+          <main className="py-16 px-4 sm:px-8 xl:px-0">{children}</main>
           {modal}
           <Footer />
         </NotificationProvider>

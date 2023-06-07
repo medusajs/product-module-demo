@@ -12,7 +12,7 @@ const Thumbnail = ({ thumbnail, alt = "" }: Props) => {
         <p>View Product</p>
       </div>
       {thumbnail && (
-        <div className="absolute inset-0 group-hover/card:blur-[2px] transition-transform ease-linear duration-300">
+        <div className="absolute inset-0 group-hover/card:blur-[2px] group-hover/card:scale-105 transition-transform ease-linear duration-300">
           <Image
             src={thumbnail}
             alt={alt}
