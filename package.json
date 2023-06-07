@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "product:migrations:run": "cross-env node -e 'require(\"dotenv\").config(); require(\"@medusajs/product/dist/scripts/migration-up.js\").runMigrations()'",
-    "product:seed": "cross-env node -e 'require(\"dotenv\").config(); require(\"@medusajs/product/dist/scripts/seed.js\").run({ path: \"./seed-data.js\" })'"
+    "product:migrations:run": "cross-env node node_modules/@medusajs/product/dist/scripts/bin/run-migration-up.js",
+    "product:seed": "cross-env node node_modules/@medusajs/product/dist/scripts/bin/run-seed.js ./seed-data.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
