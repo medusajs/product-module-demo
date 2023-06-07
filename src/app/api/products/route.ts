@@ -34,6 +34,9 @@ export async function GET(req: NextRequest) {
     [personalizedProducts, allProducts]
   ] = await queryProducts(req, continent);
 
+  console.log("personalizedProducts", personalizedProducts)
+  console.log("allProducts", allProducts)
+
   const end = performance.now()
   console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
 
@@ -62,7 +65,7 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
   const userId = req.cookies.get("userId")?.value;
   let categoryId, categoryName;
 
-  const [userData, productsData] = await Promise.all([
+  const [userData, ...productsData] = await Promise.all([
     userId ? kv.get<UserData>(userId) : Promise.resolve({} as UserData),
     productService.list(
       {
@@ -94,64 +97,6 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
     productsData
   ]
 }
-
-/*async function getKvData(req: NextRequest): Promise<Data> {
-  const now = performance.now()
-
-  try {
-    const userId = req.cookies.get("userId")?.value;
-    let categoryId, categoryName;
-
-    if (userId) {
-      const userData = ((await kv.get(userId)) ?? {}) as UserData;
-
-      categoryId = userData.categoryId;
-      categoryName = userData.categoryName;
-    }
-
-    return {
-      categoryId,
-      categoryName,
-    };
-  } finally {
-    const end = performance.now()
-    console.log(`[API] getKvData took ${end - now}ms`)
-  }
-}
-
-async function queryProducts({
-  continent,
-}: {
-  continent: string;
-}): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
-  const productService = await ProductModuleInitialize();
-
-  const now = performance.now()
-  try {
-    return await Promise.all([
-      productService.list(
-        {
-          tags: { value: [continent] },
-        },
-        {
-          select: ["id"],
-          take: 3,
-        }
-      ),
-      productService.list(
-        {},
-        {
-          relations: ["variants", "categories", "tags"],
-          order: { id: "DESC" },
-          take: 100,
-        }
-      ),
-    ]);
-  } finally {
-    const end = performance.now()
-    console.log(`[API] queryProducts took ${end - now}ms`)
-  }
-}*/
 
 function orderProductByCategoryIdFirst({
   products,
