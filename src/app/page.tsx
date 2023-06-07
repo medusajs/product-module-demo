@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Country, PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
 import clsx from "clsx";
+import {GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 type Props = {
   data: PersonalizationData | null;
@@ -20,26 +21,31 @@ export default function Home() {
 
   async function getPersonalizationData(
     countryCode?: string
-  ): Promise<PersonalizationData> {
+  ): Promise<void> {
     const options = countryCode
       ? { headers: { "x-simulated-country": countryCode } }
       : {};
+
     setIsLoading(true);
+
     const start = performance.now();
-    const data = await fetch("/api/products", options).then((res) =>
-      res.json()
-    );
-    const end = performance.now();
+    let end: number = 0;
+
+    const data = await fetch("/api/products", options)
+    .then((res) => {
+      end = performance.now();
+      return res;
+    }).then((res) => res.json());
+
     setData(data);
     setLoadingTime(Math.floor(end - start));
     setIsLoading(false);
     countryCode && scrollToFeatures();
-    return data;
   }
 
-  useEffect(() => {
+  useEffect( () => {
     getPersonalizationData();
-  }, []);
+  }, [])
 
   const setCountry = async (country: Country | null) => {
     await getPersonalizationData(country?.code);
