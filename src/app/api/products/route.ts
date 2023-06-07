@@ -13,21 +13,29 @@ declare global {
 type Data = {
   categoryId?: string;
   categoryName?: string;
-  continent: string;
-  continentText: { article: string; name: string };
-  country: string;
 };
 
 export async function GET(req: NextRequest) {
   // If already instaciated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
-  const { categoryId, categoryName, continent, continentText, country } =
-    await getData(req);
+  const countryCode: string =
+    req.headers.get("x-simulated-country") ??
+    req.headers.get("x-vercel-ip-country") ??
+    "US";
 
-  let [personalizedProducts, allProducts] = await queryProducts({
-    continent,
-  });
+  const { name: country, continent } = isoAlpha2Countries[countryCode];
+  const continentText = formatContinent(continent);
+
+  const now = performance.now()
+
+  const [
+    { categoryId, categoryName },
+    [personalizedProducts, allProducts]
+  ] = await queryProducts(req, continent);
+
+  const end = performance.now()
+  console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
@@ -45,45 +53,17 @@ export async function GET(req: NextRequest) {
       category_name: categoryName,
       products: data.allProducts,
     },
-  });
+  })
 }
 
-async function getData(req: NextRequest): Promise<Data> {
+async function queryProducts(req: NextRequest, continent: string): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
+  const productService = await ProductModuleInitialize();
+
   const userId = req.cookies.get("userId")?.value;
   let categoryId, categoryName;
 
-  if (userId) {
-    const userData = ((await kv.get(userId)) ?? {}) as UserData;
-
-    categoryId = userData.categoryId;
-    categoryName = userData.categoryName;
-  }
-
-  const countryCode: string =
-    req.headers.get("x-simulated-country") ??
-    req.headers.get("x-vercel-ip-country") ??
-    "US";
-
-  let { name: country, continent } = isoAlpha2Countries[countryCode];
-  const continentText = formatContinent(continent);
-
-  return {
-    country,
-    categoryId,
-    categoryName,
-    continent,
-    continentText,
-  };
-}
-
-async function queryProducts({
-  continent,
-}: {
-  continent: string;
-}): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
-  const productService = await ProductModuleInitialize();
-
-  return await Promise.all([
+  const [userData, ...productsData] = await Promise.all([
+    userId ? kv.get<UserData>(userId) : Promise.resolve({} as UserData),
     productService.list(
       {
         tags: { value: [continent] },
@@ -101,7 +81,18 @@ async function queryProducts({
         take: 100,
       }
     ),
-  ]);
+  ])
+
+  categoryId = userData?.categoryId;
+  categoryName = userData?.categoryName;
+
+  return [
+    {
+      categoryId,
+      categoryName,
+    },
+    productsData
+  ]
 }
 
 function orderProductByCategoryIdFirst({
