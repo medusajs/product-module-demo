@@ -56,10 +56,6 @@ export async function GET(req: NextRequest) {
       category_name: categoryName,
       products: data.allProducts,
     },
-  }, {
-    headers: {
-      "Cache-control": "max-age=604800, must-revalidate"
-    }
   })
 }
 
