@@ -29,15 +29,10 @@ export async function GET(req: NextRequest) {
 
   const now = performance.now()
 
-  let [
-    [personalizedProducts, allProducts],
-    { categoryId, categoryName }
-  ] = await Promise.all([
-    await queryProducts({
-      continent,
-    }),
-    await getKvData(req)
-  ])
+  const [
+    { categoryId, categoryName },
+    [personalizedProducts, allProducts]
+  ] = await queryProducts(req, continentText);
 
   const end = performance.now()
   console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
@@ -61,7 +56,46 @@ export async function GET(req: NextRequest) {
   })
 }
 
-async function getKvData(req: NextRequest): Promise<Data> {
+export async function queryProducts(req: NextRequest, continent: { name:string, article:string }): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
+  const productService = await ProductModuleInitialize();
+
+  const userId = req.cookies.get("userId")?.value;
+  let categoryId, categoryName;
+
+  const [userData, productsData] = await Promise.all([
+    userId ? kv.get<UserData>(userId) : Promise.resolve({} as UserData),
+    productService.list(
+      {
+        tags: { value: [continent] },
+      },
+      {
+        select: ["id"],
+        take: 3,
+      }
+    ),
+    productService.list(
+      {},
+      {
+        relations: ["variants", "categories", "tags"],
+        order: { id: "DESC" },
+        take: 100,
+      }
+    ),
+  ])
+
+  categoryId = userData?.categoryId;
+  categoryName = userData?.categoryName;
+
+  return [
+    {
+      categoryId,
+      categoryName,
+    },
+    productsData
+  ]
+}
+
+/*async function getKvData(req: NextRequest): Promise<Data> {
   const now = performance.now()
 
   try {
@@ -117,7 +151,7 @@ async function queryProducts({
     const end = performance.now()
     console.log(`[API] queryProducts took ${end - now}ms`)
   }
-}
+}*/
 
 function orderProductByCategoryIdFirst({
   products,
