@@ -12,4 +12,6 @@ export * from "./checkmark";
 export * from "./lastclick";
 export * from "./arrow-refresh";
 export * from "./globe";
+export * from "./medusa";
+export * from "./nextjs";
 export * from "./chevron-up-down";
