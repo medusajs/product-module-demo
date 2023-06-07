@@ -1,8 +1,5 @@
-"use client";
-
 import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
-import { useEffect, useRef, useState } from "react";
 import { Country, PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
 import clsx from "clsx";
@@ -12,47 +9,28 @@ type Props = {
   isLoading: boolean;
 };
 
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<PersonalizationData | null>(null);
-  const [loadingTime, setLoadingTime] = useState(0);
-  const featuresRef = useRef<HTMLDivElement>(null);
+export default async function Home({searchParams: { cc }}) {
+  const start = performance.now();
 
-  async function getPersonalizationData(countryCode?: string): Promise<void> {
-    const options = countryCode
-      ? { headers: { "x-simulated-country": countryCode } }
+  const options = cc
+      ? { headers: { "x-simulated-country": cc } }
       : {};
 
-    setIsLoading(true);
+  const data = await (await fetch("http://localhost:3000/api/products", options)).json()
 
-    const start = performance.now();
-    let end: number = 0;
+  const end = performance.now();
+  const loadingTime = Math.floor(end - start)
 
-    const data = await fetch("/api/products", options)
-      .then((res) => {
-        end = performance.now();
-        return res;
-      })
-      .then((res) => res.json());
-
-    setData(data);
-    setLoadingTime(Math.floor(end - start));
-    setIsLoading(false);
-    countryCode && scrollToFeatures();
-  }
-
-  useEffect(() => {
-    getPersonalizationData();
-  }, []);
+  console.log("render", {data, cc})
 
   const setCountry = async (country: Country | null) => {
-    await getPersonalizationData(country?.code);
+    // await getPersonalizationData(country?.code);
   };
 
   const scrollToFeatures = () => {
-    if (featuresRef.current) {
-      featuresRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    // if (featuresRef.current) {
+    //   featuresRef.current.scrollIntoView({ behavior: "smooth" });
+    // }
   };
 
   return (
@@ -60,13 +38,11 @@ export default function Home() {
       <div className="w-full max-w-7xl flex">
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
-          <div ref={featuresRef}>
-            <Features data={data} isLoading={isLoading} />
-          </div>
+          <Features data={data} isLoading={false} />
           <ControlPanel
             data={data}
             loadingTime={loadingTime}
-            setCountry={setCountry}
+            // setCountry={setCountry}
           />
         </div>
       </div>
