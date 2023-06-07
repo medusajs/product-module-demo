@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { Footer } from "@/components";
 import { Nav } from "@/components/layout/nav";
 import clsx from "clsx";
@@ -16,8 +17,8 @@ export default function RootLayout({
   children,
   modal,
 }: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
+  children: ReactNode;
+  modal: ReactNode;
 }) {
   return (
     <html lang="en" className="dark">
