@@ -2,8 +2,7 @@
 const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: [
-      "@mikro-orm/core",
-      "@mikro-orm/knex",
+      "@medusajs/product",
     ],
   },
   images: {
