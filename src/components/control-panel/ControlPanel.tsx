@@ -143,7 +143,7 @@ export default function ControlPanel({
           </Button>
         </div>
         <div className="flex flex-row items-center gap-2 border-solid border-l border-neutral-button-light dark:border-neutral-button-dark px-3 py-0 h-fit self-center">
-          <span className="text-subtle-light dark:text-subtle-dark ">
+          <span className="text-subtle-light dark:text-subtle-dark">
             Loading:
           </span>
           {loadingTime}ms

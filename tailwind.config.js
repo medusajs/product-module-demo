@@ -17,6 +17,8 @@ export const theme = {
         "0px 0px 0px 1px rgba(255, 255, 255, 0.1), 0px 1px 2px -1px rgba(255, 255, 255, 0.16), 0px 2px 8px 0px rgba(0, 0, 0, 0.32)",
       "card-hover-light":
         "0px 0px 0px 1px rgba(17, 24, 28, 0.08), 0px 1px 2px -1px rgba(17, 24, 28, 0.08), 0px 2px 8px 0px rgba(17, 24, 28, 0.1)",
+      "card-rest-dark":
+        "0px 0px 0px 1px rgba(255, 255, 255, 0.1), 0px 1px 2px -1px rgba(255, 255, 255, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.32);",
     },
     backgroundColor: {
       "base-dark": "#1C1C1C",
@@ -59,6 +61,7 @@ export const theme = {
       "tag-neutral-light": "#687076",
       "tag-blue-dark": "#52A9FF",
       "tag-blue-light": "#006ADC",
+      "tag-purple": "#9E8CFC",
       "icon-base-dark": "#EDEDEF",
       "icon-base-light": "#11181C",
       "icon-subtle-dark": "#7E7D86",
@@ -77,6 +80,7 @@ export const theme = {
       "body-regular": ["14px", "24px"],
       "headers-h2": ["32px", "44px"],
       "headers-h3": ["24px", "32px"],
+      "headers-h4": ["18px", "28px"],
     },
     keyframes: {
       fadeIn: {
