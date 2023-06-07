@@ -22,7 +22,7 @@ export default async function Cart() {
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId) ?? await createCart();
+    cart = await getCart(cartId);
   } else {
     cart = await createCart();
     cartIdUpdated = true;
