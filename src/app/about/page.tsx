@@ -42,9 +42,9 @@ export default async function AboutModal() {
           </h4>
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
             This demo showcases our Product Module running in a serverless
-            Next.js function. In the demo, we're using the Product Module to
-            personalize the storefront in real time based on the user location
-            and behavior.
+            Next.js function. In the demo, we&apos;re using the Product Module
+            to personalize the storefront in real time based on the user
+            location and behavior.
           </p>
           <h4 className="text-headers-h4 text-base-light dark:text-base-dark">
             What are Medusa Modules?
@@ -52,17 +52,17 @@ export default async function AboutModal() {
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
             Modules are packages with self-contained commerce logic, promoting
             separation of concerns, maintainability, and reusability. Modules
-            increase Medusa's extensibility, allowing for customization of core
-            commerce logic and composition with other tools. This flexibility
-            allows for greater choice in the tech stack used in conjunction with
-            Medusa.
+            increase Medusa&apos;s extensibility, allowing for customization of
+            core commerce logic and composition with other tools. This
+            flexibility allows for greater choice in the tech stack used in
+            conjunction with Medusa.
           </p>
           <h4 className="text-headers-h4 text-base-light dark:text-base-dark">
             Why run it from a Next.js function?
           </h4>
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
-            Running Medusa's Product Module in a serverless function provides
-            several benefits over hosting a conventional backend:
+            Running Medusa&apos;s Product Module in a serverless function
+            provides several benefits over hosting a conventional backend:
             <ul className="list-disc ml-8 py-4">
               <li>
                 It offers fast response times, making it suitable for use cases
@@ -89,15 +89,15 @@ export default async function AboutModal() {
             location and last viewed products.
             <br className="block mb-2 content-['']" />
             The top part is based on your (simulated) country. It looks up the
-            country's continent and shows all products tagged with that
-            continent. So if you're visiting from France, you'll see European
-            content, and so on.
+            country&apos;s continent and shows all products tagged with that
+            continent. So if you&apos;re visiting from France, you&apos;ll see
+            European content, and so on.
             <br className="block mb-2 content-['']" />
-            The '<em>All products</em>' part will be sorted based on your last
-            viewed product. It uses the product's category and shows all
-            products from that category first. So if you're last viewed product
-            was from the <em>hoodies</em> category, it will show all hoodies on
-            top.
+            The <em>All products</em> part will be sorted based on your last
+            viewed product. It uses the product&apos;s category and shows all
+            products from that category first. So if you&apos;re last viewed
+            product was from the <em>hoodies</em> category, it will show all
+            hoodies on top.
           </p>
 
           <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-12"></div>
@@ -124,7 +124,7 @@ export default async function AboutModal() {
             </CustomListItem>
             <CustomListItem title="User location">
               <span className="text-base-dark text-labels-regular">
-                Get the user's location from the request header.
+                Get the user&apos;s location from the request header.
               </span>
               <p>
                 We use the Vercel country header by default, or overwrite it
@@ -156,11 +156,11 @@ export default async function AboutModal() {
             </CustomListItem>
             <CustomListItem title="Last viewed product">
               <span className="text-base-dark text-labels-regular">
-                Store the user's last viewed category in a Vercel KV store.
+                Store the user&apos;s last viewed category in a Vercel KV store.
               </span>
               <p>
-                When a user clicks a product, we store the product's category
-                data in a KV store.
+                When a user clicks a product, we store the product&apos;s
+                category data in a KV store.
               </p>
               <CodeSnippets
                 label="/api/category-tracker/route.ts"
@@ -178,12 +178,12 @@ export default async function AboutModal() {
             </CustomListItem>
             <CustomListItem title="Personalize products">
               <span className="text-base-dark text-labels-regular">
-                Display all products with the last viewed category's products on
-                top.
+                Display all products with the last viewed category&apos;s
+                products on top.
               </span>
               <p>
-                We grab the user's last viewed category from the KV store and
-                sort all products with that category on top.
+                We grab the user&apos;s last viewed category from the KV store
+                and sort all products with that category on top.
               </p>
               <CodeSnippets
                 label="/api/category-tracker/route.ts"
