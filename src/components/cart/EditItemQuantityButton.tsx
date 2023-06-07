@@ -38,7 +38,7 @@ const EditItemQuantityButton = ({ item }: Props) => {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center cursor-pointer">
       <select
         className="flex flex-row p-1 bg-base-light dark:bg-base-dark text-base-light dark:text-base-dark appearance-none cursor-pointer"
         value={item.quantity}

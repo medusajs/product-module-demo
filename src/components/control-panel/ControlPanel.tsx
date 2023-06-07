@@ -23,7 +23,7 @@ async function resetUserData() {
 export default function ControlPanel({
   data,
   loadingTime,
-  setCountry,
+  // setCountry,
 }: Props) {
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
@@ -34,7 +34,7 @@ export default function ControlPanel({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const reset = async () => {
-    setCountry(null);
+    // setCountry(null);
     await resetUserData();
 
     startTransition(() => {
@@ -93,7 +93,7 @@ export default function ControlPanel({
           )}
           <CountryPicker
             country={country}
-            setCountry={setCountry}
+            setCountry={() => {}}
           />
         </div>
         <div
