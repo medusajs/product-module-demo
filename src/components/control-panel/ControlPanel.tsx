@@ -1,6 +1,6 @@
 "use client";
 
-import { Country, PersonalizationData } from "@/types";
+import { PersonalizationData } from "@/types";
 import { LastClick } from "../icons/lastclick";
 import { ArrowRefresh } from "../icons/arrow-refresh";
 import { Button } from "../common";
@@ -16,7 +16,12 @@ type Props = {
 
 function setQ(q) {
   const searchParams = new URLSearchParams(window.location.search);
-  searchParams.set("cc", q);
+  if (!q) {
+    searchParams.delete("cc");
+  }
+  else {
+    searchParams.set("cc", q);
+  }
   window.location.search = searchParams.toString();
 }
 
@@ -36,7 +41,7 @@ export default function ControlPanel({
 
   const reset = async () => {
     await resetUserData();
-    setQ(null)
+    setQ("")
 
     startTransition(() => {
       window.scrollTo(0, 0);
