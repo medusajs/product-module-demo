@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
   })
 }
 
-export async function queryProducts(req: NextRequest, continent: { name:string, article:string }): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
+async function queryProducts(req: NextRequest, continent: { name:string, article:string }): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
   const productService = await ProductModuleInitialize();
 
   const userId = req.cookies.get("userId")?.value;
