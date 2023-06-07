@@ -6,10 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
 
-declare global {
-  var productService: ProductTypes.IProductService;
-}
-
 type Data = {
   categoryId?: string;
   categoryName?: string;
