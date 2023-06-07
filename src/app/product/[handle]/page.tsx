@@ -42,4 +42,3 @@ export default async function ProductModal({ params: { handle } }: Props) {
     </Modal>
   );
 }
-``;
