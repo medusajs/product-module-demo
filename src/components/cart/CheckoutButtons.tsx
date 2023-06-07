@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Button } from "../common";
 import { useNotifications } from "../common/notification/NotificationProvider";
 
@@ -14,8 +15,8 @@ const CheckoutButtons = () => {
         onClick={() =>
           showNotification(
             "error",
-            "Sorry you can't do that.",
-            "That action isn't part of the demo.",
+            "This action is not part of the demo.",
+            <span>You can learn how to set up payment plugins with Medusa <a className="font-bold cursor-pointer" href="https://docs.medusajs.com/plugins/payment">here</a></span>,
             hideNotification
           )
         }
@@ -28,8 +29,8 @@ const CheckoutButtons = () => {
         onClick={() =>
           showNotification(
             "error",
-            "Sorry you can't do that.",
-            "That action isn't part of the demo.",
+            "This action is not part of the demo.",
+            <span>You can learn how to set up payment plugins with Medusa <a className="font-bold cursor-pointer" href="https://docs.medusajs.com/plugins/payment">here</a></span>,
             hideNotification
           )
         }

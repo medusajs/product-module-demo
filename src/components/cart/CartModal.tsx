@@ -34,7 +34,7 @@ export default function CartModal({
             static
             open={isOpen}
             onClose={onClose}
-            className="relative z-50"
+            className="relative z-40"
           >
             <motion.div
               variants={{
@@ -53,7 +53,7 @@ export default function CartModal({
                   closed: { translateX: "100%" },
                 }}
                 transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-                className="flex w-full flex-col rounded-lg bg-white text-black dark:bg-base-dark dark:text-white dark:shadow-card-hover-dark md:w-2/5 lg:w-1/3 m-2"
+                className="flex w-full flex-col rounded-lg bg-white text-black dark:bg-base-dark dark:text-white dark:shadow-card-hover-dark md:w-2/5 lg:w-1/3 m-2 md:min-w-[421px]"
               >
                 <div className="flex items-center justify-between border-b border-[#2E2E32] p-8">
                   <h3 className="text-headers-h3 text-base-light dark:text-base-dark">
@@ -78,8 +78,8 @@ export default function CartModal({
                   </div>
                 ) : null}
                 {cart.items?.length !== 0 ? (
-                  <div className="flex flex-col justify-between overflow-hidden h-full">
-                    <div className="overflow-auto flex-grow">
+                  <div className="flex flex-col overflow-hidden h-full">
+                    <div className="overflow-auto">
                       <ul className="flex flex-col w-full">
                         {cart.items.map((item, i) => {
                           const merchandiseUrl = `/product/${item.variant.product.handle}`;
@@ -131,7 +131,7 @@ export default function CartModal({
                         })}
                       </ul>
                     </div>
-                    <div className="flex flex-col h-fit justify-between">
+                    <div className="flex flex-grow flex-col h-fit justify-between">
                       <div className="text-labels-regular text-subtle-light dark:text-subtle-dark border-t border-[#2E2E32] font-medium px-8 py-6">
                         <div className="mb-2 flex items-center justify-between">
                           <p>Subtotal</p>
