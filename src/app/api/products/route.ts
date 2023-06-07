@@ -13,38 +13,40 @@ declare global {
 type Data = {
   categoryId?: string;
   categoryName?: string;
-  continent: string;
-  continentText: { article: string; name: string };
-  country: string;
 };
 
 export async function GET(req: NextRequest) {
   // If already instaciated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
-  let now = 0, end = 0
+  const countryCode: string =
+    req.headers.get("x-simulated-country") ??
+    req.headers.get("x-vercel-ip-country") ??
+    "US";
 
-  now = performance.now()
-  const { categoryId, categoryName, continent, continentText, country } =
-    await getData(req);
-  end = performance.now()
-  console.log(`getData took ${end - now} milliseconds.`)
+  const { name: country, continent } = isoAlpha2Countries[countryCode];
+  const continentText = formatContinent(continent);
 
-  now = performance.now()
-  let [personalizedProducts, allProducts] = await queryProducts({
-    continent,
-  });
-  end = performance.now()
-  console.log(`queryProducts took ${end - now} milliseconds.`)
+  const now = performance.now()
 
-  now = performance.now()
+  let [
+    [personalizedProducts, allProducts],
+    { categoryId, categoryName }
+  ] = await Promise.all([
+    await queryProducts({
+      continent,
+    }),
+    await getKvData(req)
+  ])
+
+  const end = performance.now()
+  console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
+
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
     personalizedProducts,
     recentlyVisitedCategoryId: categoryId,
   });
-  end = performance.now()
-  console.log(`orderProductByCategoryIdFirst took ${end - now} milliseconds.`)
 
   return NextResponse.json({
     personalized_section: {
@@ -59,32 +61,28 @@ export async function GET(req: NextRequest) {
   })
 }
 
-async function getData(req: NextRequest): Promise<Data> {
-  const userId = req.cookies.get("userId")?.value;
-  let categoryId, categoryName;
+async function getKvData(req: NextRequest): Promise<Data> {
+  const now = performance.now()
 
-  if (userId) {
-    const userData = ((await kv.get(userId)) ?? {}) as UserData;
+  try {
+    const userId = req.cookies.get("userId")?.value;
+    let categoryId, categoryName;
 
-    categoryId = userData.categoryId;
-    categoryName = userData.categoryName;
+    if (userId) {
+      const userData = ((await kv.get(userId)) ?? {}) as UserData;
+
+      categoryId = userData.categoryId;
+      categoryName = userData.categoryName;
+    }
+
+    return {
+      categoryId,
+      categoryName,
+    };
+  } finally {
+    const end = performance.now()
+    console.log(`[API] getKvData took ${end - now}ms`)
   }
-
-  const countryCode: string =
-    req.headers.get("x-simulated-country") ??
-    req.headers.get("x-vercel-ip-country") ??
-    "US";
-
-  let { name: country, continent } = isoAlpha2Countries[countryCode];
-  const continentText = formatContinent(continent);
-
-  return {
-    country,
-    categoryId,
-    categoryName,
-    continent,
-    continentText,
-  };
 }
 
 async function queryProducts({
@@ -94,25 +92,31 @@ async function queryProducts({
 }): Promise<[ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]> {
   const productService = await ProductModuleInitialize();
 
-  return await Promise.all([
-    productService.list(
-      {
-        tags: { value: [continent] },
-      },
-      {
-        select: ["id"],
-        take: 3,
-      }
-    ),
-    productService.list(
-      {},
-      {
-        relations: ["variants", "categories", "tags"],
-        order: { id: "DESC" },
-        take: 100,
-      }
-    ),
-  ]);
+  const now = performance.now()
+  try {
+    return await Promise.all([
+      productService.list(
+        {
+          tags: { value: [continent] },
+        },
+        {
+          select: ["id"],
+          take: 3,
+        }
+      ),
+      productService.list(
+        {},
+        {
+          relations: ["variants", "categories", "tags"],
+          order: { id: "DESC" },
+          take: 100,
+        }
+      ),
+    ]);
+  } finally {
+    const end = performance.now()
+    console.log(`[API] queryProducts took ${end - now}ms`)
+  }
 }
 
 function orderProductByCategoryIdFirst({
