@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
   const [
     { categoryId, categoryName },
     [personalizedProducts, allProducts]
-  ] = await queryProducts(req, continentText);
+  ] = await queryProducts(req, continent);
 
   const end = performance.now()
   console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
   })
 }
 
-async function queryProducts(req: NextRequest, continent: { name:string, article:string }): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
+async function queryProducts(req: NextRequest, continent: string): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
   const productService = await ProductModuleInitialize();
 
   const userId = req.cookies.get("userId")?.value;
