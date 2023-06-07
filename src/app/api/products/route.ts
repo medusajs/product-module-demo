@@ -22,18 +22,29 @@ export async function GET(req: NextRequest) {
   // If already instaciated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
+  let now = 0, end = 0
+
+  now = performance.now()
   const { categoryId, categoryName, continent, continentText, country } =
     await getData(req);
+  end = performance.now()
+  console.log(`getData took ${end - now} milliseconds.`)
 
+  now = performance.now()
   let [personalizedProducts, allProducts] = await queryProducts({
     continent,
   });
+  end = performance.now()
+  console.log(`queryProducts took ${end - now} milliseconds.`)
 
+  now = performance.now()
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
     personalizedProducts,
     recentlyVisitedCategoryId: categoryId,
   });
+  end = performance.now()
+  console.log(`orderProductByCategoryIdFirst took ${end - now} milliseconds.`)
 
   return NextResponse.json({
     personalized_section: {
@@ -45,7 +56,11 @@ export async function GET(req: NextRequest) {
       category_name: categoryName,
       products: data.allProducts,
     },
-  });
+  }, {
+    headers: {
+      "Cache-control": "max-age=604800, must-revalidate"
+    }
+  })
 }
 
 async function getData(req: NextRequest): Promise<Data> {
