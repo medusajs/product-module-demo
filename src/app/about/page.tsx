@@ -1,6 +1,8 @@
 import { Modal } from "@/components";
+import CodeSnippets from "@/components/common/code-snippet/CodeSnippets";
 import CustomListItem from "@/components/common/custom-list-item/CustomListItem";
 import { Nextjs } from "@/components/icons";
+import NextImage from "next/image";
 
 export default async function AboutModal() {
   return (
@@ -19,7 +21,7 @@ export default async function AboutModal() {
           </div>
         </div>
 
-        <div className="w-full flex flex-col flex-wrap gap-y-6 md:flex-nowrap px-48 mt-12">
+        <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-8 lg:px-48 mt-12">
           <div className="flex flex-row rounded-[999px] dark:shadow-card-rest-dark px-4 py-1 text-labels-small gap-3 w-fit">
             <span>Building blocks</span>
             <a
@@ -100,65 +102,122 @@ export default async function AboutModal() {
 
           <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-12"></div>
 
-          <ul className="list-none">
+          <ul className="list-none w-full">
             <CustomListItem title="Product Module">
               <span className="text-base-dark text-labels-regular">
-                Initializing the Product Module:
+                Initialize the Product Module.
               </span>
-              <p>
-                Modules are packages with self-contained commerce logic,
-                promoting separation of concerns, maintainability, and
-                reusability. Modules increase Medusa's extensibility, allowing
-                for customization of core commerce logic and composition with
-                other tools. This flexibility allows for greater choice in the
-                tech stack used in conjunction with Medusa.
-              </p>
+              <p>Simply initialize the module in the Next.js API route.</p>
+              <CodeSnippets
+                label="/api/products/route.ts"
+                language="javascript"
+                code={`import { initialize as ProductModuleInitialize } from "@medusajs/product";\r\n\r\nconst productService = await ProductModuleInitialize();\r\n\r\n// list all products\r\nconst products = await productService.list({});`}
+              />
+              <p>All products are now displayed in standard order.</p>
+              <NextImage
+                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+                src="/all-initial.png"
+                alt="All products - initial state"
+                width={1307}
+                height={934}
+              />
             </CustomListItem>
             <CustomListItem title="User location">
               <span className="text-base-dark text-labels-regular">
-                Getting the user's location:
+                Get the user's location from the request header.
               </span>
               <p>
-                Modules are packages with self-contained commerce logic,
-                promoting separation of concerns, maintainability, and
-                reusability. Modules increase Medusa's extensibility, allowing
-                for customization of core commerce logic and composition with
-                other tools. This flexibility allows for greater choice in the
-                tech stack used in conjunction with Medusa.
+                We use the Vercel country header by default, or overwrite it
+                with a simulated location when provided.
               </p>
+              <CodeSnippets
+                label="/api/products/route.ts"
+                language="javascript"
+                code={`\/\/ Get the user\'s country code from the Vercel header, or overwrite with \r\n\/\/ a simulated location when provided.\r\nconst countryCode = \r\n\treq.headers.get(\"x-simulated-country\") ?? \r\n\treq.headers.get(\"x-vercel-ip-country\")\r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nlet continent = getContinent[countryCode]\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst localProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
+              />
+              <p>Display the localized products.</p>
+              <NextImage
+                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+                src="/local-initial.png"
+                alt="Localised products - initial state"
+                width={1304}
+                height={487}
+              />
+              <p>
+                You can simulate a different location using the control panel.
+              </p>
+              <NextImage
+                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+                src="/simulate-location.png"
+                alt="Simulate your location from the control panel."
+                width={(776 / 3) * 2}
+                height={(331 / 3) * 2}
+              />
             </CustomListItem>
             <CustomListItem title="Last viewed product">
               <span className="text-base-dark text-labels-regular">
-                Storing the user's last viewed category in Vercel KV:
+                Store the user's last viewed category in a Vercel KV store.
               </span>
               <p>
-                Modules are packages with self-contained commerce logic,
-                promoting separation of concerns, maintainability, and
-                reusability. Modules increase Medusa's extensibility, allowing
-                for customization of core commerce logic and composition with
-                other tools. This flexibility allows for greater choice in the
-                tech stack used in conjunction with Medusa.
+                When a user clicks a product, we store the product's category
+                data in a KV store.
               </p>
+              <CodeSnippets
+                label="/api/category-tracker/route.ts"
+                language="javascript"
+                code={`import { kv } from \"@vercel\/kv\";\r\n\r\n\/\/ Grab the category data from the request.\r\nconst { categoryId, categoryName } = await request.json()\r\n\r\nconst userData = {\r\n  categoryId,\r\n  categoryName,\r\n};\r\n\r\n\/\/ Grab the userId from the cookie and assign the category data to the \r\n\/\/ userId in the KV store.\r\nconst userId = request.cookies.get(\"userId\").value;\r\nawait kv.set(userId, userData);`}
+              />
+              <p>Click a product to view its product page.</p>
+              <NextImage
+                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+                src="/click-product.png"
+                alt="Click a product to view its product page."
+                width={(435 / 3) * 2}
+                height={(375 / 3) * 2}
+              />
             </CustomListItem>
             <CustomListItem title="Personalize products">
               <span className="text-base-dark text-labels-regular">
-                Displaying all products with the last viewed category's products
-                on top:
+                Display all products with the last viewed category's products on
+                top.
               </span>
               <p>
-                Modules are packages with self-contained commerce logic,
-                promoting separation of concerns, maintainability, and
-                reusability. Modules increase Medusa's extensibility, allowing
-                for customization of core commerce logic and composition with
-                other tools. This flexibility allows for greater choice in the
-                tech stack used in conjunction with Medusa.
+                We grab the user's last viewed category from the KV store and
+                sort all products with that category on top.
               </p>
+              <CodeSnippets
+                label="/api/category-tracker/route.ts"
+                language="javascript"
+                code={`\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\nconst userId = req.cookies.get(\"userId\").value;\r\nconst { categoryId } = await kv.get(userId);\r\n\r\n\/\/ Get all products.\r\nconst allProducts = await productService.list({});\r\n\r\n\/\/ Re-order the products based on the last viewed categoryId.\r\nconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);`}
+              />{" "}
+              <p>Hoodies are now displayed on top!</p>
+              <NextImage
+                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+                src="/all-ordered.png"
+                alt="Hoodies are now displayed on top"
+                width={1309}
+                height={938}
+              />
             </CustomListItem>
           </ul>
-        </div>
 
-        <div className="md:w-2/3 w-full"></div>
-        <div className="md:w-1/3 w-full"></div>
+          <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-12"></div>
+
+          <h4 className="text-headers-h4 text-base-light dark:text-base-dark">
+            Get started with the Product Module in Next.js
+          </h4>
+          <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
+            Ready to get started with the Medusa Product Module in your Next.js
+            app? Visit our{" "}
+            <a
+              className="hover:text-subtle-light text-base-dark"
+              href="https://docs.medusajs.com/"
+            >
+              documentation
+            </a>{" "}
+            to learn more and start building today!
+          </p>
+        </div>
       </div>
     </Modal>
   );
