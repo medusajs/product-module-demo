@@ -34,9 +34,6 @@ export async function GET(req: NextRequest) {
     [personalizedProducts, allProducts]
   ] = await queryProducts(req, continent);
 
-  console.log("personalizedProducts", personalizedProducts)
-  console.log("allProducts", allProducts)
-
   const end = performance.now()
   console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
 
