@@ -1,36 +1,41 @@
 import { Modal } from "@/components";
 import CodeSnippets from "@/components/common/code-snippet/CodeSnippets";
 import CustomListItem from "@/components/common/custom-list-item/CustomListItem";
-import { Nextjs } from "@/components/icons";
+import { Github, Nextjs } from "@/components/icons";
+import { Sparkles } from "@/components/icons/sparkles";
 import NextImage from "next/image";
 
 export default async function AboutModal() {
   return (
-    <Modal>
+    <Modal
+      cta="Start Building"
+      icon={<Sparkles />}
+      href="https://medusajs.com/"
+    >
       <div className="w-full px-4">
-        <div className="relative h-96 w-full overflow-hidden bg-[url('/hero.svg')] bg-cover bg-base-light dark:bg-base-dark rounded-2xl">
-          <div className="absolute inset-0 flex flex-col gap-6 items-center justify-center">
-            <div className="flex flex-col gap-2 items-center justify-center text-center">
-              <div className="text-base-light dark:text-base-dark text-4xl">
+        <div className="flex w-screen h-[30rem] bg-center bg-cover bg-no-repeat flex-start justify-center py-[4rem] my-[-6rem] ml-[-1rem] bg-[url('/hero.svg')] bg-base-light dark:bg-base-dark rounded-2xl">
+          <div className="inset-0 flex flex-col gap-6 items-center justify-center">
+            <div className="flex flex-col gap-2 items-center justify-center text-center text-headers-h3 md:text-4xl">
+              <div className="text-base-light dark:text-base-dark">
                 Product Module Demo.
               </div>
-              <div className="text-subtle-light dark:text-subtle-dark text-4xl">
+              <div className="text-subtle-light dark:text-subtle-dark">
                 Powered by Medusa.
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-8 lg:px-48 mt-12">
-          <div className="flex flex-row rounded-[999px] dark:shadow-card-rest-dark px-4 py-1 text-labels-small gap-3 w-fit">
+        <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-6 lg:px-48 mt-4">
+          <a
+            href="https://medusajs.com/"
+            className="hover:shadow-card-hover-dark flex flex-row rounded-[999px] shadow-card-rest-dark px-4 py-1 text-labels-small gap-3 w-fit z-10"
+          >
             <span>Building blocks</span>
-            <a
-              className="border-solid border-l border-neutral-button-light dark:border-neutral-button-dark pl-3 text-subtle-light dark:text-subtle-dark"
-              href="https://medusajs.com/"
-            >
-              <span className="hover:text-base-dark">Read more</span>
-            </a>
-          </div>
+            <span className="border-solid border-l border-neutral-button-light dark:border-neutral-button-dark pl-3 text-subtle-light dark:text-subtle-dark">
+              Read more
+            </span>
+          </a>
 
           <h4 className="flex flex-wrap gap-x-1 gap-y-2 text-headers-h4 text-base-light dark:text-base-dark">
             Medusa Product Module demo in
@@ -100,7 +105,26 @@ export default async function AboutModal() {
             hoodies on top.
           </p>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-12"></div>
+          <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-6 md:my-10"></div>
+
+          <h4 className="text-headers-h4 text-base-light dark:text-base-dark">
+            How we implemented personalization
+          </h4>
+
+          <div className="flex flex-inline gap-6 items-center rounded-md p-6 bg-overlay-dark border border-base-dark text-labels-regular text-subtle-dark">
+            <Github className="min-w-fit" />
+            <span>
+              The code snippets below are simplified for readability. You can
+              check out the full source code on{" "}
+              <a
+                className="hover:text-subtle-light text-base-dark"
+                href="https://github.com/medusajs/products-module-store"
+              >
+                GitHub
+              </a>
+              .
+            </span>
+          </div>
 
           <ul className="list-none w-full">
             <CustomListItem title="Product Module">
@@ -111,7 +135,7 @@ export default async function AboutModal() {
               <CodeSnippets
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`import { initialize as ProductModuleInitialize } from "@medusajs/product";\r\n\r\nconst productService = await ProductModuleInitialize();\r\n\r\n// list all products\r\nconst products = await productService.list({});`}
+                code={`import { initialize as initializeProductModule } from "@medusajs/product";\r\n\r\nconst productService = await initializeProductModule();\r\n\r\n// list all products\r\nconst products = await productService.list({});`}
               />
               <p>All products are now displayed in standard order.</p>
               <NextImage
@@ -186,7 +210,7 @@ export default async function AboutModal() {
                 and sort all products with that category on top.
               </p>
               <CodeSnippets
-                label="/api/category-tracker/route.ts"
+                label="/api/products/route.ts"
                 language="javascript"
                 code={`\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\nconst userId = req.cookies.get(\"userId\").value;\r\nconst { categoryId } = await kv.get(userId);\r\n\r\n\/\/ Get all products.\r\nconst allProducts = await productService.list({});\r\n\r\n\/\/ Re-order the products based on the last viewed categoryId.\r\nconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);`}
               />{" "}
@@ -201,10 +225,10 @@ export default async function AboutModal() {
             </CustomListItem>
           </ul>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-12"></div>
+          <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-6 md:my-10"></div>
 
           <h4 className="text-headers-h4 text-base-light dark:text-base-dark">
-            Get started with the Product Module in Next.js
+            Start building with the Product Module in Next.js
           </h4>
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
             Ready to get started with the Medusa Product Module in your Next.js
