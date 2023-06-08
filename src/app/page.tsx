@@ -2,6 +2,7 @@ import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
 import { PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
+import { headers } from "next/headers";
 
 type Props = {
   data: PersonalizationData | null;
@@ -16,7 +17,10 @@ export default async function Home({
 }) {
   const start = performance.now();
 
-  const options = cc ? { headers: { "x-simulated-country": cc } } : {};
+  const headerList = headers();
+
+  const vercelIPCountry = headerList.get("x-vercel-ip-country")!;
+  const options = { headers: { "x-country": cc ?? vercelIPCountry } };
 
   const data = await (await fetch(`${baseURL}/api/products`, options)).json();
 
