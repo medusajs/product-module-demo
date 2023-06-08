@@ -2,11 +2,11 @@ import {Hero} from "@/components/common/hero";
 import {Feature} from "@/components";
 
 const data = {
-    personalized_section: {products:[{handle: "", thumbnail: "", title: ""}, {handle: "", thumbnail: "", title: ""},{handle: "", thumbnail: "", title: ""}], country: "United States", continent_text: {name: "North America"}},
+    personalized_section: {products:[{handle: "", thumbnail: "", title: "", variants: []}, {handle: "", thumbnail: "", title: "", variants: []},{handle: "", thumbnail: "", title: "", variants: []}], country: "United States", continent_text: {name: "North America", article: "a North American"}},
     all_products_section: {products: [
-            {handle: "", thumbnail: "", title: ""},
-            {handle: "", thumbnail: "", title: ""},
-            {handle: "", thumbnail: "", title: ""}
+            {handle: "", thumbnail: "", title: "", variants: []},
+            {handle: "", thumbnail: "", title: "", variants: []},
+            {handle: "", thumbnail: "", title: "", variants: []}
         ], category_name: ""}
 
 }
