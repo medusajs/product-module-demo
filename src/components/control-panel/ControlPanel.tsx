@@ -14,7 +14,7 @@ type Props = {
   loadingTime: number;
 };
 
-function setQ(q) {
+function setQ(q: string |  null) {
   const searchParams = new URLSearchParams(window.location.search);
   if (!q) {
     searchParams.delete("cc");

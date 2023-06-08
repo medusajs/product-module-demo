@@ -8,7 +8,6 @@ import { Country } from "@/types";
 type Props = {
   country: string;
   setCountry: (countryCode: Country) => void;
-  inputRef: React.RefObject<HTMLInputElement>;
 };
 
 const countryCodeMap = new Map<string, string>();
@@ -25,7 +24,6 @@ const countries = Array.from(countryCodeMap, ([name, code]) => ({
 export default function CountryPicker({
   country,
   setCountry,
-  inputRef,
 }: Props) {
   const [query, setQuery] = useState("");
 
@@ -46,7 +44,6 @@ export default function CountryPicker({
             <Combobox.Button className="flex items-center justify-center flex-row w-full border-none pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark">
               <Globe />
               <Combobox.Input
-                ref={inputRef}
                 className="w-full border-none py-2 pl-3 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark overflow-hidden text-ellipsis outline-none"
                 displayValue={(country: string) => country}
                 onChange={(event) => setQuery(event.target.value)}

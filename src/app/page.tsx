@@ -9,7 +9,7 @@ type Props = {
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL
 
-export default async function Home({searchParams: { cc }}) {
+export default async function Home({searchParams: { cc }}: {searchParams: {cc: string | null}}) {
   const start = performance.now();
 
   const options = cc
