@@ -29,7 +29,7 @@ export default function Loading() {
           <Hero />
 
           <div className="flex flex-col gap-y-16">
-            <Feature products={data?.personalized_section.products!} max={3}>
+            <Feature products={data?.personalized_section.products! as any} max={3}>
               <div className="flex items-center justify-between">
                 <h3 className="font-medium text-headers-h3">
                   Products for visitors from{" "}
@@ -51,7 +51,7 @@ export default function Loading() {
                 </span>
               </p>
             </Feature>
-            <Feature products={data?.all_products_section.products!} max={18}>
+            <Feature products={data?.all_products_section.products! as any} max={18}>
               <div className="flex items-center justify-between">
                 <h3 className="font-medium text-headers-h3">All products</h3>
               </div>
