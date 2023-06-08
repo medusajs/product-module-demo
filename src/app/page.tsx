@@ -16,6 +16,7 @@ export default async function Home({searchParams: { cc }}) {
       ? { headers: { "x-simulated-country": cc } }
       : {};
 
+
   const data = await (await fetch(`${baseURL}/api/products`, options)).json()
 
   // TODO: add fallback UI if error in the API call
