@@ -14,6 +14,8 @@ export default async function Home({
 }: {
   searchParams: { cc: string | null };
 }) {
+  console.log("=== BASE_URL ===", { baseURL });
+
   const start = performance.now();
 
   const options = cc ? { headers: { "x-simulated-country": cc } } : {};
