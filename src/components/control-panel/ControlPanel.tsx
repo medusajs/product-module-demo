@@ -14,12 +14,11 @@ type Props = {
   loadingTime: number;
 };
 
-function setQ(q: string |  null) {
+function setQ(q: string | null) {
   const searchParams = new URLSearchParams(window.location.search);
   if (!q) {
     searchParams.delete("cc");
-  }
-  else {
+  } else {
     searchParams.set("cc", q);
   }
   window.location.search = searchParams.toString();
@@ -29,10 +28,7 @@ async function resetUserData() {
   await fetch("/api/category-tracker", { method: "DELETE" });
 }
 
-export default function ControlPanel({
-  data,
-  loadingTime,
-}: Props) {
+export default function ControlPanel({ data, loadingTime }: Props) {
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
   const [resetHover, setResetHover] = useState(false);
@@ -41,7 +37,7 @@ export default function ControlPanel({
 
   const reset = async () => {
     await resetUserData();
-    setQ("")
+    setQ("");
 
     startTransition(() => {
       window.scrollTo(0, 0);
@@ -96,10 +92,7 @@ export default function ControlPanel({
               Location
             </HoverModal>
           )}
-          <CountryPicker
-            country={country}
-            setCountry={c => setQ(c.code)}
-          />
+          <CountryPicker country={country} setCountry={(c) => setQ(c.code)} />
         </div>
         <div
           className="relative flex flex-col justify-center items-center"
