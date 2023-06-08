@@ -140,9 +140,12 @@ export default async function AboutModal() {
               <NextImage
                 className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
                 src="/all-initial.png"
+                placeholder="blur"
+                blurDataURL="/blur/all-initial.png"
                 alt="All products - initial state"
                 width={1307}
                 height={934}
+                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
               />
             </CustomListItem>
             <CustomListItem title="User location">
@@ -162,9 +165,12 @@ export default async function AboutModal() {
               <NextImage
                 className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
                 src="/local-initial.png"
+                placeholder="blur"
+                blurDataURL="/blur/local-initial.png"
                 alt="Localised products - initial state"
                 width={1304}
                 height={487}
+                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
               />
               <p>
                 You can simulate a different location using the control panel.
@@ -172,9 +178,12 @@ export default async function AboutModal() {
               <NextImage
                 className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
                 src="/simulate-location.png"
+                placeholder="blur"
+                blurDataURL="/blur/simulate-location.png"
                 alt="Simulate your location from the control panel."
                 width={(776 / 3) * 2}
                 height={(331 / 3) * 2}
+                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
               />
             </CustomListItem>
             <CustomListItem title="Last viewed product">
@@ -194,9 +203,12 @@ export default async function AboutModal() {
               <NextImage
                 className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
                 src="/click-product.png"
+                placeholder="blur"
+                blurDataURL="/blur/click-product.png"
                 alt="Click a product to view its product page."
                 width={(435 / 3) * 2}
                 height={(375 / 3) * 2}
+                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
               />
             </CustomListItem>
             <CustomListItem title="Personalize products">
@@ -217,9 +229,12 @@ export default async function AboutModal() {
               <NextImage
                 className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
                 src="/all-ordered.png"
+                placeholder="blur"
+                blurDataURL="/blur/all-ordered.png"
                 alt="Hoodies are now displayed on top"
                 width={1309}
                 height={938}
+                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
               />
             </CustomListItem>
           </ul>
