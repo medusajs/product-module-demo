@@ -7,16 +7,13 @@ type Props = {
   data: PersonalizationData | null;
 };
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-const vercelURL = process.env.VERCEL_URL;
+const baseURL = `https://${process.env.VERCEL_URL}`;
 
 export default async function Home({
   searchParams: { cc },
 }: {
   searchParams: { cc: string | null };
 }) {
-  console.log("=== BASE_URL ===", { baseURL, vercelURL });
-
   const start = performance.now();
 
   const options = cc ? { headers: { "x-simulated-country": cc } } : {};
