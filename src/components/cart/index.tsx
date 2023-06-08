@@ -1,5 +1,6 @@
 import { client } from "@/lib";
 import { cookies } from "next/headers";
+import { Cart } from "@medusajs/client-types";
 import CartButton from "./CartButton";
 
 async function createCart() {
@@ -8,12 +9,12 @@ async function createCart() {
   }).then((res) => res.regions[0]);
 
   const res = await client.carts.create({ region_id: region.id });
-  return res.cart;
+  return res.cart as unknown as Cart;
 }
 
 async function getCart(cartId: string) {
   const res = await client.carts.retrieve(cartId);
-  return res.cart;
+  return res.cart as unknown as Cart;
 }
 
 export default async function Cart() {

@@ -1,9 +1,9 @@
 import {startTransition, useState} from "react";
 import { ChevronUpDown } from "../icons";
 import { client } from "@/lib";
-import { LineItem } from "@medusajs/medusa";
 import { useRouter } from "next/navigation";
 import {LoadingDots} from "@/components/common/loading-dots";
+import { LineItem } from "@medusajs/client-types";
 
 type Props = {
   item: LineItem;
@@ -24,7 +24,7 @@ const EditItemQuantityButton = ({ item }: Props) => {
     setIsLoading(true)
 
     try {
-      await client.carts.lineItems.update(item.cart_id, item.id, { quantity });
+      await client.carts.lineItems.update(item.cart_id!, item.id, { quantity });
       startTransition(() => {
         router.refresh();
       });

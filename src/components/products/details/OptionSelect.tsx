@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductOption } from "@medusajs/medusa";
+import { ProductOption } from "@medusajs/client-types";
 import clsx from "clsx";
 import { useMemo } from "react";
 import { useInteractive } from "./Interactive";
@@ -19,7 +19,7 @@ const OptionSelect = ({ option }: OptionSelectProps) => {
     return options[option.id];
   }, [options, option]);
 
-  const uniqueValues = option.values.map((v) => v.value).filter(onlyUnique);
+  const uniqueValues = (option.values ?? []).map((v) => v.value).filter(onlyUnique);
 
   const handleSelect = (value: string) => {
     updateOptions({ [option.id]: value });

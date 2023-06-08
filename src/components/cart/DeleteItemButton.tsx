@@ -1,5 +1,5 @@
 import { client } from "@/lib";
-import { LineItem } from "@medusajs/medusa/dist/models/line-item";
+import { LineItem } from "@medusajs/client-types";
 import { useRouter } from "next/navigation";
 import { startTransition, useState } from "react";
 import { LoadingDots } from "../common/loading-dots";
@@ -36,7 +36,7 @@ export default function DeleteItemButton({ item }: Props) {
       className={`text-error-light dark:text-error-dark text-labels-small ${
         removing ? "cursor-not-allowed px-0" : ""
       }`}
-      onClick={() => handleRemove(cart_id, id)}
+      onClick={() => handleRemove(cart_id!, id)}
       disabled={removing}
     >
       {removing ? (

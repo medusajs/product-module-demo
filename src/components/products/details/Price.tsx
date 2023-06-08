@@ -1,4 +1,4 @@
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 import { formatPrice } from "@/lib";
 
 type Props = {
@@ -6,8 +6,8 @@ type Props = {
 };
 
 const Price = ({ product }: Props) => {
-  const calculatedPrice = product.variants[0].calculated_price_incl_tax;
-  const originalPrice = product.variants[0].original_price_incl_tax;
+  const calculatedPrice = product.variants![0].calculated_price_incl_tax!;
+  const originalPrice = product.variants![0].original_price_incl_tax!;
   const hasDiff = calculatedPrice !== originalPrice;
 
   return (

@@ -1,13 +1,13 @@
 import { Price } from "@/components/common/price";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 
 type Props = {
   product: PricedProduct;
 };
 
 const ProductPrice = ({ product }: Props) => {
-  const calculatedPrice = product.variants[0].calculated_price_incl_tax ?? 0;
-  const originalPrice = product.variants[0].original_price_incl_tax;
+  const calculatedPrice = product.variants?.[0].calculated_price_incl_tax ?? 0;
+  const originalPrice = product.variants?.[0].original_price_incl_tax;
   const hasDiff = originalPrice && calculatedPrice !== originalPrice;
 
   return (

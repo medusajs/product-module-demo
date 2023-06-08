@@ -3,7 +3,7 @@
 import {
   PricedProduct,
   PricedVariant,
-} from "@medusajs/medusa/dist/types/pricing";
+} from "@medusajs/client-types";
 import isEqual from "lodash/isEqual";
 import {
   PropsWithChildren,
