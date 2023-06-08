@@ -16,8 +16,8 @@ export async function GET(req: NextRequest) {
   const productService = await ProductModuleInitialize();
 
   const countryCode: string =
-    req.headers.get("x-simulated-country") ??
-    req.headers.get("x-vercel-ip-country") ??
+    req.headers.get("x-country") ??
+    // req.headers.get("x-vercel-ip-country") ??
     "US";
 
   const { name: country, continent } = isoAlpha2Countries[countryCode];
