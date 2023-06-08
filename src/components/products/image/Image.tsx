@@ -17,7 +17,8 @@ const Image = ({ src, alt, className }: ImageProps) => {
           alt={alt}
           fill
           className="absolute inset-0 object-cover"
-          sizes="(max-width: 768px) 100vw"
+          sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+          quality={60}
           priority
         />
       )}
