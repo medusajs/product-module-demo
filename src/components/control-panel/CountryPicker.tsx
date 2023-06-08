@@ -21,10 +21,7 @@ const countries = Array.from(countryCodeMap, ([name, code]) => ({
   code,
 }));
 
-export default function CountryPicker({
-  country,
-  setCountry,
-}: Props) {
+export default function CountryPicker({ country, setCountry }: Props) {
   const [query, setQuery] = useState("");
 
   const filteredCountries =
