@@ -81,9 +81,8 @@ export default function CartModal({
                   <div className="flex flex-col overflow-hidden h-full">
                     <div className="overflow-auto">
                       <ul className="flex flex-col w-full">
-                        {cart.items?.map((item_, i) => {
-                          const item: LineItem = item_!;
-                          const merchandiseUrl = `/product/${item.variant!.product!.handle}`;
+                        {cart.items.map((item, i) => {
+                          const merchandiseUrl = `/product/${item.variant.product.handle}`;
 
                           return (
                             <li
@@ -102,10 +101,12 @@ export default function CartModal({
                                       className="h-14 w-18 object-cover"
                                       width={72}
                                       height={56}
+                                      sizes="72px"
+                                      quality={40}
                                       alt={item.variant!.product!.title || ""}
                                       src={
                                         item.thumbnail ||
-                                        (item.variant!.product!.images!)[0].url
+                                        item.variant!.product!.images![0].url
                                       }
                                     />
                                   </div>
