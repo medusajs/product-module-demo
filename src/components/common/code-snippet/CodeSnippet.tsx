@@ -10,7 +10,7 @@ type Props = {
 
 const CodeSnippet: React.FC<Props> = ({ label, language, code }) => {
   return (
-    <div className="rounded-lg bg-code-header-dark shadow-card-rest-dark w-full my-4">
+    <div className="rounded-lg bg-code-header-dark shadow-card-rest-dark w-fill my-4">
       <div className="flex justify-end gap-2 rounded-t-lg border-b border-b-base-dark bg-base-dark px-6 py-4 w-full">
         <span className="text-labels-small">{label}</span>
       </div>

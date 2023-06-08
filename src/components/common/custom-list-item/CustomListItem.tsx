@@ -6,7 +6,7 @@ type CustomListItemProps = {
 };
 
 const CustomListItem: React.FC<CustomListItemProps> = ({ title, children }) => (
-  <li className="flex flex-row h-full w-full relative">
+  <li className="flex flex-row h-full w-[calc(100%-2rem)] md:w-full relative">
     <div className="flex flex-col items-center w-6 mr-4">
       <Circle fill="#1c1c1c" className="z-10 mt-1" />
       <div className="h-full mt-1 w-[1px] bg-[#2E2E32] absolute top-0 z-0"></div>
