@@ -8,13 +8,14 @@ type Props = {
 };
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const vercelURL = process.env.VERCEL_URL;
 
 export default async function Home({
   searchParams: { cc },
 }: {
   searchParams: { cc: string | null };
 }) {
-  console.log("=== BASE_URL ===", { baseURL });
+  console.log("=== BASE_URL ===", { baseURL, vercelURL });
 
   const start = performance.now();
 
