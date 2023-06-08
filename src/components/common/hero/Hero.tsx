@@ -1,6 +1,7 @@
 import { Button } from "../button";
 import { Nextjs } from "@/components/icons/nextjs";
 import { Medusa } from "@/components/icons/medusa";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -27,7 +28,7 @@ const Hero = () => {
           product modules for personalization.
         </div>
         <Button variant="inverted" className="px-[11px] py-[5px]">
-          Read More
+          <Link href="/about">Read How It Works</Link>
         </Button>
       </div>
     </div>

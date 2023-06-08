@@ -17,7 +17,8 @@ const Thumbnail = ({ thumbnail, alt = "" }: Props) => {
             src={thumbnail}
             alt={alt}
             fill
-            sizes="(max-width: 768px) 320px"
+            quality={60}
+            sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
             className="object-cover"
           />
         </div>
