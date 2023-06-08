@@ -1,30 +1,29 @@
 import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
-import {  PersonalizationData } from "@/types";
+import { PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
 
 type Props = {
   data: PersonalizationData | null;
 };
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export default async function Home({searchParams: { cc }}: {searchParams: {cc: string | null}}) {
+export default async function Home({
+  searchParams: { cc },
+}: {
+  searchParams: { cc: string | null };
+}) {
   const start = performance.now();
 
-  const options = cc
-      ? { headers: { "x-simulated-country": cc } }
-      : {};
+  const options = cc ? { headers: { "x-simulated-country": cc } } : {};
 
-
-  const data = await (await fetch(`${baseURL}/api/products`, options)).json()
+  const data = await (await fetch(`${baseURL}/api/products`, options)).json();
 
   // TODO: add fallback UI if error in the API call
 
   const end = performance.now();
-  const loadingTime = Math.floor(end - start)
-
-  console.log("render", {data, cc})
+  const loadingTime = Math.floor(end - start);
 
   return (
     <main className="flex flex-col items-center">
@@ -32,10 +31,7 @@ export default async function Home({searchParams: { cc }}: {searchParams: {cc: s
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
           <Features data={data} />
-          <ControlPanel
-            data={data}
-            loadingTime={loadingTime}
-          />
+          <ControlPanel data={data} loadingTime={loadingTime} />
         </div>
       </div>
     </main>
@@ -49,9 +45,7 @@ function Features({ data }: Props) {
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-headers-h3">
             Products for visitors from{" "}
-            <span>
-              {data?.personalized_section.country}
-            </span>
+            <span>{data?.personalized_section.country}</span>
           </h3>
         </div>
         <p className="text-subtle-dark">
