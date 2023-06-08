@@ -1,1 +1,1 @@
-export * from "./CustomListItem";
+export { default as CustomListItem } from "./CustomListItem";

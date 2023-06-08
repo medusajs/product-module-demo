@@ -1,8 +1,6 @@
 import { Modal } from "@/components";
-import CodeSnippets from "@/components/common/code-snippet/CodeSnippets";
-import CustomListItem from "@/components/common/custom-list-item/CustomListItem";
-import { Github, Nextjs } from "@/components/icons";
-import { Sparkles } from "@/components/icons/sparkles";
+import { CodeSnippet, CustomListItem } from "@/components/common";
+import { Github, Nextjs, Sparkles } from "@/components/icons";
 import NextImage from "next/image";
 
 export default async function AboutModal() {
@@ -68,21 +66,22 @@ export default async function AboutModal() {
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
             Running Medusa&apos;s Product Module in a serverless function
             provides several benefits over hosting a conventional backend:
-            <ul className="list-disc ml-8 py-4">
-              <li>
-                It offers fast response times, making it suitable for use cases
-                like realtime personalization.
-              </li>
-              <li>
-                The Next.js function scales automatically to meet demand,
-                meaning there is no need to worry about provisioning and
-                managing servers.
-              </li>
-              <li>
-                The Next.js function is only invoked when needed, reducing the
-                overall cost of running the module.
-              </li>
-            </ul>
+          </p>
+          <ul className="list-disc ml-8 text-subtle-light dark:text-subtle-dark text-body-regular">
+            <li>
+              It offers fast response times, making it suitable for use cases
+              like realtime personalization.
+            </li>
+            <li>
+              The Next.js function scales automatically to meet demand, meaning
+              there is no need to worry about provisioning and managing servers.
+            </li>
+            <li>
+              The Next.js function is only invoked when needed, reducing the
+              overall cost of running the module.
+            </li>
+          </ul>
+          <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
             Our future work will focus on publishing all core Medusa domains as
             modules and making them compatible with edge runtimes.
           </p>
@@ -132,7 +131,7 @@ export default async function AboutModal() {
                 Initialize the Product Module.
               </span>
               <p>Simply initialize the module in the Next.js API route.</p>
-              <CodeSnippets
+              <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
                 code={`import { initialize as initializeProductModule } from "@medusajs/product";\r\n\r\nconst productService = await initializeProductModule();\r\n\r\n// list all products\r\nconst products = await productService.list({});`}
@@ -154,7 +153,7 @@ export default async function AboutModal() {
                 We use the Vercel country header by default, or overwrite it
                 with a simulated location when provided.
               </p>
-              <CodeSnippets
+              <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
                 code={`\/\/ Get the user\'s country code from the Vercel header, or overwrite with \r\n\/\/ a simulated location when provided.\r\nconst countryCode = \r\n\treq.headers.get(\"x-simulated-country\") ?? \r\n\treq.headers.get(\"x-vercel-ip-country\")\r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nlet continent = getContinent[countryCode]\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst localProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
@@ -186,7 +185,7 @@ export default async function AboutModal() {
                 When a user clicks a product, we store the product&apos;s
                 category data in a KV store.
               </p>
-              <CodeSnippets
+              <CodeSnippet
                 label="/api/category-tracker/route.ts"
                 language="javascript"
                 code={`import { kv } from \"@vercel\/kv\";\r\n\r\n\/\/ Grab the category data from the request.\r\nconst { categoryId, categoryName } = await request.json()\r\n\r\nconst userData = {\r\n  categoryId,\r\n  categoryName,\r\n};\r\n\r\n\/\/ Grab the userId from the cookie and assign the category data to the \r\n\/\/ userId in the KV store.\r\nconst userId = request.cookies.get(\"userId\").value;\r\nawait kv.set(userId, userData);`}
@@ -209,7 +208,7 @@ export default async function AboutModal() {
                 We grab the user&apos;s last viewed category from the KV store
                 and sort all products with that category on top.
               </p>
-              <CodeSnippets
+              <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
                 code={`\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\nconst userId = req.cookies.get(\"userId\").value;\r\nconst { categoryId } = await kv.get(userId);\r\n\r\n\/\/ Get all products.\r\nconst allProducts = await productService.list({});\r\n\r\n\/\/ Re-order the products based on the last viewed categoryId.\r\nconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);`}
