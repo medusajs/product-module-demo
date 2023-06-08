@@ -2,7 +2,7 @@
 
 import { Button } from "@/components";
 import { client } from "@/lib";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 import { startTransition, useEffect, useState } from "react";
 
 import { useCookies } from "react-cookie";
@@ -38,7 +38,7 @@ export default function AddToCart({ product }: Props) {
   const { showNotification, hideNotification } = useNotifications();
 
   const lineItem = {
-    variant_id: product.variants[0].id || product.id || "",
+    variant_id: product.variants?.[0].id || product.id || "",
     quantity: 1,
   };
 

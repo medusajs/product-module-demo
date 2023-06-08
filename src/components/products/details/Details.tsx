@@ -1,4 +1,4 @@
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 import { Tags } from "../tags";
 import Description from "./Description";
 import ProductPrice from "./ProductPrice";

@@ -1,5 +1,5 @@
 import { Image } from "@/components";
-import { Image as MedusaImage } from "@medusajs/medusa";
+import { Image as MedusaImage } from "@medusajs/client-types";
 
 type GalleryProps = {
   images?: MedusaImage[] | null;

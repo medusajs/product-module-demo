@@ -1,5 +1,5 @@
 import { Tags } from "@/components";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 import CardPrice from "./CardPrice";
 
 type Props = {

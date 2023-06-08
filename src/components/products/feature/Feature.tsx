@@ -1,5 +1,5 @@
 import { Grid } from "@/components";
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 
 type Props = {
   max?: number;

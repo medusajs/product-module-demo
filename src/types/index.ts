@@ -1,4 +1,4 @@
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
+import { PricedProduct } from "@medusajs/client-types";
 
 export type UserData = {
   categoryId: string;

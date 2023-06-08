@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ShoppingBag, XMark } from "../icons";
-import { Cart } from "@medusajs/medusa/dist/models/cart";
+import { Cart, LineItem } from "@medusajs/client-types";
 
 import DeleteItemButton from "./DeleteItemButton";
 import EditItemQuantityButton from "./EditItemQuantityButton";
@@ -19,7 +19,7 @@ export default function CartModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  cart: Omit<Cart, "beforeInsert">;
+  cart: Cart;
 }) {
   return (
     <NotificationProvider>
@@ -81,8 +81,9 @@ export default function CartModal({
                   <div className="flex flex-col overflow-hidden h-full">
                     <div className="overflow-auto">
                       <ul className="flex flex-col w-full">
-                        {cart.items.map((item, i) => {
-                          const merchandiseUrl = `/product/${item.variant.product.handle}`;
+                        {cart.items?.map((item_, i) => {
+                          const item: LineItem = item_!;
+                          const merchandiseUrl = `/product/${item.variant!.product!.handle}`;
 
                           return (
                             <li
@@ -101,10 +102,10 @@ export default function CartModal({
                                       className="h-14 w-18 object-cover"
                                       width={72}
                                       height={56}
-                                      alt={item.variant.product.title || ""}
+                                      alt={item.variant!.product!.title || ""}
                                       src={
                                         item.thumbnail ||
-                                        item.variant.product.images[0].url
+                                        (item.variant!.product!.images!)[0].url
                                       }
                                     />
                                   </div>
@@ -121,7 +122,7 @@ export default function CartModal({
                                   <Price
                                     className="flex flex-col justify-between space-y-2 text-sm"
                                     amount={item.total}
-                                    currency={cart.region.currency_code}
+                                    currency={cart.region!.currency_code}
                                   />
                                 )}
                                 <DeleteItemButton item={item} />
@@ -137,7 +138,7 @@ export default function CartModal({
                           <p>Subtotal</p>
                           <Price
                             amount={cart.subtotal || 0}
-                            currency={cart.region.currency_code}
+                            currency={cart.region!.currency_code}
                           />
                         </div>
                         <div className="mb-2 flex items-center justify-between">
@@ -149,7 +150,7 @@ export default function CartModal({
                           <Price
                             className="text-right text-base-light dark:text-base-dark"
                             amount={cart.total || 0}
-                            currency={cart.region.currency_code}
+                            currency={cart.region!.currency_code}
                           />
                         </div>
                       </div>

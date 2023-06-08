@@ -4,7 +4,7 @@ import { startTransition, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 
-import { Cart } from "@medusajs/medusa/dist/models/cart";
+import { Cart } from "@medusajs/client-types";
 
 import CartModal from "./CartModal";
 
@@ -14,13 +14,13 @@ export default function CartButton({
   cart,
   cartIdUpdated,
 }: {
-  cart: Omit<Cart, "beforeInsert">;
+  cart: Cart;
   cartIdUpdated: boolean;
 }) {
   const [, setCookie] = useCookies(["cartId"]);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const router = useRouter();
-  const quantity = cart.items.reduce(
+  const quantity = (cart.items ?? []).reduce(
     (sum, lineItem) => sum + lineItem.quantity,
     0
   );
@@ -60,7 +60,7 @@ export default function CartButton({
         className="relative right-0 top-0"
         data-testid="open-cart"
       >
-        <ShoppingBag isEmpty={!cart.items.length} />
+        <ShoppingBag isEmpty={!cart.items?.length} />
       </button>
     </>
   );

@@ -1,5 +1,5 @@
 import { Tag } from "@/components";
-import { ProductCategory, ProductTag } from "@medusajs/medusa";
+import { ProductCategory, ProductTag } from "@medusajs/client-types";
 
 type Props = {
   tags?: ProductTag[];

@@ -1,5 +1,6 @@
 import { Details, Image, Modal } from "@/components";
 import { client } from "@/lib";
+import { Product } from "@medusajs/client-types";
 
 type Props = {
   params: {
@@ -22,7 +23,7 @@ async function getProduct(handle: string) {
     throw new Error(`Product with handle ${handle} not found`);
   }
 
-  return product;
+  return product as unknown as Product;
 }
 
 export default async function ProductModal({ params: { handle } }: Props) {
