@@ -34,6 +34,7 @@ const Card = ({ product }: Props) => {
   const categoryName = product.categories?.[0]?.name;
   return (
     <Link
+      scroll={false}
       href={`/product/${product.handle}`}
       onClick={() => trackCategory({ categoryId, categoryName })}
     >
