@@ -10,8 +10,8 @@ export default async function AboutModal() {
       icon={<Sparkles />}
       href="https://medusajs.com/"
     >
-      <div className="w-full px-4">
-        <div className="flex w-screen h-[30rem] bg-center bg-cover bg-no-repeat flex-start justify-center py-[4rem] my-[-6rem] ml-[-1rem] bg-[url('/hero.svg')] bg-base-light dark:bg-base-dark rounded-2xl">
+      <div className="w-full">
+        <div className="flex w-screen h-[30rem] bg-center bg-cover bg-no-repeat flex-start justify-center py-[4rem] my-[-6rem] bg-[url('/hero.svg')] bg-base-light dark:bg-base-dark rounded-2xl">
           <div className="inset-0 flex flex-col gap-6 items-center justify-center">
             <div className="flex flex-col gap-2 items-center justify-center text-center text-headers-h3 md:text-4xl">
               <div className="text-base-light dark:text-base-dark">
@@ -24,7 +24,7 @@ export default async function AboutModal() {
           </div>
         </div>
 
-        <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-6 lg:px-48 mt-4">
+        <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-6 lg:px-52 mt-4">
           <a
             href="https://medusajs.com/"
             className="hover:shadow-card-hover-dark flex flex-row rounded-[999px] shadow-card-rest-dark px-4 py-1 text-labels-small gap-3 w-fit z-10"
