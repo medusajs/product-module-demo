@@ -21,8 +21,6 @@ const EnlargableImage = ({ src, alt, width, height, sizes }: Props) => {
 
   const blurDataURL = src.replace("/", "/blur-").replace(".png", ".jpg");
 
-  console.log({ blurDataURL });
-
   return (
     <div
       className={clsx(
