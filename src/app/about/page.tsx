@@ -8,7 +8,7 @@ export default async function AboutModal() {
     <Modal
       cta="Start Building"
       icon={<Sparkles />}
-      href="https://medusajs.com/"
+      href="https://docs.medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=cta"
     >
       <div className="w-full">
         <div className="flex w-full h-[30rem] bg-center bg-cover bg-no-repeat flex-start justify-center py-[4rem] my-[-6rem] bg-[url('/hero.svg')] bg-base-light dark:bg-base-dark rounded-2xl">
@@ -26,7 +26,7 @@ export default async function AboutModal() {
 
         <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-4 lg:px-52 mt-4">
           <a
-            href="https://medusajs.com/"
+            href="https://docs.medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=pill"
             className="hover:shadow-card-hover-dark flex flex-row rounded-[999px] shadow-card-rest-dark px-4 py-1 text-labels-small gap-3 w-fit z-10"
           >
             <span>Building blocks</span>
@@ -99,9 +99,9 @@ export default async function AboutModal() {
             <br className="block mb-2 content-['']" />
             The <em>All products</em> part will be sorted based on your last
             viewed product. It uses the product&apos;s category and shows all
-            products from that category first. So if you&apos;re last viewed
-            product was from the <em>hoodies</em> category, it will show all
-            hoodies on top.
+            products from that category first. So if your last viewed product
+            was from the <em>hoodies</em> category, it will show all hoodies on
+            top.
           </p>
 
           <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-6 md:my-10"></div>
@@ -111,7 +111,7 @@ export default async function AboutModal() {
           </h4>
 
           <div className="flex flex-inline gap-6 items-center rounded-md p-6 bg-overlay-dark border border-base-dark text-labels-regular text-subtle-dark">
-            <Github className="min-w-fit" />
+            <Github className="min-w-[20px]" />
             <span>
               The code snippets below are simplified for readability. You can
               check out the full source code on{" "}
@@ -249,7 +249,7 @@ export default async function AboutModal() {
             app? Visit our{" "}
             <a
               className="hover:text-subtle-light text-base-dark"
-              href="https://docs.medusajs.com/"
+              href="https://docs.medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=paragraph"
             >
               documentation
             </a>{" "}
