@@ -19,7 +19,9 @@ const EnlargableImage = ({ src, alt, width, height, sizes }: Props) => {
     setEnlarged(!enlarged);
   };
 
-  const blurDataURL = src.replace("/", "/blur-");
+  const blurDataURL = src.replace("/", "/blur-").replace(".png", ".jpg");
+
+  console.log({ blurDataURL });
 
   return (
     <div
@@ -45,17 +47,21 @@ const EnlargableImage = ({ src, alt, width, height, sizes }: Props) => {
               alt={alt}
               width={width * 2}
               height={height * 2}
+              sizes={sizes}
             />
           </div>
         )}
       </div>
       <NextImage
         className={clsx("rounded-xl", enlarged && "cursor-pointer")}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
         src={src}
         alt={alt}
         width={width}
         height={height}
         onClick={handleClick}
+        sizes={sizes}
       />
     </div>
   );
