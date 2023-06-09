@@ -41,8 +41,6 @@ const EnlargableImage = ({ src, alt, width, height, sizes }: Props) => {
           <div className="">
             <NextImage
               className="rounded-xl object-contain max-h-screen"
-              placeholder="blur"
-              blurDataURL={blurDataURL}
               src={src}
               alt={alt}
               width={width * 2}
