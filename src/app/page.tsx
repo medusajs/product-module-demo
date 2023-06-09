@@ -18,11 +18,12 @@ export default async function Home({
   const start = performance.now();
 
   const headerList = headers();
-
   const vercelIPCountry = headerList.get("x-vercel-ip-country")!;
-  const options = { headers: { "x-country": cc ?? vercelIPCountry } };
+  const options = { headers: { "x-country": cc ?? vercelIPCountry ?? "US" } };
 
-  const data = await (await fetch(`${baseURL}/api/products`, options)).json();
+  const data = await (
+    await fetch(`http://localhost:3000/api/products`, options)
+  ).json();
 
   // TODO: add fallback UI if error in the API call
 
