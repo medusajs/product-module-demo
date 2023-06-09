@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 import { Footer } from "@/components";
 import { Nav } from "@/components/layout/nav";
 import clsx from "clsx";
@@ -9,8 +9,21 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Products Module Store",
-  description: "Medusa's products module in a nextjs function",
+  title: {
+    template: "%s | Medusa Product Module Demo",
+    default: "Medusa Product Module Demo",
+  },
+  description:
+    "Learn how to use the Medusa Product Module in a Next.js function to personalize your storefront. Discover the benefits of running the Product Module in a serverless environment and get started building today.",
+  openGraph: {
+    title: "Medusa Product Module Demo",
+    siteName: "Medusa Product Module Demo",
+    description:
+      "Learn how to use the Medusa Product Module in a Next.js function to personalize your storefront. Discover the benefits of running the Product Module in a serverless environment and get started building today.",
+    type: "website",
+    author: "MedusaJS",
+    images: "/product-module-demo-thumbnail.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -22,7 +35,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
       <body
         className={clsx(
           inter.className,

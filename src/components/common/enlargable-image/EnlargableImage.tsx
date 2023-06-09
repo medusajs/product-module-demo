@@ -36,16 +36,14 @@ const EnlargableImage = ({ src, alt, width, height, sizes }: Props) => {
         onClick={handleClick}
       >
         {enlarged && (
-          <div className="">
-            <NextImage
-              className="rounded-xl object-contain max-h-screen"
-              src={src}
-              alt={alt}
-              width={width * 2}
-              height={height * 2}
-              sizes={sizes}
-            />
-          </div>
+          <NextImage
+            className="rounded-xl object-contain max-h-screen"
+            src={src}
+            alt={alt}
+            width={width * 2}
+            height={height * 2}
+            sizes={sizes}
+          />
         )}
       </div>
       <NextImage
