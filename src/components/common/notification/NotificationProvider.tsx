@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useState, ReactNode, useContext, ReactElement } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  ReactElement,
+} from "react";
 import { Notification } from "./";
 
 type NotificationType = "success" | "error";
