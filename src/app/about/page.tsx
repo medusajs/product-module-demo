@@ -1,5 +1,9 @@
 import { Modal } from "@/components";
-import { CodeSnippet, CustomListItem } from "@/components/common";
+import {
+  CodeSnippet,
+  CustomListItem,
+  EnlargableImage,
+} from "@/components/common";
 import { Github, Nextjs, Sparkles } from "@/components/icons";
 import NextImage from "next/image";
 
@@ -137,11 +141,8 @@ export default async function AboutModal() {
                 code={`import { initialize as initializeProductModule } from "@medusajs/product";\r\n\r\nconst productService = await initializeProductModule();\r\n\r\n// list all products\r\nconst products = await productService.list({});`}
               />
               <p>All products are now displayed in standard order.</p>
-              <NextImage
-                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+              <EnlargableImage
                 src="/all-initial.png"
-                placeholder="blur"
-                blurDataURL="/blur/all-initial.png"
                 alt="All products - initial state"
                 width={1307}
                 height={934}
@@ -162,11 +163,8 @@ export default async function AboutModal() {
                 code={`\/\/ Get the user\'s country code from the Vercel header, or overwrite with \r\n\/\/ a simulated location when provided.\r\nconst countryCode = \r\n\treq.headers.get(\"x-simulated-country\") ?? \r\n\treq.headers.get(\"x-vercel-ip-country\")\r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nlet continent = getContinent[countryCode]\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst localProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
               />
               <p>Display the localized products.</p>
-              <NextImage
-                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+              <EnlargableImage
                 src="/local-initial.png"
-                placeholder="blur"
-                blurDataURL="/blur/local-initial.png"
                 alt="Localised products - initial state"
                 width={1304}
                 height={487}
@@ -175,11 +173,8 @@ export default async function AboutModal() {
               <p>
                 You can simulate a different location using the control panel.
               </p>
-              <NextImage
-                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+              <EnlargableImage
                 src="/simulate-location.png"
-                placeholder="blur"
-                blurDataURL="/blur/simulate-location.png"
                 alt="Simulate your location from the control panel."
                 width={(776 / 3) * 2}
                 height={(331 / 3) * 2}
@@ -200,11 +195,8 @@ export default async function AboutModal() {
                 code={`import { kv } from \"@vercel\/kv\";\r\n\r\n\/\/ Grab the category data from the request.\r\nconst { categoryId, categoryName } = await request.json()\r\n\r\nconst userData = {\r\n  categoryId,\r\n  categoryName,\r\n};\r\n\r\n\/\/ Grab the userId from the cookie and assign the category data to the \r\n\/\/ userId in the KV store.\r\nconst userId = request.cookies.get(\"userId\").value;\r\nawait kv.set(userId, userData);`}
               />
               <p>Click a product to view its product page.</p>
-              <NextImage
-                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+              <EnlargableImage
                 src="/click-product.png"
-                placeholder="blur"
-                blurDataURL="/blur/click-product.png"
                 alt="Click a product to view its product page."
                 width={(435 / 3) * 2}
                 height={(375 / 3) * 2}
@@ -226,11 +218,8 @@ export default async function AboutModal() {
                 code={`\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\nconst userId = req.cookies.get(\"userId\").value;\r\nconst { categoryId } = await kv.get(userId);\r\n\r\n\/\/ Get all products.\r\nconst allProducts = await productService.list({});\r\n\r\n\/\/ Re-order the products based on the last viewed categoryId.\r\nconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);`}
               />{" "}
               <p>Hoodies are now displayed on top!</p>
-              <NextImage
-                className="rounded-xl overflow-hidden my-4 shadow-card-rest-dark"
+              <EnlargableImage
                 src="/all-ordered.png"
-                placeholder="blur"
-                blurDataURL="/blur/all-ordered.png"
                 alt="Hoodies are now displayed on top"
                 width={1309}
                 height={938}

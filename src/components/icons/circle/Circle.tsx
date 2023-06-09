@@ -9,7 +9,7 @@ const Circle = (props: Props) => (
     fill="none"
     {...props}
   >
-    <circle cx="6" cy="6" r="5.25" stroke="#6E56CF" stroke-width="1.5" />
+    <circle cx="6" cy="6" r="5.25" stroke="#6E56CF" strokeWidth="1.5" />
   </svg>
 );
 

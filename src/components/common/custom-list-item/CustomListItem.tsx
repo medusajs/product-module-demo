@@ -11,7 +11,7 @@ const CustomListItem: React.FC<CustomListItemProps> = ({ title, children }) => (
       <Circle fill="#1c1c1c" className="z-10 mt-1" />
       <div className="h-full mt-1 w-[1px] bg-[#2E2E32] absolute top-0 z-0"></div>
     </div>
-    <div className="flex flex-col gap-y-2 h-full md:pl-12 z-40 mb-8 w-full">
+    <div className="flex flex-col gap-y-2 h-full md:pl-12 mb-8 w-full">
       <span className="text-tag-purple text-labels-small font-medium">
         {title}
       </span>
