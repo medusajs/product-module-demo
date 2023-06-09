@@ -5,6 +5,11 @@ import {
   EnlargableImage,
 } from "@/components/common";
 import { Github, Nextjs, Sparkles } from "@/components/icons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 export default async function AboutModal() {
   return (
