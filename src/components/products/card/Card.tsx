@@ -1,6 +1,8 @@
 "use client";
 
+import { useTransition } from "react";
 import { PricedProduct } from "@medusajs/client-types";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Info from "./Info";
 import Thumbnail from "./Thumbnail";
@@ -30,14 +32,22 @@ async function trackCategory({
 }
 
 const Card = ({ product }: Props) => {
+  const router = useRouter();
+  const [_, startTransition] = useTransition();
+
   const categoryId = product.categories?.[0]?.id;
   const categoryName = product.categories?.[0]?.name;
+
+  const onCLick = () => {
+    trackCategory({ categoryId, categoryName }).finally(() => {
+      startTransition(() => {
+        router.refresh();
+      });
+    });
+  };
+
   return (
-    <Link
-      scroll={false}
-      href={`/product/${product.handle}`}
-      onClick={() => trackCategory({ categoryId, categoryName })}
-    >
+    <Link scroll={false} href={`/product/${product.handle}`} onClick={onCLick}>
       <div className="shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl overflow-hidden w-full group/card bg-base-light dark:bg-base-dark">
         <Thumbnail thumbnail={product.thumbnail} alt={product.title} />
         <Info product={product} />

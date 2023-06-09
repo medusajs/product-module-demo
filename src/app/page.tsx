@@ -2,7 +2,7 @@ import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
 import { PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 type Props = {
   data: PersonalizationData | null;
@@ -15,11 +15,16 @@ export default async function Home({
 }: {
   searchParams: { cc: string | null };
 }) {
-  const start = performance.now();
-
   const headerList = headers();
+  const cookieList = cookies();
+
+  const userId = cookieList.get("userId")?.value!;
   const vercelIPCountry = headerList.get("x-vercel-ip-country")!;
-  const options = { headers: { "x-country": cc ?? vercelIPCountry ?? "US" } };
+  const options = {
+    headers: { "x-country": cc ?? vercelIPCountry ?? "US", "x-userId": userId },
+  };
+
+  const start = performance.now();
 
   const data = await (
     await fetch(`http://localhost:3000/api/products`, options)

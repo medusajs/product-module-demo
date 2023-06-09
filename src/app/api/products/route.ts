@@ -15,10 +15,7 @@ export async function GET(req: NextRequest) {
   // If already instantiated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
-  const countryCode: string =
-    req.headers.get("x-country") ??
-    // req.headers.get("x-vercel-ip-country") ??
-    "US";
+  const countryCode: string = req.headers.get("x-country") ?? "US";
 
   const { name: country, continent } = isoAlpha2Countries[countryCode];
   const continentText = formatContinent(continent);
@@ -56,7 +53,7 @@ async function queryProducts(
 ): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
   const productService = await ProductModuleInitialize();
 
-  const userId = req.cookies.get("userId")?.value;
+  const userId = req.headers.get("x-userId");
   let categoryId, categoryName;
 
   const [userData, ...productsData] = await Promise.all([
