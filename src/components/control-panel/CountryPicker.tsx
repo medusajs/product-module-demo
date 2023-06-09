@@ -19,7 +19,7 @@ for (const countryCode of Object.keys(isoAlpha2Countries)) {
 const countries = Array.from(countryCodeMap, ([name, code]) => ({
   name,
   code,
-}));
+})).sort((country1, country2) => country1.name.localeCompare(country2.name));
 
 export default function CountryPicker({ country, setCountry }: Props) {
   const [query, setQuery] = useState("");
@@ -33,6 +33,7 @@ export default function CountryPicker({ country, setCountry }: Props) {
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
+
   return (
     <div className="w-60 h-fit">
       <Combobox value={country} onChange={(value: any) => setCountry(value)}>
