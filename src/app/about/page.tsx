@@ -5,7 +5,6 @@ import {
   EnlargableImage,
 } from "@/components/common";
 import { Github, Nextjs, Sparkles } from "@/components/icons";
-import NextImage from "next/image";
 
 export default async function AboutModal() {
   return (
