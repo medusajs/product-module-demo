@@ -79,59 +79,66 @@ export default function CartModal({
                 <div className="flex flex-col overflow-hidden h-full">
                   <div className="overflow-auto">
                     <ul className="flex flex-col w-full">
-                      {cart.items?.map((item_, i) => {
-                        const item: LineItem = item_!;
-                        const merchandiseUrl = `/product/${
-                          item.variant!.product!.handle
-                        }`;
+                      {cart.items
+                        ?.sort(
+                          (i1, i2) =>
+                            i1.variant?.product?.handle!.localeCompare(
+                              i2.variant?.product?.handle!
+                            )!
+                        )
+                        .map((item_, i) => {
+                          const item: LineItem = item_!;
+                          const merchandiseUrl = `/product/${
+                            item.variant!.product!.handle
+                          }`;
 
-                        return (
-                          <li
-                            key={i}
-                            data-testid="cart-item"
-                            className="flex justify-between flex-row items-center gap-5 border-b border-[#2E2E32] px-8 py-6"
-                          >
-                            <div className="flex flex-row justify-between w-full">
-                              <Link
-                                className="flex flex-row space-x-4"
-                                href={merchandiseUrl}
-                                onClick={onClose}
-                              >
-                                <div className="relative h-14 w-18 cursor-pointer overflow-hidden bg-white rounded">
-                                  <Image
-                                    className="h-14 w-18 object-cover"
-                                    width={72}
-                                    height={56}
-                                    sizes="72px"
-                                    quality={40}
-                                    alt={item.variant!.product!.title || ""}
-                                    src={
-                                      item.thumbnail ||
-                                      item.variant!.product!.images![0].url
-                                    }
+                          return (
+                            <li
+                              key={i}
+                              data-testid="cart-item"
+                              className="flex justify-between flex-row items-center gap-5 border-b border-[#2E2E32] px-8 py-6"
+                            >
+                              <div className="flex flex-row justify-between w-full">
+                                <Link
+                                  className="flex flex-row space-x-4"
+                                  href={merchandiseUrl}
+                                  onClick={onClose}
+                                >
+                                  <div className="relative h-14 w-18 cursor-pointer overflow-hidden bg-white rounded">
+                                    <Image
+                                      className="h-14 w-18 object-cover"
+                                      width={72}
+                                      height={56}
+                                      sizes="72px"
+                                      quality={40}
+                                      alt={item.variant!.product!.title || ""}
+                                      src={
+                                        item.thumbnail ||
+                                        item.variant!.product!.images![0].url
+                                      }
+                                    />
+                                  </div>
+                                  <div className="flex flex-1 flex-col justify-center">
+                                    <span className="text-labels-regular font-medium">
+                                      {item.title}
+                                    </span>
+                                  </div>
+                                </Link>
+                                <EditItemQuantityButton item={item} />
+                              </div>
+                              <div>
+                                {item.total && (
+                                  <Price
+                                    className="flex flex-col justify-between space-y-2 text-sm"
+                                    amount={item.total}
+                                    currency={cart.region!.currency_code}
                                   />
-                                </div>
-                                <div className="flex flex-1 flex-col justify-center">
-                                  <span className="text-labels-regular font-medium">
-                                    {item.title}
-                                  </span>
-                                </div>
-                              </Link>
-                              <EditItemQuantityButton item={item} />
-                            </div>
-                            <div>
-                              {item.total && (
-                                <Price
-                                  className="flex flex-col justify-between space-y-2 text-sm"
-                                  amount={item.total}
-                                  currency={cart.region!.currency_code}
-                                />
-                              )}
-                              <DeleteItemButton item={item} />
-                            </div>
-                          </li>
-                        );
-                      })}
+                                )}
+                                <DeleteItemButton item={item} />
+                              </div>
+                            </li>
+                          );
+                        })}
                     </ul>
                   </div>
                   <div className="flex flex-grow flex-col h-fit justify-between">
