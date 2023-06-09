@@ -8,7 +8,10 @@ type Props = {
   data: PersonalizationData | null;
 };
 
-const baseURL = `https://${process.env.VERCEL_URL}`;
+const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : `https://${process.env.VERCEL_URL}`;
 
 export default async function Home({
   searchParams: { cc },
@@ -26,9 +29,7 @@ export default async function Home({
 
   const start = performance.now();
 
-  const data = await (
-    await fetch(`http://localhost:3000/api/products`, options)
-  ).json();
+  const data = await (await fetch(`${baseURL}/api/products`, options)).json();
 
   // TODO: add fallback UI if error in the API call
 
