@@ -6,8 +6,8 @@ import { XCircleSolid } from "@/components/icons/x-circle-solid";
 
 type Props = {
   type: "success" | "error";
-  title: ReactElement |string;
-  body: ReactElement |string;
+  title: ReactElement | string;
+  body: ReactElement | string;
   onClose: () => void;
 };
 
@@ -26,7 +26,11 @@ export default function Notification({ type, title, body, onClose }: Props) {
               <h2 className="text-base-dark">{title}</h2>
               <p className="text-subtle-dark">{body}</p>
             </div>
-            <button onClick={onClose} type="button" className="self-start cursor-pointer">
+            <button
+              onClick={onClose}
+              type="button"
+              className="self-start cursor-pointer"
+            >
               <XMark />
             </button>
           </div>
