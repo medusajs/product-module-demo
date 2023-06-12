@@ -117,11 +117,11 @@ function orderProductByCategoryIdFirst({
   if (recentlyVisitedCategoryId) {
     recentlyViewedProducts = categoryProductsMap.get(
       recentlyVisitedCategoryId
-    )!;
+    ) ?? [];
     categoryProductsMap.delete(recentlyVisitedCategoryId);
   }
 
-  const allProducts = Array.from(recentlyViewedProducts.values()).concat(
+  const allProducts = recentlyViewedProducts.concat(
     Array.from(categoryProductsMap.values()).flat()
   );
 

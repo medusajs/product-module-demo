@@ -12,7 +12,7 @@ const FooterLink = ({ tag, className, children, ...rest }: Props) => {
       target="_blank"
       rel="noopener norefferer"
       className={clsx(
-        "text-labels-regular text-subtle-light dark:text-subtle-dark hover:text-base-light dark:hover:text-base-dark transition-colors",
+        "text-labels-regular text-base-light dark:text-base-dark hover:text-subtl-light dark:hover:text-subtle-dark transition-colors",
         className
       )}
       {...rest}
