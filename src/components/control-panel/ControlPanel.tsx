@@ -111,9 +111,9 @@ export default function ControlPanel({ data, loadingTime }: Props) {
               We use this to personalize the product grid.
             </HoverModal>
           )}
-          <Button className="cursor-help w-[100%]">
+          <Button className="cursor-help w-[100%]" left>
             <LastClick />
-            <span className="text-subtle-light dark:text-subtle-dark">
+            <span className="text-subtle-light dark:text-subtle-dark pl-3 lg:pl-0">
               Last clicked:
             </span>
             <span> {category_name ?? "None"}</span>
