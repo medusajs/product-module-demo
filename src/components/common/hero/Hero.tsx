@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className="h-fit w-full overflow-hidden bg-[url('/hero.svg')] bg-cover bg-center bg-base-light dark:bg-base-dark shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl p-4">
       <div className="inset-0 flex flex-col gap-6 items-center justify-center p-4">
-        <div className="flex flex-col gap-2 items-center justify-center text-center">
+        <div className="flex flex-col gap-4 items-center justify-center text-center">
           <div className="text-base-light dark:text-base-dark text-3xl md:text-4xl">
             Product Module Demo
           </div>
