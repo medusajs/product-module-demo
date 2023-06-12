@@ -8,10 +8,17 @@ type Props = {
 
 const Info = ({ product }: Props) => {
   return (
-    <div className="p-6 w-full h-[106px] flex flex-col gap-y-3">
+    <div className="p-6 w-full min-h-[150px] flex flex-col gap-y-3">
       <div className="flex items-start justify-between font-medium text-labels-large">
         <div className="flex flex-col gap-y-3">
           <p>{product.title}</p>
+          <p
+            className={
+              "text-subtle-light dark:text-subtle-dark text-labels-small text-ellipsis line-clamp-2"
+            }
+          >
+            {product.description}
+          </p>
           <Tags tags={product.tags} categories={product.categories} />
         </div>
       </div>
