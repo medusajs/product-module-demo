@@ -92,7 +92,11 @@ export default function ControlPanel({ data, loadingTime }: Props) {
               Location
             </HoverModal>
           )}
-          <CountryPicker country={country} setCountry={(c) => setQ(c.code)} />
+          <CountryPicker
+            country={country}
+            setCountry={(c) => setQ(c.code)}
+            inputRef={inputRef}
+          />
         </div>
         <div className="relative flex flex-row gap-2 lg:gap-4 justify-center items-center px-3 lg:p-0 max-w-[100%]">
           {recentItemHover && (

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, RefObject, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { ChevronUpDown } from "../icons/chevron-up-down";
 import { Globe } from "../icons/globe";
@@ -8,6 +8,7 @@ import { Country } from "@/types";
 type Props = {
   country: string;
   setCountry: (countryCode: Country) => void;
+  inputRef: RefObject<HTMLInputElement>;
 };
 
 const countryCodeMap = new Map<string, string>();
@@ -21,7 +22,11 @@ const countries = Array.from(countryCodeMap, ([name, code]) => ({
   code,
 })).sort((country1, country2) => country1.name.localeCompare(country2.name));
 
-export default function CountryPicker({ country, setCountry }: Props) {
+export default function CountryPicker({
+  country,
+  setCountry,
+  inputRef,
+}: Props) {
   const [query, setQuery] = useState("");
 
   const filteredCountries =
@@ -45,6 +50,7 @@ export default function CountryPicker({ country, setCountry }: Props) {
                 className="w-full border-none py-2 pl-3 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark overflow-hidden text-ellipsis outline-none"
                 displayValue={(country: string) => country}
                 onChange={(event) => setQuery(event.target.value)}
+                ref={inputRef}
               ></Combobox.Input>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronUpDown
