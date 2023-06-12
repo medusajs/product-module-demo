@@ -78,11 +78,11 @@ export default function ControlPanel({ data, loadingTime }: Props) {
 
   return (
     <div className="flex justify-center items-center fixed left-0 right-0 bottom-0 lg:bottom-5 z-30 px-4 xl:px-0 lg:p-0 w-[100%]">
-      <div className="flex flex-col-reverse lg:flex-row justify-center h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4">
+      <div className="flex flex-col-reverse lg:flex-row justify-center h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4 max-w-[100%]">
         <div
           onMouseEnter={() => setLocationHover(true)}
           onMouseLeave={() => setLocationHover(false)}
-          className="relative flex flex-col justify-center items-center px-3 lg:p-0"
+          className="relative flex flex-col justify-center items-center px-3 lg:p-0 max-w-[100%]"
         >
           {locationHover && (
             <HoverModal
@@ -94,7 +94,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
           )}
           <CountryPicker country={country} setCountry={(c) => setQ(c.code)} />
         </div>
-        <div className="relative flex flex-row gap-2 lg:gap-4 justify-center items-center px-3 lg:p-0">
+        <div className="relative flex flex-row gap-2 lg:gap-4 justify-center items-center px-3 lg:p-0 max-w-[100%]">
           {recentItemHover && (
             <HoverModal className="sm:block w-[380px] mx-w-[100%] text-center">
               Most recently viewed product category:
@@ -138,7 +138,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
             </Button>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2 border-solid border-b lg:border-b-0 lg:border-l border-neutral-button-light dark:border-neutral-button-dark p-5 lg:px-3 lg:py-0 h-fit w-screen lg:w-fit justify-between self-center">
+        <div className="flex flex-row items-center gap-2 border-solid border-b lg:border-b-0 lg:border-l border-neutral-button-light dark:border-neutral-button-dark p-5 lg:px-3 lg:py-0 h-fit w-screen lg:w-fit justify-between self-center max-w-[100%]">
           <div>
             <span className="text-subtle-light dark:text-subtle-dark">
               Response time:
