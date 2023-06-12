@@ -32,6 +32,7 @@ const productsData = [
     id: "test-1",
     title: "product 1",
     status: "published",
+    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed",
     tags: [
       {
         id: "tag-1",
@@ -48,6 +49,7 @@ const productsData = [
     id: "test-2",
     title: "product",
     status: "published",
+    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed",
     tags: [
       {
         id: "tag-2",
