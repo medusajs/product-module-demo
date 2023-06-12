@@ -35,7 +35,7 @@ export default function CountryPicker({ country, setCountry }: Props) {
         );
 
   return (
-    <div className="w-60 h-fit">
+    <div className="w-[100%] lg:w-60 h-fit">
       <Combobox value={country} onChange={(value: any) => setCountry(value)}>
         <div className="relative">
           <div className="flex flex-row gap-2 text-labels-regular font-medium rounded-[7px] border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark border-neutral-button-light dark:border-neutral-button-dark">
