@@ -149,7 +149,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
           }}
           className=" xl:hidden h-0 w-full absolute top-[92px] left-0 w-full border-b lg:border-b-0 border-neutral-button-light dark:border-neutral-button-dark"
         />
-        <div className="flex flex-row items-center gap-2 border-solid lg:border-l border-neutral-button-light dark:border-neutral-button-dark p-5 lg:px-3 lg:py-0 h-fit w-screen lg:w-fit justify-between self-center max-w-[100%]">
+        <div className="flex flex-row items-center gap-2 border-solid lg:border-l border-neutral-button-light dark:border-neutral-button-dark p-5 pt-3 lg:pt-0 lg:px-3 mb-2 lg:mb-0 lg:py-0 h-fit w-screen lg:w-fit justify-between self-center max-w-[100%]">
           <div>
             <span className="text-subtle-light dark:text-subtle-dark">
               Response time:
