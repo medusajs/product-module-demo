@@ -77,8 +77,8 @@ export default function ControlPanel({ data, loadingTime }: Props) {
   const { category_name } = data.all_products_section;
 
   return (
-    <div className="flex justify-center items-center fixed left-0 right-0 bottom-0 lg:bottom-5 z-30">
-      <div className="flex flex-col-reverse lg:flex-row justify-center w-fit h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4">
+    <div className="flex justify-center items-center fixed left-0 right-0 bottom-0 lg:bottom-5 z-30 px-4 xl:px-0 lg:p-0 w-[100%]">
+      <div className="flex flex-col-reverse lg:flex-row justify-center h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4">
         <div
           onMouseEnter={() => setLocationHover(true)}
           onMouseLeave={() => setLocationHover(false)}
@@ -94,11 +94,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
           )}
           <CountryPicker country={country} setCountry={(c) => setQ(c.code)} />
         </div>
-        <div
-          className="relative flex flex-row gap-2 lg:gap-4 justify-center items-center px-3 lg:p-0"
-          onMouseEnter={() => setRecentItemHover(true)}
-          onMouseLeave={() => setRecentItemHover(false)}
-        >
+        <div className="relative flex flex-row gap-2 lg:gap-4 justify-center items-center px-3 lg:p-0">
           {recentItemHover && (
             <HoverModal className="sm:block w-[380px] mx-w-[100%] text-center">
               Most recently viewed product category:
@@ -111,13 +107,19 @@ export default function ControlPanel({ data, loadingTime }: Props) {
               We use this to personalize the product grid.
             </HoverModal>
           )}
-          <Button className="cursor-help w-[100%]" left>
-            <LastClick />
-            <span className="text-subtle-light dark:text-subtle-dark pl-3 lg:pl-0">
-              Last clicked:
-            </span>
-            <span> {category_name ?? "None"}</span>
-          </Button>
+          <div
+            className="w-[100%]"
+            onMouseEnter={() => setRecentItemHover(true)}
+            onMouseLeave={() => setRecentItemHover(false)}
+          >
+            <Button className="cursor-help w-[100%]" left>
+              <LastClick />
+              <span className="text-subtle-light dark:text-subtle-dark pl-3 lg:pl-0">
+                Last clicked:
+              </span>
+              <span> {category_name ?? "None"}</span>
+            </Button>
+          </div>
           <div
             onMouseEnter={() => setResetHover(true)}
             onMouseLeave={() => setResetHover(false)}
@@ -133,7 +135,6 @@ export default function ControlPanel({ data, loadingTime }: Props) {
             )}
             <Button onClick={reset}>
               <ArrowRefresh />
-              <span className="hidden lg:block">Reset</span>
             </Button>
           </div>
         </div>
