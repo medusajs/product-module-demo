@@ -8,7 +8,6 @@ import { Country } from "@/types";
 type Props = {
   country: string;
   setCountry: (countryCode: Country) => void;
-  inputRef: React.RefObject<HTMLInputElement>;
 };
 
 const countryCodeMap = new Map<string, string>();
@@ -20,13 +19,9 @@ for (const countryCode of Object.keys(isoAlpha2Countries)) {
 const countries = Array.from(countryCodeMap, ([name, code]) => ({
   name,
   code,
-}));
+})).sort((country1, country2) => country1.name.localeCompare(country2.name));
 
-export default function CountryPicker({
-  country,
-  setCountry,
-  inputRef,
-}: Props) {
+export default function CountryPicker({ country, setCountry }: Props) {
   const [query, setQuery] = useState("");
 
   const filteredCountries =
@@ -38,26 +33,26 @@ export default function CountryPicker({
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
+
   return (
     <div className="w-60 h-fit">
       <Combobox value={country} onChange={(value: any) => setCountry(value)}>
         <div className="relative">
           <div className="flex flex-row gap-2 text-labels-regular font-medium rounded-[7px] border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark border-neutral-button-light dark:border-neutral-button-dark">
-            <div className="flex items-center justify-center flex-row w-full border-none pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark">
+            <Combobox.Button className="flex items-center justify-center flex-row w-full border-none pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark">
               <Globe />
               <Combobox.Input
-                ref={inputRef}
-                className="w-full border-none py-2 pl-3 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark focus:outline-focus focus:border-1 focus:border-focus overflow-hidden text-ellipsis"
+                className="w-full border-none py-2 pl-3 rounded border bg-gradient-to-b from-white dark:from-[#2E2E32] to-[#F8F9FA] dark:to-[#28282C] text-base-light dark:text-base-dark overflow-hidden text-ellipsis outline-none"
                 displayValue={(country: string) => country}
                 onChange={(event) => setQuery(event.target.value)}
               ></Combobox.Input>
-              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronUpDown
                   className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
                 />
-              </Combobox.Button>
-            </div>
+              </div>
+            </Combobox.Button>
           </div>
           <Transition
             as={Fragment}

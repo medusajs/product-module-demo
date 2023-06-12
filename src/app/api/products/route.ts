@@ -12,26 +12,23 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
+  const start = performance.now()
+
   // If already instaciated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
-  const countryCode: string =
-    req.headers.get("x-simulated-country") ??
-    req.headers.get("x-vercel-ip-country") ??
-    "US";
+  const countryCode: string = req.headers.get("x-country") ?? "US";
 
   const { name: country, continent } = isoAlpha2Countries[countryCode];
   const continentText = formatContinent(continent);
 
-  const now = performance.now()
+  const now = performance.now();
 
-  const [
-    { categoryId, categoryName },
-    [personalizedProducts, allProducts]
-  ] = await queryProducts(req, continent);
+  const [{ categoryId, categoryName }, [personalizedProducts, allProducts]] =
+    await queryProducts(req, continent);
 
-  const end = performance.now()
-  console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
+  const end = performance.now();
+  console.log(`[API] queryProducts + getKvData took ${end - now}ms`);
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
@@ -39,24 +36,34 @@ export async function GET(req: NextRequest) {
     recentlyVisitedCategoryId: categoryId,
   });
 
-  return NextResponse.json({
-    personalized_section: {
-      country,
-      continent_text: continentText,
-      products: data.personalizedProducts,
-    },
-    all_products_section: {
-      category_name: categoryName,
-      products: data.allProducts,
-    },
-  })
+  try {
+    return NextResponse.json({
+      personalized_section: {
+        country,
+        continent_text: continentText,
+        products: data.personalizedProducts,
+      },
+      all_products_section: {
+        category_name: categoryName,
+        products: data.allProducts,
+      },
+    });
+  } finally {
+    const end = performance.now()
+    console.log(`[API] GET took ${end - start}ms`)
+  }
 }
 
-async function queryProducts(req: NextRequest, continent: string): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
+async function queryProducts(
+  req: NextRequest,
+  continent: string
+): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
   const productService = await ProductModuleInitialize();
 
-  const userId = req.cookies.get("userId")?.value;
+  const userId = req.headers.get("x-userId");
   let categoryId, categoryName;
+
+  const start = performance.now()
 
   const [userData, ...productsData] = await Promise.all([
     userId ? kv.get<UserData>(userId) : Promise.resolve({} as UserData),
@@ -68,7 +75,11 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
         select: ["id"],
         take: 3,
       }
-    ),
+    ).finally((data: ProductTypes.ProductDTO[]) => {
+      const end = performance.now()
+      console.log(`[API] productService.list take 3 took ${end - start}ms`)
+      return data
+    }),
     productService.list(
       {},
       {
@@ -76,7 +87,11 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
         order: { id: "DESC" },
         take: 100,
       }
-    ),
+    ).finally((data: ProductTypes.ProductDTO[]) => {
+      const end = performance.now()
+      console.log(`[API] productService.list take 100 took ${end - start}ms`)
+      return data
+    }),
   ])
 
   categoryId = userData?.categoryId;
@@ -87,8 +102,8 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
       categoryId,
       categoryName,
     },
-    productsData
-  ]
+    productsData,
+  ];
 }
 
 function orderProductByCategoryIdFirst({
@@ -117,11 +132,11 @@ function orderProductByCategoryIdFirst({
   if (recentlyVisitedCategoryId) {
     recentlyViewedProducts = categoryProductsMap.get(
       recentlyVisitedCategoryId
-    )!;
+    ) ?? [];
     categoryProductsMap.delete(recentlyVisitedCategoryId);
   }
 
-  const allProducts = Array.from(recentlyViewedProducts.values()).concat(
+  const allProducts = recentlyViewedProducts.concat(
     Array.from(categoryProductsMap.values()).flat()
   );
 

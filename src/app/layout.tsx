@@ -45,9 +45,9 @@ export default function RootLayout({
           "bg-subtle-light dark:bg-subtle-dark text-base-light dark:text-base-dark min-h-screen"
         )}
       >
-        {/* @ts-ignore server component */}
-        <Nav />
         <NotificationProvider>
+          {/* @ts-ignore server component */}
+          <Nav />
           <main className="py-16 px-4 sm:px-8 xl:px-0">{children}</main>
           {modal}
           <Footer />
