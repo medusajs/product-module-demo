@@ -6,12 +6,14 @@ type Props = PropsWithChildren<{
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  left?: boolean;
 }>;
 
 const Button = ({
   variant = "primary",
   onClick,
   className,
+  left,
   disabled = false,
   children,
 }: Props) => {
@@ -26,9 +28,10 @@ const Button = ({
     <button
       onClick={onClick}
       className={clsx(
-        className,
         bg,
-        "flex flex-row items-center justify-center gap-1 p-2 text-labels-regular font-medium h-fit py-[9px] rounded-[7px] border"
+        "flex flex-row items-center gap-1 p-2 text-labels-regular font-medium h-fit py-[9px] rounded-[7px] border",
+        className,
+        left ? "justify-start" : "justify-center"
       )}
       disabled={disabled}
     >
