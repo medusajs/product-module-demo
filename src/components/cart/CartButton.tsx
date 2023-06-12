@@ -41,7 +41,7 @@ export default function CartButton({
     if (quantity !== quantityRef.current) {
       setCartIsOpen(true);
     }
-    startTransition(() => router.refresh());
+    // startTransition(() => router.refresh());
   }, [quantity]);
 
   return (

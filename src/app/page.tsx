@@ -1,95 +1,65 @@
-"use client";
-
 import { Feature } from "@/components";
 import { ControlPanel } from "@/components/control-panel";
-import { useEffect, useRef, useState } from "react";
-import { Country, PersonalizationData } from "@/types";
+import { PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
-import clsx from "clsx";
+import { cookies, headers } from "next/headers";
 
 type Props = {
   data: PersonalizationData | null;
-  isLoading: boolean;
 };
 
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<PersonalizationData | null>(null);
-  const [loadingTime, setLoadingTime] = useState(0);
-  const featuresRef = useRef<HTMLDivElement>(null);
+const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : `https://${process.env.VERCEL_URL}`;
 
-  async function getPersonalizationData(countryCode?: string): Promise<void> {
-    const options = countryCode
-      ? { headers: { "x-simulated-country": countryCode } }
-      : {};
+export default async function Home({
+  searchParams: { cc },
+}: {
+  searchParams: { cc: string | null };
+}) {
+  const headerList = headers();
+  const cookieList = cookies();
 
-    setIsLoading(true);
-
-    const start = performance.now();
-    let end: number = 0;
-
-    const data = await fetch("/api/products", options)
-      .then((res) => {
-        end = performance.now();
-        return res;
-      })
-      .then((res) => res.json());
-
-    setData(data);
-    setLoadingTime(Math.floor(end - start));
-    setIsLoading(false);
-    countryCode && scrollToFeatures();
-  }
-
-  useEffect(() => {
-    getPersonalizationData();
-  }, []);
-
-  const setCountry = async (country: Country | null) => {
-    await getPersonalizationData(country?.code);
+  const userId = cookieList.get("userId")?.value!;
+  const vercelIPCountry = headerList.get("x-vercel-ip-country")!;
+  const options = {
+    headers: { "x-country": cc ?? vercelIPCountry ?? "US", "x-userId": userId },
   };
 
-  const scrollToFeatures = () => {
-    if (featuresRef.current) {
-      featuresRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const start = performance.now();
+
+  const data = await (await fetch(`${baseURL}/api/products`, options)).json();
+
+  // TODO: add fallback UI if error in the API call
+
+  const end = performance.now();
+  const loadingTime = Math.floor(end - start);
 
   return (
     <main className="flex flex-col items-center">
       <div className="w-full max-w-7xl flex">
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
-          <div ref={featuresRef}>
-            <Features data={data} isLoading={isLoading} />
-          </div>
-          <ControlPanel
-            data={data}
-            loadingTime={loadingTime}
-            setCountry={setCountry}
-            scrollToFeatures={scrollToFeatures}
-          />
+          <Features data={data} />
+          <ControlPanel data={data} loadingTime={loadingTime} />
         </div>
       </div>
     </main>
   );
 }
 
-function Features({ data, isLoading }: Props) {
-  if (!isLoading && !data) return <>No data</>;
-
+function Features({ data }: Props) {
   return (
     <div className="flex flex-col gap-y-16">
       <Feature products={data?.personalized_section.products!} max={3}>
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-headers-h3">
             Products for visitors from{" "}
-            <span className={clsx(isLoading && "blur")}>
-              {isLoading ? "United States" : data?.personalized_section.country}
-            </span>
+            <span>{data?.personalized_section.country}</span>
           </h3>
         </div>
-        <p className={clsx(isLoading && "blur", "text-subtle-dark")}>
+        <p className="text-subtle-dark">
           We have registered that you are browsing from{" "}
           <span className="text-base-light dark:text-base-dark">
             {data?.personalized_section.continent_text.article}{" "}
@@ -106,7 +76,7 @@ function Features({ data, isLoading }: Props) {
         <div className="flex items-center justify-between">
           <h3 className="font-medium text-headers-h3">All products</h3>
         </div>
-        <p className={clsx(isLoading && "blur", "text-subtle-dark")}>
+        <p className="text-subtle-dark">
           {data?.all_products_section.category_name ? (
             <>
               Because the last product you visited was from the{" "}

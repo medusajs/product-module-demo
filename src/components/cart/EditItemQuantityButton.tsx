@@ -38,9 +38,9 @@ const EditItemQuantityButton = ({ item }: Props) => {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center cursor-pointer relative">
       <select
-        className="flex flex-row p-1 bg-base-light dark:bg-base-dark text-base-light dark:text-base-dark appearance-none cursor-pointer"
+        className="flex flex-row p-1 bg-transparent text-base-light dark:text-base-dark appearance-none cursor-pointer pr-5 z-50"
         value={item.quantity}
         onChange={(e) =>
           handleUpdate({ item, quantity: parseInt(e.target.value) })
@@ -52,7 +52,7 @@ const EditItemQuantityButton = ({ item }: Props) => {
           </option>
         ))}
       </select>
-      <ChevronUpDown />
+      <ChevronUpDown className="absolute left-4"  />
     </div>
   );
 };

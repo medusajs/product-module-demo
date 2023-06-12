@@ -12,26 +12,21 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
-  // If already instaciated, it will return the instance or create a new one
+  // If already instantiated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
-  const countryCode: string =
-    req.headers.get("x-simulated-country") ??
-    req.headers.get("x-vercel-ip-country") ??
-    "US";
+  const countryCode: string = req.headers.get("x-country") ?? "US";
 
   const { name: country, continent } = isoAlpha2Countries[countryCode];
   const continentText = formatContinent(continent);
 
-  const now = performance.now()
+  const now = performance.now();
 
-  const [
-    { categoryId, categoryName },
-    [personalizedProducts, allProducts]
-  ] = await queryProducts(req, continent);
+  const [{ categoryId, categoryName }, [personalizedProducts, allProducts]] =
+    await queryProducts(req, continent);
 
-  const end = performance.now()
-  console.log(`[API] queryProducts + getKvData took ${end - now}ms`)
+  const end = performance.now();
+  console.log(`[API] queryProducts + getKvData took ${end - now}ms`);
 
   const data = orderProductByCategoryIdFirst({
     products: allProducts,
@@ -49,13 +44,16 @@ export async function GET(req: NextRequest) {
       category_name: categoryName,
       products: data.allProducts,
     },
-  })
+  });
 }
 
-async function queryProducts(req: NextRequest, continent: string): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
+async function queryProducts(
+  req: NextRequest,
+  continent: string
+): Promise<[Data, [ProductTypes.ProductDTO[], ProductTypes.ProductDTO[]]]> {
   const productService = await ProductModuleInitialize();
 
-  const userId = req.cookies.get("userId")?.value;
+  const userId = req.headers.get("x-userId");
   let categoryId, categoryName;
 
   const [userData, ...productsData] = await Promise.all([
@@ -77,7 +75,7 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
         take: 100,
       }
     ),
-  ])
+  ]);
 
   categoryId = userData?.categoryId;
   categoryName = userData?.categoryName;
@@ -87,8 +85,8 @@ async function queryProducts(req: NextRequest, continent: string): Promise<[Data
       categoryId,
       categoryName,
     },
-    productsData
-  ]
+    productsData,
+  ];
 }
 
 function orderProductByCategoryIdFirst({

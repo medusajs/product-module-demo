@@ -1,47 +1,46 @@
 "use client";
 
-import { Country, PersonalizationData } from "@/types";
+import { PersonalizationData } from "@/types";
 import { LastClick } from "../icons/lastclick";
 import { ArrowRefresh } from "../icons/arrow-refresh";
 import { Button } from "../common";
 import CountryPicker from "./CountryPicker";
 import { startTransition, useEffect, useRef, useState } from "react";
 import HoverModal from "./HoverModal";
-import { useRouter } from "next/navigation";
 
 type Props = {
   data: PersonalizationData | null;
   selectedCountry?: string;
   loadingTime: number;
-  setCountry: (country: Country | null) => void;
-  scrollToFeatures: () => void;
 };
+
+function setQ(q: string | null) {
+  const searchParams = new URLSearchParams(window.location.search);
+  if (!q) {
+    searchParams.delete("cc");
+  } else {
+    searchParams.set("cc", q);
+  }
+  window.location.search = searchParams.toString();
+}
 
 async function resetUserData() {
   await fetch("/api/category-tracker", { method: "DELETE" });
 }
 
-export default function ControlPanel({
-  data,
-  loadingTime,
-  setCountry,
-  scrollToFeatures,
-}: Props) {
+export default function ControlPanel({ data, loadingTime }: Props) {
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
   const [resetHover, setResetHover] = useState(false);
 
-  const router = useRouter();
-
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const reset = async () => {
-    setCountry(null);
     await resetUserData();
+    setQ("");
 
     startTransition(() => {
-      router.refresh();
-      scrollToFeatures();
+      window.scrollTo(0, 0);
     });
   };
 
@@ -93,11 +92,7 @@ export default function ControlPanel({
               Location
             </HoverModal>
           )}
-          <CountryPicker
-            country={country}
-            setCountry={setCountry}
-            inputRef={inputRef}
-          />
+          <CountryPicker country={country} setCountry={(c) => setQ(c.code)} />
         </div>
         <div
           className="relative flex flex-col justify-center items-center"
@@ -116,7 +111,7 @@ export default function ControlPanel({
               We use this to personalize the product grid.
             </HoverModal>
           )}
-          <Button>
+          <Button className="cursor-help">
             <LastClick />
             <span className="text-subtle-light dark:text-subtle-dark">
               Last clicked:
@@ -144,7 +139,7 @@ export default function ControlPanel({
         </div>
         <div className="flex flex-row items-center gap-2 border-solid border-l border-neutral-button-light dark:border-neutral-button-dark px-3 py-0 h-fit self-center">
           <span className="text-subtle-light dark:text-subtle-dark">
-            Loading:
+            Response time:
           </span>
           {loadingTime}ms
           <span className="text-labels-xsmall text-subtle-light dark:text-subtle-dark rounded border-solid border border-tag-neutral-light dark:border-tag-neutral-dark bg-tag-neutral-light dark:bg-tag-neutral-dark px-1 ml-1">
