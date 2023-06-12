@@ -12,17 +12,20 @@ const Hero = () => {
           <div className="text-base-light dark:text-base-dark text-3xl md:text-4xl">
             Product Module Demo
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-x-1 gap-y-2 text-subtle-light dark:text-subtle-dark max-w-[399px] text-center">
-            This demo uses
-            <span className="flex flex-row items-center gap-1">
-              <Nextjs />
-              Next.js
+          <div className="flex flex-wrap flex-inline justify-center gap-x-1 gap-y-2 text-subtle-light dark:text-subtle-dark max-w-fit text-center">
+            <span className="flex flex-row gap-1 flex-wrap justify-center">
+              This demo uses
+              <span className="flex flex-row items-center gap-1">
+                <Nextjs />
+                Next.js
+              </span>
+              and
+              <span className="flex flex-row items-center gap-1">
+                <Medusa /> Medusa
+              </span>
+              product module
             </span>
-            and
-            <span className="flex flex-row items-center gap-1">
-              <Medusa /> Medusa
-            </span>
-            product module for personalization.
+            for personalization.
           </div>
         </div>
         {/* Mobile */}
