@@ -67,11 +67,11 @@ const Modal = ({ cta, icon, href, children }: Props) => {
             </div>
             {cta && (
               <div className="flex items-center gap-x-2">
-                <Button>
-                  <a className="flex flex-row gap-2" href={href}>
+                <a className="flex flex-row gap-2" href={href}>
+                  <Button>
                     {icon} {cta}
-                  </a>
-                </Button>
+                  </Button>
+                </a>
               </div>
             )}
           </div>

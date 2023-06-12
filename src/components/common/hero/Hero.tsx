@@ -58,9 +58,11 @@ const Hero = () => {
           width={1000}
           height={280}
         />
-        <Button variant="inverted" className="px-[11px] py-[5px]">
-          <Link href="/about">Read How It Works</Link>
-        </Button>
+        <Link href="/about">
+          <Button variant="inverted" className="px-[11px] py-[5px]">
+            Read How It Works
+          </Button>
+        </Link>
       </div>
     </div>
   );
