@@ -164,7 +164,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`\/\/ Get the user\'s (simulated) country code from the header. \r\nconst countryCode = req.headers.get(\"x-country\"); \r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nlet continent = getContinent[countryCode];\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst localProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
+                code={`\/\/ Get the user\'s (simulated) country code from the header. \r\nconst countryCode = req.headers.get(\"x-country\"); \r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nconst { name: country, continent } = isoAlpha2Countries[countryCode];\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst personalizedProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
               />
               <p>Display the localized products.</p>
               <EnlargableImage

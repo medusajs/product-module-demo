@@ -38,4 +38,4 @@ yarn-error.log*
 
 # yarn
 .yarn/cache
-feat/add-product-description
+.yarn/install-state.gz
