@@ -196,7 +196,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/category-tracker/route.ts"
                 language="javascript"
-                code={`import { kv } from \"@vercel\/kv\";\r\n\r\n\/\/ Grab the category data from the request.\r\nconst { categoryId, categoryName } = await request.json()\r\n\r\nconst userData = {\r\n  categoryId,\r\n  categoryName,\r\n};\r\n\r\n\/\/ Grab the userId from the cookie and assign the category data to the \r\n\/\/ userId in the KV store.\r\nconst userId = request.cookies.get(\"userId\").value;\r\nawait kv.set(userId, userData);`}
+                code={`import { kv } from \"@vercel\/kv\";\r\n\r\n\/\/ Grab the category data from the request.\r\nconst { categoryId, categoryName } = await request.json();\r\n\r\nconst userData = {\r\n  categoryId,\r\n  categoryName,\r\n};\r\n\r\n\/\/ Grab the userId from the cookie and assign the category data to the \r\n\/\/ userId in the KV store.\r\nconst userId = request.cookies.get(\"userId\").value;\r\nawait kv.set(userId, userData);`}
               />
               <p>Click a product to view its product page.</p>
               <EnlargableImage
