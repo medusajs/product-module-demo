@@ -37,7 +37,7 @@ const Hero = () => {
             width={290}
             height={160}
           />
-          <ul className="list-disc ml-4 text-subtle-dark text-labels-small">
+          <ul className="list-disc ml-4 text-subtle-dark text-labels-small space-y-1">
             <li>
               The time it takes for Vercel Function to respond with products
               using our Product Module.
