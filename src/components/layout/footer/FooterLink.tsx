@@ -6,13 +6,14 @@ type Props = React.ComponentProps<"a"> & {
   tag?: string;
 };
 
-const FooterLink = ({ tag, className, children, ...rest }: Props) => {
+const FooterLink = ({ tag, className, children, href, ...rest }: Props) => {
   return (
     <a
       target="_blank"
       rel="noopener norefferer"
+      href={href + "?utm_source=product-module-demo&utm_medium=recap&utm_campaign=footer"}
       className={clsx(
-        "text-labels-regular text-subtle-light dark:text-subtle-dark hover:text-base-light dark:hover:text-base-dark transition-colors",
+        "text-labels-regular text-base-light dark:text-base-dark hover:text-subtl-light dark:hover:text-subtle-dark transition-colors",
         className
       )}
       {...rest}
