@@ -108,8 +108,8 @@ export default async function AboutModal() {
             The <em>All products</em> part will be sorted based on your last
             viewed product. It uses the product&apos;s category and shows all
             products from that category first. So if your last viewed product
-            was from the <em>hoodies</em> category, it will show all hoodies on
-            top.
+            was from the <em>tote bags</em> category, it will show all tote bags
+            on top.
           </p>
 
           <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-6 md:my-10"></div>
@@ -164,7 +164,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`\/\/ Get the user\'s country code from the Vercel header, or overwrite with \r\n\/\/ a simulated location when provided.\r\nconst countryCode = \r\n\treq.headers.get(\"x-simulated-country\") ?? \r\n\treq.headers.get(\"x-vercel-ip-country\")\r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nlet continent = getContinent[countryCode]\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst localProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
+                code={`\/\/ Get the user\'s (simulated) country code from the header. \r\nconst countryCode = req.headers.get(\"x-country\"); \r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nlet continent = getContinent[countryCode];\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst localProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
               />
               <p>Display the localized products.</p>
               <EnlargableImage
@@ -221,10 +221,10 @@ export default async function AboutModal() {
                 language="javascript"
                 code={`\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\nconst userId = req.cookies.get(\"userId\").value;\r\nconst { categoryId } = await kv.get(userId);\r\n\r\n\/\/ Get all products.\r\nconst allProducts = await productService.list({});\r\n\r\n\/\/ Re-order the products based on the last viewed categoryId.\r\nconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);`}
               />{" "}
-              <p>Hoodies are now displayed on top!</p>
+              <p>Tote bags are now displayed on top!</p>
               <EnlargableImage
                 src="/all-ordered.png"
-                alt="Hoodies are now displayed on top"
+                alt="Tote bags are now displayed on top"
                 width={1309}
                 height={938}
                 sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
