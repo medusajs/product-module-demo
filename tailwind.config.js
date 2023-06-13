@@ -29,6 +29,8 @@ export const theme = {
       "field-light": "#F8F9FA",
       "subtle-dark": "#161618",
       "subtle-light": "#F8F9FA",
+      "subtle-darker": "#7E7D86",
+      "subtle-lighter": "#687076",
       "overlay-dark": "rgba(22, 22, 24, 0.7)",
       "overlay-light": "rgba(17, 24, 28, 0.4)",
       "tag-neutral-dark": "#28282C",

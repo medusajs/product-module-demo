@@ -108,7 +108,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
   return (
     <div
       style={{
-        transform: `translateY(${isVisible ? 0 : 172}px)`,
+        transform: `translateY(${isVisible ? 0 : 174}px)`,
         transition: "0.2s transform",
       }}
       className="flex justify-center items-center fixed left-0 right-0 bottom-0 lg:bottom-5 z-30 px-4 xl:px-0 lg:p-0 w-[100%] pointer-events-none"
@@ -182,7 +182,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
             left: "1rem",
             width: `calc(100% - 2rem)`,
           }}
-          className=" xl:hidden h-0 w-full absolute top-[104px] left-0 w-full border-b lg:border-b-0 border-neutral-button-light dark:border-neutral-button-dark"
+          className=" xl:hidden h-0 w-full absolute top-[110px] left-0 w-full border-b lg:border-b-0 border-neutral-button-light dark:border-neutral-button-dark"
         />
         <div className="flex flex-row items-center gap-2 border-solid lg:border-l border-neutral-button-light dark:border-neutral-button-dark p-5 pt-3 lg:pt-0 lg:px-3 mb-2 lg:mb-0 lg:py-0 h-fit w-screen lg:w-fit justify-between self-center max-w-[100%]">
           <div>
@@ -200,9 +200,9 @@ export default function ControlPanel({ data, loadingTime }: Props) {
 
         <div
           onClick={togglePanel}
-          className="lg:hidden pb-1 flex items-center justify-center"
+          className="lg:hidden pb-1 pt-[2px] flex items-center justify-center"
         >
-          <div className=" h-[3px] w-[60px] bg-tag-neutral-light rounded" />
+          <div className=" h-[4px] w-[70px] bg-subtle-darker rounded" />
         </div>
       </div>
     </div>
