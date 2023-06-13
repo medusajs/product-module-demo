@@ -30,11 +30,12 @@ const Hero = () => {
         {/* Mobile */}
         <div className="flex flex-col gap-4 justify-between items-center md:hidden">
           <Image
+            unoptimized
             className="block md:hidden"
             src="/controls-image-mobile.svg"
             alt="Control panel explainer"
-            width={580}
-            height={320}
+            width={700}
+            height={425.6}
           />
           <ol className="list-decimal ml-4 text-subtle-dark text-labels-small space-y-1">
             <li>
