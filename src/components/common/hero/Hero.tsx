@@ -34,8 +34,8 @@ const Hero = () => {
             className="block md:hidden"
             src="/controls-image-mobile.svg"
             alt="Control panel explainer"
-            width={290}
-            height={160}
+            width={580}
+            height={320}
           />
           <ol className="list-decimal ml-4 text-subtle-dark text-labels-small space-y-1">
             <li>
