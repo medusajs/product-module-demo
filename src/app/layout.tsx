@@ -10,16 +10,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    template: "%s | Medusa Product Module Demo",
-    default: "Medusa Product Module Demo",
+    template: "%s | Medusa Products Module Demo",
+    default: "Medusa Products Module Demo",
   },
   description:
-    "Learn how to use the Medusa Product Module in a Next.js function to personalize your storefront. Discover the benefits of running the Product Module in a serverless environment and get started building today.",
+    "Learn how to use the Medusa Products Module in a Next.js function to personalize your storefront. Discover the benefits of running the Products Module in a serverless environment and get started building today.",
   openGraph: {
-    title: "Medusa Product Module Demo",
-    siteName: "Medusa Product Module Demo",
+    title: "Medusa Products Module Demo",
+    siteName: "Medusa Products Module Demo",
     description:
-      "Learn how to use the Medusa Product Module in a Next.js function to personalize your storefront. Discover the benefits of running the Product Module in a serverless environment and get started building today.",
+      "Learn how to use the Medusa Products Module in a Next.js function to personalize your storefront. Discover the benefits of running the Products Module in a serverless environment and get started building today.",
     type: "website",
     author: "MedusaJS",
     images: "/product-module-demo-thumbnail.jpg",

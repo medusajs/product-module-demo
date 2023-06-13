@@ -10,7 +10,7 @@ const Hero = () => {
       <div className="inset-0 flex flex-col gap-6 items-center justify-center p-4">
         <div className="flex flex-col gap-4 items-center justify-center text-center">
           <div className="text-base-light dark:text-base-dark text-3xl md:text-4xl">
-            Product Module Demo
+            Products Module Demo
           </div>
           <div className="flex flex-wrap flex-inline justify-center gap-x-1 gap-y-2 text-subtle-light dark:text-subtle-dark max-w-fit text-center">
             <span className="flex flex-row gap-1 flex-wrap justify-center">
@@ -23,7 +23,7 @@ const Hero = () => {
               <span className="flex flex-row items-center gap-1">
                 <Medusa /> Medusa
               </span>
-              product module
+              products module
             </span>
             for personalization.
           </div>
@@ -37,10 +37,10 @@ const Hero = () => {
             width={290}
             height={160}
           />
-          <ul className="list-disc ml-4 text-subtle-dark text-labels-small space-y-1">
+          <ol className="list-decimal ml-4 text-subtle-dark text-labels-small space-y-1">
             <li>
               The time it takes for Vercel Function to respond with products
-              using our Product Module.
+              using our Products Module.
             </li>
             <li>The region of Vercel Function.</li>
             <li>We store last viewed product category in Vercel KV.</li>
@@ -48,7 +48,7 @@ const Hero = () => {
               The country picker allows you to simulate your location around the
               world. We default to x-vercel-ip-country.
             </li>
-          </ul>
+          </ol>
         </div>
         {/* Tablet / Desktop */}
         <Image
