@@ -142,7 +142,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`import { initialize as initializeProductModule } from "@medusajs/product";\r\n\r\nconst productService = await initializeProductModule();\r\n\r\n// list all products\r\nconst products = await productService.list({});`}
+                code={`import { initialize as initializeProductModule } from \"@medusajs\/product\";\r\n\r\nexport async function GET(req) {\r\n  const productService = await initializeProductModule();\r\n\r\n  \/\/ list all products\r\n  const products = await productService.list({});\r\n  \r\n  return NextResponse.json({ products });\r\n}`}
               />
               <p>All products are now displayed in standard order.</p>
               <EnlargableImage
@@ -164,7 +164,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`\/\/ Get the user\'s (simulated) country code from the header. \r\nconst countryCode = req.headers.get(\"x-country\"); \r\n\r\n\/\/ Get the user\'s continent from a mapper.\r\nconst { name: country, continent } = isoAlpha2Countries[countryCode];\r\n\r\n\/\/ List 3 products with a tag that matches the user\'s continent.\r\nconst personalizedProducts = await productService.list(\r\n  { tags: { value: [continent] } },\r\n  { take: 3 }\r\n);`}
+                code={`import { initialize as initializeProductModule } from \"@medusajs\/product\";\r\n\r\nexport async function GET(req) {\r\n  const productService = await initializeProductModule();\r\n\r\n\t\/\/ Get the user\'s (simulated) country code from the header. \r\n\tconst countryCode = req.headers.get(\"x-country\"); \r\n\t\r\n\t\/\/ Get the user\'s continent from a mapper.\r\n\tconst { name: country, continent } = isoAlpha2Countries[countryCode];\r\n\t\r\n\t\/\/ List 3 products with a tag that matches the user\'s continent.\r\n\tconst personalizedProducts = await productService.list(\r\n\t  { tags: { value: [continent] } },\r\n\t  { take: 3 }\r\n\t);\r\n\r\n\treturn NextResponse.json({ personalizedProducts });\r\n}`}
               />
               <p>Display the localized products.</p>
               <EnlargableImage
@@ -196,7 +196,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/category-tracker/route.ts"
                 language="javascript"
-                code={`import { kv } from \"@vercel\/kv\";\r\n\r\n\/\/ Grab the category data from the request.\r\nconst { categoryId, categoryName } = await request.json();\r\n\r\nconst userData = {\r\n  categoryId,\r\n  categoryName,\r\n};\r\n\r\n\/\/ Grab the userId from the cookie and assign the category data to the \r\n\/\/ userId in the KV store.\r\nconst userId = request.cookies.get(\"userId\").value;\r\nawait kv.set(userId, userData);`}
+                code={`import { kv } from \"@vercel\/kv\";\r\n\r\nexport async function POST(req) {\r\n\t\/\/ Grab the category data from the request.\r\n\tconst { categoryId, categoryName } = await req.json();\r\n\t\r\n\tconst userData = {\r\n\t  categoryId,\r\n\t  categoryName,\r\n\t};\r\n\t\r\n\t\/\/ Grab the userId from the cookie and assign the category data to the userId \r\n\t\/\/ in the KV store.\r\n\tconst userId = req.cookies.get(\"userId\").value;\r\n\tawait kv.set(userId, userData);\r\n\r\n\treturn new NextResponse();\r\n}`}
               />
               <p>Click a product to view its product page.</p>
               <EnlargableImage
@@ -219,8 +219,8 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\nconst userId = req.cookies.get(\"userId\").value;\r\nconst { categoryId } = await kv.get(userId);\r\n\r\n\/\/ Get all products.\r\nconst allProducts = await productService.list({});\r\n\r\n\/\/ Re-order the products based on the last viewed categoryId.\r\nconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);`}
-              />{" "}
+                code={`import { initialize as initializeProductModule } from \"@medusajs\/product\";\r\nimport { kv } from \"@vercel\/kv\";\r\n\r\nexport async function GET(req) {\r\n\tconst productService = await initializeProductModule();\r\n\r\n\t\/\/ Grab the userId from the request and look up the categoryId from the KV.\r\n\tconst userId = req.cookies.get(\"userId\").value;\r\n\tconst { categoryId } = await kv.get(userId);\r\n\t\r\n\t\/\/ Get all products.\r\n\tconst allProducts = await productService.list({});\r\n\t\r\n\t\/\/ Re-order the products based on the last viewed categoryId.\r\n\tconst orderedProducts = orderProductByCategoryIdFirst(allProducts, categoryId);\r\n\r\n\treturn NextResponse.json({ orderedProducts });\r\n}`}
+              />
               <p>Tote bags are now displayed on top!</p>
               <EnlargableImage
                 src="/all-ordered.png"
