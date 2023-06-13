@@ -23,6 +23,8 @@ export const theme = {
     backgroundColor: {
       "base-dark": "#1C1C1C",
       "base-light": "#FFFFFF",
+      "button-hover": "#2E2E32",
+      "button-inverted-hover": "#F4F2F4",
       "code-base-dark": "#1C1C1F",
       "code-header-dark": "#161618",
       "field-dark": "#232326",
