@@ -4,12 +4,19 @@ import { PropsWithChildren } from "react";
 type Props = PropsWithChildren<{
   variant?: "neutral" | "blue";
   size?: "small" | "medium";
+  className?: string;
 }>;
 
-const Tag = ({ variant = "neutral", size = "medium", children }: Props) => {
+const Tag = ({
+  variant = "neutral",
+  size = "medium",
+  className,
+  children,
+}: Props) => {
   return (
     <div
       className={clsx(
+        className,
         "rounded-md inline-flex items-center justify-center text-labels-xsmall font-medium",
         {
           "bg-tag-neutral-light dark:bg-tag-neutral-dark border border-tag-neutral-light dark:border-tag-neutral-dark text-tag-neutral-light dark:text-tag-neutral-dark":

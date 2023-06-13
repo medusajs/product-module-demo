@@ -63,7 +63,9 @@ const Modal = ({ cta, icon, href, children }: Props) => {
               <button onClick={onDismiss} type="button" className="p-[5px]">
                 <XMark />
               </button>
-              <Tag size="small">esc</Tag>
+              <Tag className="hidden md:block" size="small">
+                esc
+              </Tag>
             </div>
             {cta && (
               <div className="flex items-center gap-x-2">
