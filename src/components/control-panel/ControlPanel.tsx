@@ -32,6 +32,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
   const [locationHover, setLocationHover] = useState(false);
   const [recentItemHover, setRecentItemHover] = useState(false);
   const [resetHover, setResetHover] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -71,13 +72,29 @@ export default function ControlPanel({ data, loadingTime }: Props) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setIsVisible(false);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const togglePanel = () => {
+    setIsVisible((v) => !v);
+  };
+
   if (!data) return null;
 
   const { country } = data.personalized_section;
   const { category_name } = data.all_products_section;
 
   return (
-    <div className="flex justify-center items-center fixed left-0 right-0 bottom-0 lg:bottom-5 z-30 px-4 xl:px-0 lg:p-0 w-[100%] pointer-events-none">
+    <div
+      style={{
+        transform: `translateY(${isVisible ? 0 : 196}px)`,
+        transition: "0.3s all",
+      }}
+      className="flex justify-center items-center fixed left-0 right-0 bottom-0 lg:bottom-5 z-30 px-4 xl:px-0 lg:p-0 w-[100%] pointer-events-none"
+    >
       <div className="flex flex-col-reverse lg:flex-row justify-center h-fit p-4 text-labels-regular font-medium shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl bg-base-light dark:bg-base-dark flex-wrap gap-x-4 gap-y-3 m-4 max-w-[100%] pointer-events-auto">
         <div
           onMouseEnter={() => setLocationHover(true)}
@@ -147,7 +164,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
             left: "1rem",
             width: `calc(100% - 2rem)`,
           }}
-          className=" xl:hidden h-0 w-full absolute top-[92px] left-0 w-full border-b lg:border-b-0 border-neutral-button-light dark:border-neutral-button-dark"
+          className=" xl:hidden h-0 w-full absolute top-[112px] left-0 w-full border-b lg:border-b-0 border-neutral-button-light dark:border-neutral-button-dark"
         />
         <div className="flex flex-row items-center gap-2 border-solid lg:border-l border-neutral-button-light dark:border-neutral-button-dark p-5 pt-3 lg:pt-0 lg:px-3 mb-2 lg:mb-0 lg:py-0 h-fit w-screen lg:w-fit justify-between self-center max-w-[100%]">
           <div>
@@ -159,6 +176,15 @@ export default function ControlPanel({ data, loadingTime }: Props) {
           <span className="text-labels-xsmall text-subtle-light dark:text-subtle-dark rounded border-solid border border-tag-neutral-light dark:border-tag-neutral-dark bg-tag-neutral-light dark:bg-tag-neutral-dark px-1 ml-2">
             us-east-1
           </span>
+        </div>
+
+        {/* MOBILE CLICK */}
+
+        <div
+          onClick={togglePanel}
+          className="lg:hidden p-2 flex items-center justify-center"
+        >
+          <div className=" h-[3px] w-[80px] bg-base-light rounded" />
         </div>
       </div>
     </div>
