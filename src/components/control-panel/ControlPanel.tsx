@@ -119,7 +119,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
             <Button className="cursor-help w-[100%]" left>
               <LastClick />
               <span className="text-subtle-light dark:text-subtle-dark pl-3 lg:pl-0">
-                Last clicked:
+                Last Clicked:
               </span>
               <span> {category_name ?? "None"}</span>
             </Button>
