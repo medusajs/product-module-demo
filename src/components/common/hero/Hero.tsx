@@ -22,7 +22,7 @@ const Hero = () => {
               <span className="flex flex-row items-center gap-1">
                 <Medusa /> Medusa
               </span>
-              products module
+              Products Module
             </span>
             for personalization.
           </div>
