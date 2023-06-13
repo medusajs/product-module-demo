@@ -30,8 +30,7 @@ const Hero = () => {
         {/* Mobile */}
         <div className="flex flex-col gap-4 justify-between items-center md:hidden">
           <Image
-            unoptimized
-            className="block md:hidden"
+            className="block md:hidden shadow-card-rest-dark rounded-xl"
             src="/controls-image-mobile.svg"
             alt="Control panel explainer"
             width={700}
