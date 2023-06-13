@@ -7,6 +7,7 @@ import { Button } from "../common";
 import CountryPicker from "./CountryPicker";
 import { startTransition, useEffect, useRef, useState } from "react";
 import HoverModal from "./HoverModal";
+import { isMobile } from "@/lib";
 
 type Props = {
   data: PersonalizationData | null;
@@ -27,22 +28,6 @@ function setQ(q: string | null) {
 async function resetUserData() {
   await fetch("/api/category-tracker", { method: "DELETE" });
 }
-
-// TODO: move to utils
-const isMobile = () => {
-  if (
-    navigator.userAgent.match(/Android/i) ||
-    navigator.userAgent.match(/webOS/i) ||
-    navigator.userAgent.match(/iPhone/i) ||
-    navigator.userAgent.match(/iPad/i) ||
-    navigator.userAgent.match(/iPod/i) ||
-    navigator.userAgent.match(/BlackBerry/i) ||
-    navigator.userAgent.match(/Windows Phone/i)
-  ) {
-    return true;
-  }
-  return false;
-};
 
 export default function ControlPanel({ data, loadingTime }: Props) {
   const [locationHover, setLocationHover] = useState(false);
@@ -91,7 +76,10 @@ export default function ControlPanel({ data, loadingTime }: Props) {
   useEffect(() => {
     if (!isMobile()) return;
 
-    const onScroll = () => setIsVisible(false);
+    const onScroll = () => {
+      if (inputRef.current === document.activeElement) return;
+      setIsVisible(false);
+    };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
