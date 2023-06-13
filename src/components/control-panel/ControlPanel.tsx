@@ -73,17 +73,6 @@ export default function ControlPanel({ data, loadingTime }: Props) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile()) return;
-
-    const onScroll = () => {
-      if (inputRef.current === document.activeElement) return;
-      setIsVisible(false);
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const togglePanel = () => {
     setIsVisible((v) => !v);
   };
