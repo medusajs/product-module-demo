@@ -1,6 +1,5 @@
-import { Button } from "../button";
-import { Nextjs } from "@/components/icons/nextjs";
-import { Medusa } from "@/components/icons/medusa";
+import { Button } from "@/components";
+import { Nextjs, Medusa } from "@/components/icons";
 import Link from "next/link";
 import Image from "next/image";
 

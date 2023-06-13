@@ -1,8 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { XMark, Checkmark } from "@/components/icons";
-import { XCircleSolid } from "@/components/icons/x-circle-solid";
+import { XMark, XCircleSolid, Checkmark } from "@/components/icons";
 
 type Props = {
   type: "success" | "error";

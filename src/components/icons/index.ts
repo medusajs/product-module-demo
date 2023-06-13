@@ -16,3 +16,4 @@ export * from "./medusa";
 export * from "./nextjs";
 export * from "./chevron-up-down";
 export * from "./sparkles";
+export * from "./x-circle-solid";
