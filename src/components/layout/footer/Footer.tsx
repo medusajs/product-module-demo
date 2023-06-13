@@ -38,7 +38,7 @@ const linkGroups: FooterLinkGroupProps[] = [
   {
     groupName: "README",
     link: {
-      href: "https://github.com/medusajs/medusa/blob/develop/README.md?utm_source=product-module-demo&utm_medium=recap&utm_campaign=footer",
+      href: "https://medusajs.com/readme/",
       label: "Readme",
     },
     links: [],
