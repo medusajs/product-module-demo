@@ -1,6 +1,5 @@
-import { Button } from "../button";
-import { Nextjs } from "@/components/icons/nextjs";
-import { Medusa } from "@/components/icons/medusa";
+import { Button } from "@/components";
+import { Nextjs, Medusa } from "@/components/icons";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -34,8 +33,8 @@ const Hero = () => {
             className="block md:hidden"
             src="/controls-image-mobile.svg"
             alt="Control panel explainer"
-            width={290}
-            height={160}
+            width={580}
+            height={320}
           />
           <ol className="list-decimal ml-4 text-subtle-dark text-labels-small space-y-1">
             <li>

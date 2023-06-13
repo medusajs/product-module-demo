@@ -8,7 +8,6 @@ import {
 } from "@/components";
 import FooterLink from "./FooterLink";
 import FooterLinkGroup, { FooterLinkGroupProps } from "./FooterLinkGroup";
-import NewsletterSignup from "./NewsletterSignup";
 
 const linkGroups: FooterLinkGroupProps[] = [
   {
@@ -38,7 +37,7 @@ const linkGroups: FooterLinkGroupProps[] = [
   {
     groupName: "README",
     link: {
-      href: "https://github.com/medusajs/medusa/blob/develop/README.md",
+      href: "https://medusajs.com/readme/",
       label: "Readme",
     },
     links: [],
@@ -47,7 +46,7 @@ const linkGroups: FooterLinkGroupProps[] = [
 
 const Footer = () => {
   return (
-    <footer className="flex items-start justify-center">
+    <footer className="flex items-start justify-center pb-[40px] lg:pb-0">
       <div className="max-w-7xl w-full">
         <Divider />
         <div className="pt-24 pb-16 flex flex-col gap-y-16">

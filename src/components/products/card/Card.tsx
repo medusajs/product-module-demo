@@ -47,7 +47,12 @@ const Card = ({ product }: Props) => {
   };
 
   return (
-    <Link scroll={false} href={`/product/${product.handle}`} onClick={onCLick}>
+    <Link
+      scroll={false}
+      href={`/product/${product.handle}`}
+      onClick={onCLick}
+      prefetch={!!product.handle}
+    >
       <div className="shadow-card-hover-light dark:shadow-card-hover-dark rounded-2xl overflow-hidden w-full group/card bg-base-light dark:bg-base-dark">
         <Thumbnail thumbnail={product.thumbnail} alt={product.title} />
         <Info product={product} />
