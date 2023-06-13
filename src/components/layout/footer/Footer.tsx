@@ -8,7 +8,6 @@ import {
 } from "@/components";
 import FooterLink from "./FooterLink";
 import FooterLinkGroup, { FooterLinkGroupProps } from "./FooterLinkGroup";
-import NewsletterSignup from "./NewsletterSignup";
 
 const linkGroups: FooterLinkGroupProps[] = [
   {
