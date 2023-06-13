@@ -47,7 +47,7 @@ const linkGroups: FooterLinkGroupProps[] = [
 
 const Footer = () => {
   return (
-    <footer className="flex items-start justify-center pb-[180px] lg:pb-0">
+    <footer className="flex items-start justify-center pb-[40px] lg:pb-0">
       <div className="max-w-7xl w-full">
         <Divider />
         <div className="pt-24 pb-16 flex flex-col gap-y-16">
