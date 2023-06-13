@@ -34,10 +34,10 @@ export default async function AboutModal() {
 
         <div className="w-full flex flex-col flex-wrap gap-y-6 pb-20 md:flex-nowrap px-4 lg:px-52 mt-4">
           <a
-            href="https://docs.medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=pill"
+            href="https://medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=pill"
             className="hover:shadow-card-hover-dark flex flex-row rounded-[999px] shadow-card-rest-dark px-4 py-1 text-labels-small gap-3 w-fit z-10"
           >
-            <span>Building blocks</span>
+            <span>SDK for Commerce</span>
             <span className="border-solid border-l border-neutral-button-light dark:border-neutral-button-dark pl-3 text-subtle-light dark:text-subtle-dark">
               Read more
             </span>
