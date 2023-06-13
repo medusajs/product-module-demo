@@ -164,7 +164,7 @@ export default async function AboutModal() {
               <CodeSnippet
                 label="/api/products/route.ts"
                 language="javascript"
-                code={`import { initialize as initializeProductModule } from \"@medusajs\/product\";\r\n\r\nexport async function GET(req) {\r\n  const productService = await initializeProductModule();\r\n\r\n\t\/\/ Get the user\'s (simulated) country code from the header. \r\n\tconst countryCode = req.headers.get(\"x-country\"); \r\n\t\r\n\t\/\/ Get the user\'s continent from a mapper.\r\n\tconst { name: country, continent } = isoAlpha2Countries[countryCode];\r\n\t\r\n\t\/\/ List 3 products with a tag that matches the user\'s continent.\r\n\tconst personalizedProducts = await productService.list(\r\n\t  { tags: { value: [continent] } },\r\n\t  { take: 3 }\r\n\t);\r\n\r\n\treturn NextResponse.json({ personalizedProducts });\r\n}`}
+                code={`import { initialize as initializeProductModule } from \"@medusajs\/product\";\r\n\r\nexport async function GET(req) {\r\n\tconst productService = await initializeProductModule();\r\n\r\n\t\/\/ Get the user\'s (simulated) country code from the header. \r\n\tconst countryCode = req.headers.get(\"x-country\"); \r\n\t\r\n\t\/\/ Get the user\'s continent from a mapper.\r\n\tconst { name: country, continent } = isoAlpha2Countries[countryCode];\r\n\t\r\n\t\/\/ List 3 products with a tag that matches the user\'s continent.\r\n\tconst personalizedProducts = await productService.list(\r\n\t  { tags: { value: [continent] } },\r\n\t  { take: 3 }\r\n\t);\r\n\r\n\treturn NextResponse.json({ personalizedProducts });\r\n}`}
               />
               <p>Display the localized products.</p>
               <EnlargableImage
