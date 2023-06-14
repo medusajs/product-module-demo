@@ -1,8 +1,8 @@
-import {startTransition, useState} from "react";
+import { startTransition, useState } from "react";
 import { ChevronUpDown } from "../icons";
 import { client } from "@/lib";
 import { useRouter } from "next/navigation";
-import {LoadingDots} from "@/components/common/loading-dots";
+import { LoadingDots } from "@/components/common/loading-dots";
 import { LineItem } from "@medusajs/client-types";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 const EditItemQuantityButton = ({ item }: Props) => {
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleUpdate({
     item,
@@ -21,7 +21,13 @@ const EditItemQuantityButton = ({ item }: Props) => {
     item: LineItem;
     quantity: number;
   }) {
-    setIsLoading(true)
+    setIsLoading(true);
+
+    gtag("event", "change_cart_quantity", {
+      page_path: window.location.pathname,
+      item_id: item.id,
+      send_to: process.env.NEXT_PUBLIC_GA_ID,
+    });
 
     try {
       await client.carts.lineItems.update(item.cart_id!, item.id, { quantity });
@@ -29,12 +35,12 @@ const EditItemQuantityButton = ({ item }: Props) => {
         router.refresh();
       });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   if (isLoading) {
-    return <LoadingDots className="bg-white" />
+    return <LoadingDots className="bg-white" />;
   }
 
   return (
@@ -52,7 +58,7 @@ const EditItemQuantityButton = ({ item }: Props) => {
           </option>
         ))}
       </select>
-      <ChevronUpDown className="absolute left-4"  />
+      <ChevronUpDown className="absolute left-4" />
     </div>
   );
 };

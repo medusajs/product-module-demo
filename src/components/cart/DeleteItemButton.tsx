@@ -25,6 +25,12 @@ export default function DeleteItemButton({ item }: Props) {
       throw new Error(`Error fetching cart with id ${cartId}`);
     }
 
+    gtag("event", "remove_from_cart", {
+      page_path: window.location.pathname,
+      item_id: id,
+      send_to: process.env.NEXT_PUBLIC_GA_ID,
+    });
+
     startTransition(() => {
       router.refresh();
       setRemoving(false);

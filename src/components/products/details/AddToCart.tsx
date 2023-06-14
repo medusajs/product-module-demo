@@ -69,6 +69,12 @@ export default function AddToCart({ product }: Props) {
 
     setAdding(false);
 
+    gtag("event", "add_to_cart", {
+      page_path: window.location.pathname,
+      item_id: lineItem.variant_id,
+      send_to: process.env.NEXT_PUBLIC_GA_ID,
+    });
+
     startTransition(() => {
       router.refresh();
       router.back();
