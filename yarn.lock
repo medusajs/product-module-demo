@@ -1129,6 +1129,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gtag.js@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@types/gtag.js@npm:0.0.12"
+  checksum: 34efc27fbfd0013255b8bfd4af38ded9d5a6ba761130c76f17fd3a9585d83acc88d8005aab667cfec4bdec0e7c7217f689739799a8f61aed0edb929be58b162e
+  languageName: node
+  linkType: hard
+
 "@types/hoist-non-react-statics@npm:^3.0.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
@@ -7334,6 +7341,7 @@ __metadata:
     "@medusajs/product": ^0.0.2-snapshot-20230608104224
     "@medusajs/types": 1.8.8-snapshot-20230608104224
     "@mikro-orm/migrations": 5.7.4
+    "@types/gtag.js": ^0.0.12
     "@types/node": 20.1.0
     "@types/react": 18.2.6
     "@types/react-dom": 18.2.4
