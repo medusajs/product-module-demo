@@ -7,7 +7,6 @@ import { Button } from "../common";
 import CountryPicker from "./CountryPicker";
 import { startTransition, useEffect, useRef, useState } from "react";
 import HoverModal from "./HoverModal";
-import { isMobile } from "@/lib";
 
 type Props = {
   data: PersonalizationData | null;
@@ -21,6 +20,11 @@ function setQ(q: string | null) {
     searchParams.delete("cc");
   } else {
     searchParams.set("cc", q);
+    gtag("event", "set_location", {
+      country_code: q,
+      page_path: window.location.pathname,
+      send_to: process.env.NEXT_PUBLIC_GA_ID,
+    });
   }
   window.location.search = searchParams.toString();
 }
@@ -37,9 +41,15 @@ export default function ControlPanel({ data, loadingTime }: Props) {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const reset = async () => {
+  const reset = async (reset_method = "click") => {
     await resetUserData();
     setQ("");
+
+    gtag("event", "reset", {
+      page_path: window.location.pathname,
+      reset_method,
+      send_to: process.env.NEXT_PUBLIC_GA_ID,
+    });
 
     startTransition(() => {
       window.scrollTo(0, 0);
@@ -56,7 +66,7 @@ export default function ControlPanel({ data, loadingTime }: Props) {
 
       if (e.key === "r" && !modifier) {
         e.preventDefault();
-        reset();
+        reset("key");
       }
 
       if (e.key === "l" && !modifier) {

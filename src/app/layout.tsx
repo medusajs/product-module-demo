@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { NotificationProvider } from "@/components/common/notification";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@/components/common/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
           "bg-subtle-light dark:bg-subtle-dark text-base-light dark:text-base-dark min-h-screen"
         )}
       >
+        <GoogleAnalytics />
         <NotificationProvider>
           {/* @ts-ignore server component */}
           <Nav />
