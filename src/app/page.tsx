@@ -3,6 +3,7 @@ import { ControlPanel } from "@/components/control-panel";
 import { PersonalizationData } from "@/types";
 import { Hero } from "@/components/common/hero";
 import { cookies, headers } from "next/headers";
+import { HighlightTweet } from "@/components/common/highlight-tweet";
 
 type Props = {
   data: PersonalizationData | null;
@@ -42,6 +43,7 @@ export default async function Home({
         <div className="w-full flex flex-col gap-y-16 relative">
           <Hero />
           <Features data={data} />
+          <HighlightTweet id={process.env.NEXT_PUBLIC_TWEET_ID} />
           <ControlPanel data={data} loadingTime={loadingTime} />
         </div>
       </div>
