@@ -45,7 +45,7 @@ const linkGroups: FooterLinkGroupProps[] = [
   {
     groupName: "Demo Source Code",
     link: {
-      href: "https://github.com/medusajs/products-module-store",
+      href: "https://github.com/medusajs/product-module-demo",
       label: "Demo Source Code",
     },
     links: [],

@@ -125,7 +125,7 @@ export default async function AboutModal() {
               check out the full source code on{" "}
               <a
                 className="hover:text-subtle-light text-base-dark"
-                href="https://github.com/medusajs/products-module-store"
+                href="https://github.com/medusajs/product-module-demo"
               >
                 GitHub
               </a>
