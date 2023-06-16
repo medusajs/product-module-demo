@@ -143,7 +143,7 @@ function orderProductByCategoryIdFirst({
     Array.from(categoryProductsMap.values()).flat()
   );
 
-  // Assign the products data to the light personalized products
+  // Assign the products data to the personalized products
   personalizedProducts = personalizedProducts.map(
     (p: ProductTypes.ProductDTO) => {
       return productMap.get(p.id)!;
