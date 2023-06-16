@@ -12,9 +12,9 @@ type Data = {
 };
 
 export async function GET(req: NextRequest) {
-  const start = performance.now()
+  const start = performance.now();
 
-  // If already instaciated, it will return the instance or create a new one
+  // If already instantiated, it will return the instance or create a new one
   const productService = await ProductModuleInitialize();
 
   const countryCode: string = req.headers.get("x-country") ?? "US";
@@ -49,8 +49,8 @@ export async function GET(req: NextRequest) {
       },
     });
   } finally {
-    const end = performance.now()
-    console.log(`[API] GET took ${end - start}ms`)
+    const end = performance.now();
+    console.log(`[API] GET took ${end - start}ms`);
   }
 }
 
@@ -63,36 +63,40 @@ async function queryProducts(
   const userId = req.headers.get("x-userId");
   let categoryId, categoryName;
 
-  const start = performance.now()
+  const start = performance.now();
 
   const [userData, ...productsData] = await Promise.all([
     userId ? kv.get<UserData>(userId) : Promise.resolve({} as UserData),
-    productService.list(
-      {
-        tags: { value: [continent] },
-      },
-      {
-        select: ["id"],
-        take: 3,
-      }
-    ).finally((data: ProductTypes.ProductDTO[]) => {
-      const end = performance.now()
-      console.log(`[API] productService.list take 3 took ${end - start}ms`)
-      return data
-    }),
-    productService.list(
-      {},
-      {
-        relations: ["variants", "categories", "tags"],
-        order: { id: "DESC" },
-        take: 100,
-      }
-    ).finally((data: ProductTypes.ProductDTO[]) => {
-      const end = performance.now()
-      console.log(`[API] productService.list take 100 took ${end - start}ms`)
-      return data
-    }),
-  ])
+    productService
+      .list(
+        {
+          tags: { value: [continent] },
+        },
+        {
+          select: ["id"],
+          take: 3,
+        }
+      )
+      .finally((data: ProductTypes.ProductDTO[]) => {
+        const end = performance.now();
+        console.log(`[API] productService.list take 3 took ${end - start}ms`);
+        return data;
+      }),
+    productService
+      .list(
+        {},
+        {
+          relations: ["variants", "categories", "tags"],
+          order: { id: "DESC" },
+          take: 100,
+        }
+      )
+      .finally((data: ProductTypes.ProductDTO[]) => {
+        const end = performance.now();
+        console.log(`[API] productService.list take 100 took ${end - start}ms`);
+        return data;
+      }),
+  ]);
 
   categoryId = userData?.categoryId;
   categoryName = userData?.categoryName;
@@ -130,9 +134,8 @@ function orderProductByCategoryIdFirst({
 
   let recentlyViewedProducts: ProductTypes.ProductDTO[] = [];
   if (recentlyVisitedCategoryId) {
-    recentlyViewedProducts = categoryProductsMap.get(
-      recentlyVisitedCategoryId
-    ) ?? [];
+    recentlyViewedProducts =
+      categoryProductsMap.get(recentlyVisitedCategoryId) ?? [];
     categoryProductsMap.delete(recentlyVisitedCategoryId);
   }
 

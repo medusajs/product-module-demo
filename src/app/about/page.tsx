@@ -23,7 +23,7 @@ export default async function AboutModal() {
           <div className="inset-0 flex flex-col gap-6 items-center justify-center">
             <div className="flex flex-col gap-2 items-center justify-center text-center text-headers-h3 md:text-4xl">
               <div className="text-base-light dark:text-base-dark">
-                Products Module Demo
+                Product Module Demo
               </div>
               <div className="text-subtle-light dark:text-subtle-dark">
                 Powered by Medusa
@@ -44,7 +44,7 @@ export default async function AboutModal() {
           </a>
 
           <h4 className="flex flex-wrap gap-x-1 gap-y-2 text-headers-h4 text-base-light dark:text-base-dark">
-            Medusa Products Module demo in
+            Medusa Product Module demo in
             <span className="flex flex-row items-center gap-1">
               <Nextjs fill="#FFFFFF" />
               Next.js
@@ -52,8 +52,8 @@ export default async function AboutModal() {
             functions
           </h4>
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
-            This demo showcases our Products Module running in a serverless
-            Next.js function. In the demo, we&apos;re using the Products Module
+            This demo showcases our Product Module running in a serverless
+            Next.js function. In the demo, we&apos;re using the Product Module
             to personalize the storefront in real time based on the user
             location and behavior.
           </p>
@@ -72,7 +72,7 @@ export default async function AboutModal() {
             Why run it from a Next.js function?
           </h4>
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
-            Running Medusa&apos;s Products Module in a serverless function
+            Running Medusa&apos;s Product Module in a serverless function
             provides several benefits over hosting a conventional backend:
           </p>
           <ul className="list-disc ml-8 text-subtle-light dark:text-subtle-dark text-body-regular">
@@ -134,9 +134,9 @@ export default async function AboutModal() {
           </div>
 
           <ul className="list-none w-full">
-            <CustomListItem title="Products Module">
+            <CustomListItem title="Product Module">
               <span className="text-base-dark text-labels-regular">
-                Initialize the Products Module.
+                Initialize the Product Module.
               </span>
               <p>Simply initialize the module in the Next.js API route.</p>
               <CodeSnippet
@@ -235,10 +235,10 @@ export default async function AboutModal() {
           <div className="h-px bg-gradient-to-r from-transparent via-[#2E2E32] to-transparent my-6 md:my-10"></div>
 
           <h4 className="text-headers-h4 text-base-light dark:text-base-dark">
-            Start building with the Products Module in Next.js
+            Start building with the Product Module in Next.js
           </h4>
           <p className="text-subtle-light dark:text-subtle-dark text-body-regular">
-            Ready to get started with the Medusa Products Module in your Next.js
+            Ready to get started with the Medusa Product Module in your Next.js
             app? Visit our{" "}
             <a
               className="hover:text-subtle-light text-base-dark"
