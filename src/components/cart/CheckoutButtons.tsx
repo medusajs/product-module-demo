@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { Button } from "../common";
 import { useNotifications } from "../common/notification/NotificationProvider";
 

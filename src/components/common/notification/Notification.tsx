@@ -17,9 +17,9 @@ export default function Notification({ type, title, body, onClose }: Props) {
         <div className="flex flex-col">
           <div className="flex flex-row justify-between gap-5">
             {type === "success" ? (
-              <Checkmark className="self-start" />
+              <Checkmark className="self-start min-w-[20px] min-h-[20px]" />
             ) : (
-              <XCircleSolid className="self-start" />
+              <XCircleSolid className="self-start min-w-[20px] min-h-[20px]" />
             )}
             <div className="flex flex-col gap-2">
               <h2 className="text-base-dark">{title}</h2>
