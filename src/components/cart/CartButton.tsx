@@ -1,7 +1,6 @@
 "use client";
 
-import { startTransition, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 
 import { Cart } from "@medusajs/client-types";
@@ -19,7 +18,6 @@ export default function CartButton({
 }) {
   const [, setCookie] = useCookies(["cartId"]);
   const [cartIsOpen, setCartIsOpen] = useState(false);
-  const router = useRouter();
   const quantity = (cart.items ?? []).reduce(
     (sum, lineItem) => sum + lineItem.quantity,
     0
@@ -41,7 +39,6 @@ export default function CartButton({
     if (quantity !== quantityRef.current) {
       setCartIsOpen(true);
     }
-    // startTransition(() => router.refresh());
   }, [quantity]);
 
   return (
