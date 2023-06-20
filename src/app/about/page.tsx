@@ -16,7 +16,7 @@ export default async function AboutModal() {
     <Modal
       cta="Start Building"
       icon={<Sparkles />}
-      href="https://docs.medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=cta"
+      href="https://docs.medusajs.com/modules/products/serverless-module?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=cta"
     >
       <div className="w-full">
         <div className="flex w-full h-[30rem] bg-center bg-cover bg-no-repeat flex-start justify-center py-[4rem] my-[-6rem] bg-[url('/hero.svg')] bg-base-light dark:bg-base-dark rounded-2xl">
