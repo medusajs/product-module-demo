@@ -242,7 +242,7 @@ export default async function AboutModal() {
             app? Visit our{" "}
             <a
               className="hover:text-subtle-light text-base-dark"
-              href="https://docs.medusajs.com/?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=paragraph"
+              href="https://docs.medusajs.com/modules/products/serverless-module?utm_source=product-module-demo&utm_medium=recap&utm_campaign=about-page&utm_content=paragraph"
             >
               documentation
             </a>{" "}
