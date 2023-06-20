@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Footer } from "@/components";
 import { Nav } from "@/components/layout/nav";
 import clsx from "clsx";
@@ -46,7 +46,9 @@ export default function RootLayout({
           "bg-subtle-light dark:bg-subtle-dark text-base-light dark:text-base-dark min-h-screen"
         )}
       >
-        <GoogleAnalytics />
+        <Suspense fallback={<></>}>
+          <GoogleAnalytics />
+        </Suspense>
         <NotificationProvider>
           {/* @ts-ignore server component */}
           <Nav />
@@ -58,3 +60,4 @@ export default function RootLayout({
     </html>
   );
 }
+``;
