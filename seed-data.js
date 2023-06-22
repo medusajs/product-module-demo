@@ -36,7 +36,7 @@ const productsData = [
     tags: [
       {
         id: "tag-1",
-        value: "France",
+        value: "Europe",
       },
     ],
     categories: [
@@ -53,7 +53,7 @@ const productsData = [
     tags: [
       {
         id: "tag-2",
-        value: "Germany",
+        value: "North America",
       },
     ],
     categories: [
