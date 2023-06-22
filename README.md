@@ -29,10 +29,43 @@ This demo showcases our Product Module running in a serverless Next.js function.
 
 Modules are packages with self-contained commerce logic, promoting separation of concerns, maintainability, and reusability. Modules increase Medusa's extensibility, allowing for customization of core commerce logic and composition with other tools. This flexibility allows for greater choice in the tech stack used in conjunction with Medusa.
 
+
+## Prerequisites
+The Product Module must connect to a PostgreSQL database. You can refer to [this guide](https://docs.medusajs.com/development/backend/prepare-environment#postgresql) to learn how to install PostgreSQL locally. Alternatively, you can use free PostgreSQL database hosting, such as [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres). If you have an existing Medusa database, you can use it as well.
+
 ## Get started
 To run the demo locally, follow these steps: 
-1. Clone this repo and install the dependencies.
-2. Follow **steps 2 and 3** of [this guide](https://docs.medusajs.com/modules/products/serverless-module#step-2-add-database-configurations) to set up the database.
-3. Run the app locally with `npm run dev` or `yarn dev`.
+### Step 1. Clone this repo and install the dependencies.
+In the project root, run:
+```bash
+npm install
+``` 
+or
+```bash
+yarn
+```
+
+### Step 2: Add Database Configurations
+Create a .env file and add the following environment variable:
+```
+POSTGRES_URL=<DATABASE_URL>
+```
+Where `<DATABASE_URL>` is your database connection URL of the format `postgres://[user][:password]@[host][:port]/[dbname]`. You can learn more about the connection URL format in [this guide](https://docs.medusajs.com/development/backend/configurations#postgresql-configurations).
+
+### Step 3: Run Database Migrations and seed the Database
+```bash
+npm run product:migrations:run
+# optionally
+npm run product:seed
+```
+or
+```bash
+yarn product:migrations:run
+# optionally
+yarn product:seed
+```
+
+### Step 4: Run the app locally
+Run the app with `npm run dev` or `yarn dev`.
 
 
