@@ -5,7 +5,8 @@ import { ProductTypes } from "@medusajs/types";
 import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
-import { createProduct } from "@medusajs/workflows";
+import { createProducts } from "@medusajs/workflows";
+import {EOL} from "os";
 
 type Data = {
   categoryId?: string;
@@ -56,29 +57,29 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  await ProductModuleInitialize()
-  const createProductWorkflow = createProduct()
-
   const context = {
     transactionId: req.headers.get("transactionId"),
   } as any
 
   const { title } = (await req.json()) as { title: string }
 
-  try {
-    const data = generateProductData()
-    const transaction = await createProductWorkflow.run({
-      input: [{ ...data, title }],
-      context
-    })
+  const generatedProductData = generateProductData()
+  const data = [{ ...generatedProductData, title } as ProductTypes.CreateProductDTO]
 
-    const products = (transaction.getContext().invoke.createProduct as any).value
+  await ProductModuleInitialize()
+  const createProductWorkflow = createProducts()
+  const { result: products, errors } = await createProductWorkflow.run({
+    input: data,
+    context,
+    throwOnError: false
+  })
 
-    return new Response(JSON.stringify({ products }));
-  } catch (error: any) {
-    console.log("error", error)
-    return new Response(JSON.stringify({}), { status: 500, statusText: error.message });
+  if (errors?.length) {
+    const messages = errors.map(e => e.error?.message ?? "").join(EOL)
+    return new Response(JSON.stringify({}), { status: 500, statusText: messages });
   }
+
+  return new Response(JSON.stringify({ products }));
 }
 
 async function queryProducts(
