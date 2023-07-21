@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
 import { createProducts } from "@medusajs/workflows";
-import {EOL} from "os";
 
 type Data = {
   categoryId?: string;
@@ -57,29 +56,23 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const context = {
-    transactionId: req.headers.get("transactionId"),
-  } as any
-
   const { title } = (await req.json()) as { title: string }
 
   const generatedProductData = generateProductData()
   const data = [{ ...generatedProductData, title } as ProductTypes.CreateProductDTO]
 
   await ProductModuleInitialize()
-  const createProductWorkflow = createProducts()
-  const { result: products, errors } = await createProductWorkflow.run({
-    input: data,
-    context,
-    throwOnError: false
-  })
+  const createProductsWorkflow = createProducts()
 
-  if (errors?.length) {
-    const messages = errors.map(e => e.error?.message ?? "").join(EOL)
-    return new Response(JSON.stringify({}), { status: 500, statusText: messages });
+  try {
+    const { result: products } = await createProductsWorkflow.run({
+      input: data,
+    })
+
+    return new Response(JSON.stringify({ products }));
+  } catch (e) {
+    return new Response(JSON.stringify({ errors: e }));
   }
-
-  return new Response(JSON.stringify({ products }));
 }
 
 async function queryProducts(
