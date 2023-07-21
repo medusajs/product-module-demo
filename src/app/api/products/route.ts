@@ -5,6 +5,7 @@ import { ProductTypes } from "@medusajs/types";
 import { NextRequest, NextResponse } from "next/server";
 import { formatContinent, isoAlpha2Countries } from "@/lib/utils";
 import { UserData } from "@/types";
+import { createProduct } from "@medusajs/workflows";
 
 type Data = {
   categoryId?: string;
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest) {
   const start = performance.now();
 
   // If already instantiated, it will return the instance or create a new one
-  const productService = await ProductModuleInitialize();
+  await ProductModuleInitialize();
 
   const countryCode: string = req.headers.get("x-country") ?? "US";
 
@@ -51,6 +52,32 @@ export async function GET(req: NextRequest) {
   } finally {
     const end = performance.now();
     console.log(`[API] GET took ${end - start}ms`);
+  }
+}
+
+export async function POST(req: NextRequest) {
+  await ProductModuleInitialize()
+  const createProductWorkflow = createProduct()
+
+  const context = {
+    transactionId: req.headers.get("transactionId"),
+  } as any
+
+  const { title } = (await req.json()) as { title: string }
+
+  try {
+    const data = generateProductData()
+    const transaction = await createProductWorkflow.run({
+      input: [{ ...data, title }],
+      context
+    })
+
+    const products = (transaction.getContext().invoke.createProduct as any) .value
+
+    return new Response(JSON.stringify({ products }));
+  } catch (error: any) {
+    console.log("error", error)
+    return new Response(JSON.stringify({}), { status: 500, statusText: error.message });
   }
 }
 
@@ -151,4 +178,53 @@ function orderProductByCategoryIdFirst({
   );
 
   return { personalizedProducts, allProducts };
+}
+
+/**
+ *
+ * WORKFLOW RELATED UTILS BELOW
+ *
+ */
+
+export function generateRandomInteger(min: number, max: number) {
+  return Math.floor(min + Math.random() * (max - min + 1))
+}
+
+
+export function generateRandomStringInteger() {
+  const max = 10000000
+  const min = 0
+  return generateRandomInteger(min, max).toString()
+}
+
+export function generateProductData(title = '', options: any[] = [], variants: any[] = []) {
+  title = title || generateRandomStringInteger()
+
+  const optionTitle = generateRandomStringInteger()
+  options = options.length ? options : [{
+    title: optionTitle
+  }]
+
+  if (!variants.length) {
+    for (let i = 0; i < 25; ++i) {
+      const pricesData = [{
+        currency_code: 'usd',
+        amount: generateRandomInteger(1, 10000)
+      }]
+
+      const data = {
+        title: generateRandomStringInteger(),
+        options: [{ value: optionTitle }]
+      }
+      variants.push(data)
+    }
+  }
+
+  const data = {
+    title,
+    options,
+    variants,
+  }
+
+  return data
 }
