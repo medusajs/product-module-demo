@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       context
     })
 
-    const products = (transaction.getContext().invoke.createProduct as any) .value
+    const products = (transaction.getContext().invoke.createProduct as any).value
 
     return new Response(JSON.stringify({ products }));
   } catch (error: any) {

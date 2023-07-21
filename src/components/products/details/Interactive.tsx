@@ -4,7 +4,7 @@ import {
   PricedProduct,
   PricedVariant,
 } from "@medusajs/client-types";
-import isEqual from "lodash/isEqual";
+import { isEqual } from "lodash";
 import {
   PropsWithChildren,
   createContext,
