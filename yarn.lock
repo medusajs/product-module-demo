@@ -592,16 +592,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@medusajs/workflows@file:./medusajs-workflows-0.0.1.tgz::locator=storefront%40workspace%3A.":
+"@medusajs/workflows@file:./medusajs-workflows.tgz::locator=storefront%40workspace%3A.":
   version: 0.0.1
-  resolution: "@medusajs/workflows@file:./medusajs-workflows-0.0.1.tgz::locator=storefront%40workspace%3A."
+  resolution: "@medusajs/workflows@file:./medusajs-workflows.tgz::locator=storefront%40workspace%3A."
   dependencies:
     "@medusajs/modules-sdk": ^1.8.8
     "@medusajs/orchestration": ^0.0.2
     "@medusajs/utils": ^1.9.2
     awilix: ^8.0.1
     ulid: ^2.3.0
-  checksum: 9961e571901cec23812fed7813e475e457d33d58d64851a87952269033fb6bb7bb1e8fd03e3bbbea5996eb98a7580a7556f39f0155a7c29746ded8fe3be057bd
+  checksum: ebd497ea930aef4dea81608c47accfefbcbdb9d132b582204f6854870be074b9f6761fc99ebcbe0f89eb1a55543a6583ebab131539d6b316b3f8b4ba275a4e8d
   languageName: node
   linkType: hard
 
@@ -7359,7 +7359,7 @@ __metadata:
     "@medusajs/product": ./medusajs-product-0.1.3.tgz
     "@medusajs/types": ./medusajs-types-1.8.11.tgz
     "@medusajs/utils": ./medusajs-utils-1.9.2.tgz
-    "@medusajs/workflows": ./medusajs-workflows-0.0.1.tgz
+    "@medusajs/workflows": ./medusajs-workflows.tgz
     "@mikro-orm/migrations": 5.7.12
     "@types/gtag.js": ^0.0.12
     "@types/lodash": ^4.14.195

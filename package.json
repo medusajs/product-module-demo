@@ -18,7 +18,7 @@
     "@medusajs/orchestration": "./medusajs-orchestration-0.0.2.tgz",
     "@medusajs/product": "./medusajs-product-0.1.3.tgz",
     "@medusajs/utils": "./medusajs-utils-1.9.2.tgz",
-    "@medusajs/workflows": "./medusajs-workflows-0.0.1.tgz",
+    "@medusajs/workflows": "./medusajs-workflows.tgz",
     "@types/gtag.js": "^0.0.12",
     "@vercel/kv": "^0.2.1",
     "autoprefixer": "10.4.14",
@@ -53,6 +53,6 @@
     "@medusajs/orchestration": "./medusajs-orchestration-0.0.2.tgz",
     "@medusajs/product": "./medusajs-product-0.1.3.tgz",
     "@medusajs/utils": "./medusajs-utils-1.9.2.tgz",
-    "@medusajs/workflows": "./medusajs-workflows-0.0.1.tgz"
+    "@medusajs/workflows": "./medusajs-workflows.tgz"
   }
 }
