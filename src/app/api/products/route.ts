@@ -186,18 +186,18 @@ function orderProductByCategoryIdFirst({
  *
  */
 
-export function generateRandomInteger(min: number, max: number) {
+function generateRandomInteger(min: number, max: number) {
   return Math.floor(min + Math.random() * (max - min + 1))
 }
 
 
-export function generateRandomStringInteger() {
+function generateRandomStringInteger() {
   const max = 10000000
   const min = 0
   return generateRandomInteger(min, max).toString()
 }
 
-export function generateProductData(title = '', options: any[] = [], variants: any[] = []) {
+function generateProductData(title = '', options: any[] = [], variants: any[] = []) {
   title = title || generateRandomStringInteger()
 
   const optionTitle = generateRandomStringInteger()
