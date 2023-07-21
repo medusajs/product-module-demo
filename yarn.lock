@@ -1123,6 +1123,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.195":
+  version: 4.14.195
+  resolution: "@types/lodash@npm:4.14.195"
+  checksum: 39b75ca635b3fa943d17d3d3aabc750babe4c8212485a4df166fe0516e39288e14b0c60afc6e21913cc0e5a84734633c71e617e2bd14eaa1cf51b8d7799c432e
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:20.1.0":
   version: 20.1.0
   resolution: "@types/node@npm:20.1.0"
@@ -7355,6 +7362,7 @@ __metadata:
     "@medusajs/workflows": ./medusajs-workflows-0.0.1.tgz
     "@mikro-orm/migrations": 5.7.12
     "@types/gtag.js": ^0.0.12
+    "@types/lodash": ^4.14.195
     "@types/node": 20.1.0
     "@types/react": 18.2.6
     "@types/react-dom": 18.2.4

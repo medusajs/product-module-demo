@@ -38,6 +38,7 @@
     "@medusajs/client-types": "^0.2.3",
     "@medusajs/types": "./medusajs-types-1.8.11.tgz",
     "@mikro-orm/migrations": "5.7.12",
+    "@types/lodash": "^4.14.195",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
