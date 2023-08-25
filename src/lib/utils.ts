@@ -237,7 +237,7 @@ export const isoAlpha2Countries: Iso2AlphaCountry = {
   TR: { name: "Turkey", continent: "Asia" },
   TT: { name: "Trinidad and Tobago", continent: "North America" },
   TV: { name: "Tuvalu", continent: "Oceania" },
-  TW: { name: "Taiwan, Province of China", continent: "Asia" },
+  TW: { name: "Taiwan", continent: "Asia" },
   TZ: { name: "Tanzania, United Republic of", continent: "Africa" },
   UA: { name: "Ukraine", continent: "Europe" },
   UG: { name: "Uganda", continent: "Africa" },
